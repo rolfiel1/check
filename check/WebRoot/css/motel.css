@@ -1,0 +1,18 @@
+@charset "utf-8";
+body {
+	font-size: 14px;
+	color:#316AC5;
+}
+.motel_box { width:757px;
+ height:251px; 
+ background:url(../images/mo_bj_s1.gif) right no-repeat;
+ border:1px #B3C7F5 solid;
+ margin:0px auto;}
+.motel_bt { line-height:25px; background:#BAD0FC; margin:1px; padding-left:15px; color:#FFF;}
+.motel_info {  width:95%; line-height:30px; margin:auto auto;}
+.motel_info .motel_red { color:red;}
+.motel_info .zdfh { display:block; text-decoration:none; background:url(../images/zdfh_an_s1.gif) no-repeat; width:67px; line-height:22px;
+color:#fff; text-align:center;}
+.motel_info .zdfh:hover{ color:#06f;}
+.motel_info .hddfh a{ color:#F00;  margin-right:20px; }
+.motel_info .hddfh a:hover{ color:#06F;}
