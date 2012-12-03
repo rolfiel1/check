@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	<resultMap type="User" id="userResultMap">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="sign" column="sign" />
+		<result property="create_date" column="create_date" />
+		<result property="login_date" column="login_date" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<insert id="save" parameterType="User">
+		insert into user 
+		(
+		username,
+		password,
+		sign,
+		create_date,
+		login_date,
+		remark
+		)
+		values
+		(
+		#{username},
+		#{password},
+		#{sign},
+		#{create_date},
+		#{login_date},
+		#{remark}
+		)
+	</insert>
+	
+	<update id="update" parameterType="User">
+		update user set 
+		username = #{username},
+		password = #{password},
+		sign = #{sign},
+		create_date = #{create_date},
+		login_date = #{login_date},
+		remark = #{remark}
+		where
+		id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="User">
+		delete from user where id=#{id}
+	</delete>
+	
+	<delete id="deleteById" parameterType="String">
+		delete from user where id=#{id}
+	</delete>
+	
+	<select id="findById" parameterType="String"
+		resultType="User">
+		select * from user where id=#{id}
+	</select>
+	
+	<select id="findAll" resultType="User">
+	select * from user
+	</select>
+	
+	<select id="queryPage" resultMap="userResultMap"
+		parameterType="map">
+		select * from user u 
+		where 1=1
+		<if test="username!=null and username != ''">and u.username like "%"#{username}"%"</if>
+		order by u.time desc
+		limit #{pageNumber},#{pageSize} 
+	</select>
+	
+	<select id="getTotalCounts" parameterType="map" resultType="Integer">
+		select count(0) from user u 
+		where 1=1
+		<if test="username!=null and username != ''">and u.username like "%"#{username}"%"</if>
+	</select>
+	
+	
+	<select id="login" parameterType="String"
+		resultMap="userResultMap">
+		select * from user where username=#{orderNo}
+	</select>
+	
+</mapper>
