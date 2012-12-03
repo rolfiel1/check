@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class Report implements java.io.Serializable {
 	private static final long serialVersionUID = -227050691570499265L;
 
-	private String id;
+	private Integer id;
 	private Integer sign;
 	private String title;
 	private String author;
@@ -18,11 +18,13 @@ public class Report implements java.io.Serializable {
 	private String link;
 	private Date create_date;
 	private String remark;
-	private Integer uid;
-	public String getId() {
+	private String uid;
+	private String ppid;
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Integer getSign() {
@@ -67,11 +69,18 @@ public class Report implements java.io.Serializable {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	public Integer getUid() {
+
+	public String getUid() {
 		return uid;
 	}
-	public void setUid(Integer uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
+	}
+	public String getPpid() {
+		return ppid;
+	}
+	public void setPpid(String ppid) {
+		this.ppid = ppid;
 	}
 	
 }
