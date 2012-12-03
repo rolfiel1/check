@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -29,8 +33,8 @@ public class PPUtil {
 	
 	private static String ppPwd = getProp("pp.pwd");
 
-	public static void check(String title,String author,String content) throws HttpException, IOException {
-
+	public static List<String> check(String title,String author,String content) throws HttpException, IOException {
+		List<String> reportNames=new ArrayList<String>();
 		logger.info("ppName:" + ppName);
 		logger.info("ppPwd:" + ppPwd);
 		
@@ -74,7 +78,7 @@ public class PPUtil {
 		//获得验证码
 		String validCode=null;
 		try {
-			validCode=OCR.recognizeText(new File(Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), "WebRoot/temp")), "gif");
+			validCode=OCR.recognizeText(new File(Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), "temp")), "gif");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -196,16 +200,41 @@ public class PPUtil {
 			Header header4=forthPost.getResponseHeader("Location");
 			if(302==forthPost.getStatusCode()&&"/user_upload_ok.aspx?target=txt".equals(header4.getValue())){
 				logger.info("确认提交论文成功!");
+				//------------------------查看报告--------------------------
+				getMethod=new GetMethod("http://www.paperpass.org/user_view_report.aspx");
+				getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+				getMethod.setRequestHeader("Accept-Language", "zh-cn");
+				getMethod.setRequestHeader("Accept-Encoding", "gzip, deflate");
+				getMethod.setRequestHeader("Connection", "Keep-Alive");
+				getMethod.setRequestHeader("Host", "www.paperpass.org");
+				getMethod.setRequestHeader("Referer", "http://www.paperpass.org/user_upload_ok.aspx?target=txt");
+				getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+				getMethod.setRequestHeader("Cookie", sb.toString());
+				int code3 = httpClient.executeMethod(getMethod);
+				logger.info("查看报告页面状态码："+code3);
+				//得到报告页面内容
+				logger.info(getMethod.getResponseBodyAsString());
+				//获得页面中所有报告的连接地址
+				Document docViewReport = Jsoup.parse(getMethod.getResponseBodyAsString());
+				//得到报告名称
+				Elements names=docViewReport.select("a[href*=user_down_original.aspx?&filename=]");
+				for(Element entity:names){
+					System.out.println(entity.attr("href").substring(entity.attr("href").lastIndexOf("=")+1));
+					reportNames.add(entity.attr("href").substring(entity.attr("href").lastIndexOf("=")+1));
+				}
+				//释放连接
+				getMethod.releaseConnection();	
 			}
 		}else{
 			//登录失败返回页面重新登录
 			check(title,author,content);
 		}
+		return reportNames;
 	}
 	
 	//下载检测报告
-	public static void viewReport() throws HttpException, IOException{
-		
+	public static List<String> viewReport() throws HttpException, IOException{
+		List<String> reportNames=new ArrayList<String>();
 		logger.info("ppName:" + ppName);
 		logger.info("ppPwd:" + ppPwd);
 		HttpClient httpClient = new HttpClient();
@@ -249,7 +278,7 @@ public class PPUtil {
 		//获得验证码
 		String validCode=null;
 		try {
-			validCode=OCR.recognizeText(new File(Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), "WebRoot/temp")), "gif");
+			validCode=OCR.recognizeText(new File(Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), "downloadTemp")), "gif");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -318,6 +347,7 @@ public class PPUtil {
 				logger.info(e.attr("href"));
 				logger.info(e.attr("href").substring(e.attr("href").lastIndexOf("=")+1));
 				String filename=new File("WebRoot/temp").getAbsolutePath()+"/"+e.attr("href").substring(e.attr("href").lastIndexOf("=")+1)+".zip";
+				reportNames.add(e.attr("href").substring(e.attr("href").lastIndexOf("=")+1));
 				File file=new File(filename);
 				if(!file.exists()){
 					logger.info("------------------下载报告部分-------------------------");
@@ -349,17 +379,11 @@ public class PPUtil {
 			//登录失败返回页面重新登录
 			viewReport();
 		}
+		return reportNames;
 	}
 	public static String getProp(String prop) {
-		InputStream inputStream = ClassLoader.getSystemResourceAsStream("user.properties");
-		Properties p = new Properties();
-		try {
-			p.load(inputStream);
-			return p.getProperty(prop);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			return "";
-		}
+		ResourceBundle rb = ResourceBundle.getBundle("account");
+		return rb.getString(prop);
 	}
 
 	public static void main(String[] args) throws HttpException, IOException {
