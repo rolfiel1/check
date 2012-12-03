@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd"><struts>
+        
+	    <constant name="struts.devMode" value="true" />
+	    <constant name="struts.convention.classes.reload" value="true"/>
+	    <constant name="struts.convention.action.packages" value="com.check.action" />
+	    <constant name="struts.convention.result.path" value="/" />
+	    <constant name="struts.objectFactory" value="spring"/>
+	    <constant name="struts.ui.theme" value="simple"/>
+	    <constant name="struts.configuration.xml.reload" value="true"/>
+	    <constant name="struts.serve.static.browserCache" value="false"/>
+	    <constant name="struts.multipart.maxSize" value="100000000"/>
+	    <constant name="struts.convention.action.name.separator" value="_" />
+	    <constant name="struts.i18n.encoding" value="utf-8"/>
+    <package name="admin" extends="struts-default">
+    	<!-- 配置自定义拦截器LoginedCheckInterceptor -->
+		<interceptors>
+			<interceptor name="loginedCheck" class="com.check.interceptor.LoginedCheckInterceptor"/>
+			<interceptor-stack name="mystack"> 
+				<interceptor-ref name="loginedCheck" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>	   
+      <!--这句是设置所有Action自动调用的拦截器堆栈 -->
+       <default-interceptor-ref name="mystack"/>
+		<!-- 定义全局result -->
+		<global-results>
+		    <result name="tologin">login.html</result>
+		    <result name="success">/WEB-INF/template/admin/success.ftl</result>
+		</global-results>
+    </package>    
+</struts>
