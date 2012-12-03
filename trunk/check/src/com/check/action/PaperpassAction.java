@@ -2,6 +2,7 @@ package com.check.action;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -33,28 +34,31 @@ public class PaperpassAction extends BaseAction{
 	private String title;
 	private String author;
 	private String sz;
+	private String orderNo1;
 
 	public String ppCheck(){
 		logger.info("title:"+title);
 		logger.info("author:"+author);
 		logger.info("sz:"+sz);
 		try {
-			PPUtil.check(title, author, sz);
+			//提交检测
+			List<String >ret= PPUtil.check(title, author, sz);
+			Report report=new Report();
+			report.setSign(1);
+			report.setTitle(title);
+			report.setAuthor(author);
+			report.setContent(sz);
+			report.setCreate_date(new Date());
+			report.setUid(orderNo1);
+			//取第一个
+			report.setPpid(ret.get(0));
+			reportService.save(report);
 		} catch (HttpException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//正常检测成功后，插入数据保存,保留报告地址位置为空
-		Report report=new Report();
-		report.setSign(1);
-		report.setTitle(title);
-		report.setAuthor(author);
-		report.setContent(sz);
-		report.setCreate_date(new Date());
-		reportService.save(report);
-		
+		//正常检测成功后，插入数据保存,保留报告地址位置为空,返回到list页面
 		return null;
 	}
 
@@ -80,6 +84,14 @@ public class PaperpassAction extends BaseAction{
 
 	public void setSz(String sz) {
 		this.sz = sz;
+	}
+
+	public String getOrderNo1() {
+		return orderNo1;
+	}
+
+	public void setOrderNo1(String orderNo1) {
+		this.orderNo1 = orderNo1;
 	}
 	
 }
