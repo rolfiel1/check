@@ -8,7 +8,10 @@ import javax.annotation.Resource;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -19,6 +22,7 @@ import com.check.util.PPUtil;
 @Controller
 @ParentPackage("admin")
 @Scope("prototype")
+@Results({ @Result(name = "list", location = "/WEB-INF/manager/pp_list.jsp") })
 public class PaperpassAction extends BaseAction{
 
 	/**
@@ -59,6 +63,12 @@ public class PaperpassAction extends BaseAction{
 			e.printStackTrace();
 		}
 		//正常检测成功后，插入数据保存,保留报告地址位置为空,返回到list页面
+		ServletActionContext.getRequest().getSession().setAttribute("loginUserId", orderNo1);
+		return "list";
+	}
+	
+	public String ajaxList(){
+		logger.info("--------ajaxList-----------");
 		return null;
 	}
 
