@@ -14,7 +14,7 @@ public class TestOCR {
 	public void testCheckImg(){
 		try {
 			new OCR();
-			String img = OCR.recognizeText(new  File("E:/workspace_eclipse/51check/temp/tempImg.gif"), "gif");
+			String img = OCR.recognizeText(new  File("E:\\server\\apache-tomcat-6.0.33\\apache-tomcat-6.0.33\\webapps\\check\\downloadTemp\\tempImg.gif"), "gif");
 			System.out.println(img);
 			System.out.println("**********");
 		} catch (Exception e) {
