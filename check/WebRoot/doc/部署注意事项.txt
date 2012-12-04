@@ -1,0 +1,2 @@
+1.tomcat 目录下咋lib目录中放入jai_imageio-1.1-alpha.jar包
+2.tesseract 放入到服务器的非Server目录下
