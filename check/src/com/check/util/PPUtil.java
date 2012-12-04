@@ -7,8 +7,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.apache.commons.httpclient.Header;
@@ -25,9 +23,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-public class PPUtil {
+public class PPUtil implements ApplicationContextAware, DisposableBean{
+	
 	private static Logger logger = Logger.getLogger(PPUtil.class);
+	
+	private static ApplicationContext applicationContext = null;
 	
 	private static String ppName = getProp("pp.user");
 	
@@ -37,7 +42,7 @@ public class PPUtil {
 		List<String> reportNames=new ArrayList<String>();
 		logger.info("ppName:" + ppName);
 		logger.info("ppPwd:" + ppPwd);
-		
+		String tempFile=applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter("http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//---------第一次登录页面-----------------------------
@@ -78,7 +83,9 @@ public class PPUtil {
 		//获得验证码
 		String validCode=null;
 		try {
-			validCode=OCR.recognizeText(new File(Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), "temp")), "gif");
+			String validCodePath=Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), tempFile);
+			File ocrFile=new File(validCodePath);
+			validCode=OCR.recognizeText(ocrFile, "gif");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -237,6 +244,7 @@ public class PPUtil {
 		List<String> reportNames=new ArrayList<String>();
 		logger.info("ppName:" + ppName);
 		logger.info("ppPwd:" + ppPwd);
+		String tempFile=applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter("http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//---------第一次登录页面-----------------------------
@@ -278,7 +286,9 @@ public class PPUtil {
 		//获得验证码
 		String validCode=null;
 		try {
-			validCode=OCR.recognizeText(new File(Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), "downloadTemp")), "gif");
+			String validCodePath=Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), tempFile);
+			File ocrFile=new File(validCodePath);
+			validCode=OCR.recognizeText(ocrFile, "gif");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -346,7 +356,7 @@ public class PPUtil {
 			for(Element e:links){
 				logger.info(e.attr("href"));
 				logger.info(e.attr("href").substring(e.attr("href").lastIndexOf("=")+1));
-				String filename=new File("WebRoot/temp").getAbsolutePath()+"/"+e.attr("href").substring(e.attr("href").lastIndexOf("=")+1)+".zip";
+				String filename=new File(tempFile).getAbsolutePath()+"/"+e.attr("href").substring(e.attr("href").lastIndexOf("=")+1)+".zip";
 				reportNames.add(e.attr("href").substring(e.attr("href").lastIndexOf("=")+1));
 				File file=new File(filename);
 				if(!file.exists()){
@@ -389,5 +399,16 @@ public class PPUtil {
 	public static void main(String[] args) throws HttpException, IOException {
 //		check("","","");
 		viewReport();
+	}
+
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		applicationContext=null;
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		// TODO Auto-generated method stub
+		PPUtil.applicationContext=applicationContext;
 	}
 }

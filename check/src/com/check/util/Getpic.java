@@ -22,7 +22,7 @@ public class Getpic {
 					connection.getInputStream());
 			/* 此处也可用BufferedInputStream与BufferedOutputStream */
 			DataOutputStream out = new DataOutputStream(new FileOutputStream(
-					yanzhengmaPath+"/tempImg.gif"));
+					yanzhengmaPath+"\\tempImg.gif"));
 			/* 将参数savePath，即将截取的图片的存储在本地地址赋值给out输出流所指定的地址 */
 			byte[] buffer = new byte[4096];
 			int count = 0;
@@ -33,7 +33,7 @@ public class Getpic {
 			out.close();/* 后面三行为关闭输入输出流以及网络资源的固定格式 */
 			in.close();
 			connection.disconnect();
-			return yanzhengmaPath+"/tempImg.gif";/* 网络资源截取并存储本地成功返回true */
+			return savePath+"\\tempImg.gif";/* 网络资源截取并存储本地成功返回true */
 
 		} catch (Exception e) {
 			System.out.println(e + fileUrl + savePath);
