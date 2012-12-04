@@ -2,7 +2,9 @@ package com.check.action;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import com.check.bean.Report;
 import com.check.service.ReportService;
+import com.check.util.JsonUtil;
 import com.check.util.PPUtil;
 
 @Controller
@@ -39,6 +42,8 @@ public class PaperpassAction extends BaseAction{
 	private String author;
 	private String sz;
 	private String orderNo1;
+	private String rows;// 每页显示的记录数
+	private String page;// 当前第几页
 
 	public String ppCheck(){
 		logger.info("title:"+title);
@@ -69,7 +74,16 @@ public class PaperpassAction extends BaseAction{
 	
 	public String ajaxList(){
 		logger.info("--------ajaxList-----------");
-		return null;
+		logger.info("loginUserId:"+id);
+		Map<String,Object> map=new HashMap<String,Object>();
+		pager.setPageSize(Integer.parseInt(rows));
+		pager.setPageNumber(Integer.parseInt(page));
+		map.put("uid", id);
+		pager=reportService.findPager(pager, map);
+		Map<String, Object> JsonMap = new HashMap<String, Object>();
+		JsonMap.put("total", pager.getTotalCount());
+		JsonMap.put("rows", pager.getResult());
+		return ajax(JsonUtil.toJson(JsonMap));
 	}
 
 	public String getTitle() {
@@ -102,6 +116,22 @@ public class PaperpassAction extends BaseAction{
 
 	public void setOrderNo1(String orderNo1) {
 		this.orderNo1 = orderNo1;
+	}
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
 	}
 	
 }

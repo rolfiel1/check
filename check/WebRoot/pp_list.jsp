@@ -36,14 +36,13 @@ function showData(url){
 		idField:'id',
 		columns:[[
 			{field:'id',width:0,hidden:true, sortable:true},
-			{field:'name',title:'姓名',align:'center',width:90,sortable:true,
+			{field:'title',title:'标题',align:'center',width:90,sortable:true},
+			{field:'author',title:'作者',align:'center',width:70,sortable:true},
+			{field:'link',title:'报告',align:'center',width:70,sortable:true,
 				formatter:function(value,rowData,rowIndex){
 					return "<a style=\"cursor:pointer;\" onclick=\"javascript:window.open('user!showMess.action?uid="+rowData.id+"','','width=430,height=510')\"      >"+rowData.name+"</a>";
 				}},
-			{field:'sex',title:'性别',align:'center',width:70,sortable:true},
-			{field:'diqu',title:'城市',align:'center',width:70,sortable:true},
-			{field:'byx',title:'毕业院系',align:'center',width:200,sortable:true},
-			{field:'gz',title:'工作单位',align:'center',width:213,sortable:true}
+			{field:'create_date',title:'上传时间',align:'center',width:213,sortable:true}
 		]],
 		pagination:true//显示分页栏
 	});
