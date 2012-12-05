@@ -17,7 +17,7 @@ public class PPDownloadReportUtil extends TimerTask {
 				// 如果有数据，说明有下载的报告
 				// 得到下载报告的名称后，从数据库中查询出相应的ppid与名称相符，并且link为空的
 				for (String str : ret) {
-					String sql = "select count(0) from lwreport t  where ISNULL(t.link) and t.ppid='"
+					String sql = "select count(0) from lwreport t  where t.link='underchecking' and t.ppid='"
 							+ str + "'";
 					int flag = ((JdbcTemplate) SpringUtil
 							.getBean("jdbcTemplate")).queryForInt(sql);
