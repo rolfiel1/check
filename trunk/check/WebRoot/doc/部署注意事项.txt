@@ -1,2 +1,2 @@
-1.tomcat Ä¿Â¼ÏÂÕ¦libÄ¿Â¼ÖĞ·ÅÈëjai_imageio-1.1-alpha.jar°ü
-2.tesseract ·ÅÈëµ½·şÎñÆ÷µÄ·ÇServerÄ¿Â¼ÏÂ
+1.tomcat ç›®å½•ä¸‹å’‹libç›®å½•ä¸­æ”¾å…¥jai_imageio-1.1-alpha.jaråŒ…
+2.tesseract æ”¾å…¥åˆ°æœåŠ¡å™¨çš„éServerç›®å½•ä¸‹
