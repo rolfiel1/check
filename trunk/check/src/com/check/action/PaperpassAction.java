@@ -59,7 +59,7 @@ public class PaperpassAction extends BaseAction{
 			report.setContent(sz);
 			report.setCreate_date(new Date());
 			report.setUid(orderNo1);
-			report.setLink("");
+			report.setLink("underchecking");
 			//取第一个
 			report.setPpid(ret.get(0));
 			reportService.save(report);
