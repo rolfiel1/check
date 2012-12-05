@@ -13,7 +13,7 @@ import org.jdesktop.swingx.util.OS;
 public class OCR {
 	private static final String LANG_OPTION = "-l";
 	private static final String EOL = System.getProperty("line.separator");
-	private static String tessPath = "E:\\MyEclipse10_workspace\\check\\WebRoot\\tesseract";
+	private static String tessPath = PPUtil.getProp("tessPath");
 
 	public static String recognizeText(File imageFile, String imageFormat)
 			throws Exception {
