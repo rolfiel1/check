@@ -27,7 +27,7 @@
        <default-interceptor-ref name="mystack"/>
 		<!-- 定义全局result -->
 		<global-results>
-		    <result name="tologin">login.html</result>
+		    <result name="tologin">login.jsp</result>
 		    <result name="success">/WEB-INF/template/admin/success.ftl</result>
 		</global-results>
     </package>    
