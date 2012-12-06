@@ -73,6 +73,10 @@ public class PaperpassAction extends BaseAction{
 		return "list";
 	}
 	
+	public String list(){
+		return "list";
+	}
+	
 	public String ajaxList(){
 		logger.info("--------ajaxList-----------");
 		logger.info("loginUserId:"+id);
