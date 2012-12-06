@@ -11,9 +11,9 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PaperPass检测系统</title>
-<link href="css/index.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="js/motel.js"></script>
-<script language="javascript" src="js/jquery-1.8.1.min.js"></script>
+<link href="<%=basePath%>/css/index.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="<%=basePath%>/js/motel.js"></script>
+<script language="javascript" src="<%=basePath%>/js/jquery-1.8.1.min.js"></script>
 
 <script type="text/javascript">
 	function show() {
