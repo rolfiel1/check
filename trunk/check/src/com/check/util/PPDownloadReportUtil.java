@@ -1,16 +1,25 @@
 package com.check.util;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.TimerTask;
 
 import org.apache.commons.httpclient.HttpException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.check.util.top.Proposal;
+
 public class PPDownloadReportUtil extends TimerTask {
+	private static Date initDate=null;
 	@Override
 	public void run() {
 		try {
+			if(initDate==null){
+				initDate=new Date();
+				//启动订单初始化程序只允许一次
+				Proposal.startProposal2();
+			}
 			// 下载报告
 			List<String> ret = PPUtil.viewReport();
 			if (ret != null && ret.size() > 0) {
@@ -33,7 +42,8 @@ public class PPDownloadReportUtil extends TimerTask {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-//		 System.out.println("spring is invoking a timer task...");  
 	}
 }
