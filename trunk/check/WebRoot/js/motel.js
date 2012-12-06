@@ -114,7 +114,7 @@ function changeValidcode(){
 
 function ajaxLogin() {
 	$.ajax({
-		url : "user!login.action",
+		url : "user!checkLogin.action",
 		data : {
 			"orderNo1" : $('#orderNo1').val(),
 			"orderNo2" : $('#orderNo2').val(),
@@ -124,6 +124,21 @@ function ajaxLogin() {
 		dataType : "json",
 		success : function(data) {
 			alert(data);
+		}
+	});
+}
+function login() {
+	$.ajax({
+		url : "user!login.action",
+		data : {
+			"orderNo1" : $('#orderNo1').val(),
+			"validCode" : $('#validCode').val()
+		},
+		type : "POST",
+		dataType : "json",
+		success : function(data) {
+			alert(data);
+			window.location="paperpass!list.action";
 		}
 	});
 }
