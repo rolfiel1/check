@@ -12,13 +12,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>百分百论文检测系统--登录界面</title>
 <link href="<%=basePath%>css/index.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
-function changeValidcode(){
-	//reload 验证码
-	var timenow = new Date().getTime();
-	document.getElementById("random").src="validcode!getValidcode.action?date="+timenow;
-}
-</script>
+<script language="javascript" src="<%=basePath%>/js/jquery-1.8.1.min.js"></script>
+<script language="javascript" src="<%=basePath%>/js/motel.js"></script>
 </head>
 
 <body style="background:none;">
@@ -48,19 +43,19 @@ function changeValidcode(){
           <tr>
             <td>&nbsp;</td>
             <td class="th">订单号：</td>
-            <td><input type="text" name="" id=""  class="wbk"/>
+            <td><input type="text" name="orderNo1" id="orderNo1"  class="wbk"/>
               <span style="color:#f00">*</span></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
             <td class="th">验证码：</td>
             <td>
-            	<input type="text" name="" id="" class="ddh"/>
+            	<input type="text" name="validCode" id="validCode" class="ddh"/>
             	<img src='validcode!getValidcode.action?date=<%=new Date() %>'  onclick="changeValidcode()" alt='点击刷新验证码' align='' id='random' valign='absmiddle' />
             </td>
           </tr>
           <tr>
-            <td colspan="3"><a href="#">购买</a><a href="#">登录</a></td>
+            <td colspan="3"><a href="#">购买</a><a href="javascript:void(0)" onclick="login()" >登录</a></td>
           </tr>
           <tr>
             <td colspan="3" class="zs"><span style="color:#f00">*</span>为必填项，如无订单号请点击购买！</td>
