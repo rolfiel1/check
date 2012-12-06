@@ -16,6 +16,7 @@ public class UserDaoImpl extends BaseMybatisDaoImpl<User, String> implements
 			return (User) this.getSqlSessionTemplate().selectOne("User.login",orderNo);
 		} catch (RuntimeException re) {
 			logger.error(re);
+			re.printStackTrace();
 			throw re;
 		}
 	}
