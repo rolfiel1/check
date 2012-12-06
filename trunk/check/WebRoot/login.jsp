@@ -11,7 +11,14 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>百分百论文检测系统--登录界面</title>
-<link href="css/index.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>css/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function changeValidcode(){
+	//reload 验证码
+	var timenow = new Date().getTime();
+	document.getElementById("random").src="validcode!getValidcode.action?date="+timenow;
+}
+</script>
 </head>
 
 <body style="background:none;">
@@ -49,7 +56,7 @@
             <td class="th">验证码：</td>
             <td>
             	<input type="text" name="" id="" class="ddh"/>
-            	<img src='validcode!getValidcode.action?date=<%=new Date() %>' alt='' align='' id='random' valign='absmiddle' /> <a href='javascript:void(0)' onclick='changeValidcode()' >换一个验证码</a>
+            	<img src='validcode!getValidcode.action?date=<%=new Date() %>'  onclick="changeValidcode()" alt='点击刷新验证码' align='' id='random' valign='absmiddle' />
             </td>
           </tr>
           <tr>
