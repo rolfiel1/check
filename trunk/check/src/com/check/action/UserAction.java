@@ -30,7 +30,7 @@ public class UserAction extends BaseAction {
 	public String ppCheck(){
 		return "ppCheck";
 	}
-	public String login(){
+	public String checkLogin(){
 		logger.info("----------login----------");
 		logger.info(orderNo1+","+orderNo2+","+validCode);
 		logger.info(ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr"));
@@ -48,6 +48,27 @@ public class UserAction extends BaseAction {
 				return ajax(JsonUtil.toJson("发货成功,正在检测,请稍等..."));
 			}
 			
+		}
+	}
+	
+	public String login(){
+		logger.info("----------login----------");
+		logger.info(orderNo1+","+orderNo2+","+validCode);
+		logger.info(ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr"));
+		//先判断订单号，验证码是否正确
+		User user=null;
+		String sessionValidcode=ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr").toString();
+		
+		if(!sessionValidcode.equals(validCode)){
+			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
+		}else{
+			user=userService.checkUser(orderNo1);
+			if(user==null){
+				return ajax(JsonUtil.toJson("订单号不存在,请重新输入!"));
+			}else{
+				ServletActionContext.getRequest().getSession().setAttribute("user", user);
+				return ajax(JsonUtil.toJson("success"));
+			}
 		}
 	}
 
