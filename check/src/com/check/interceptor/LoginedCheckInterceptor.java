@@ -18,6 +18,7 @@ public class LoginedCheckInterceptor extends AbstractInterceptor {
 		User user = null;
 		if (url.indexOf("user!ppCheck.action") != -1
 				|| url.indexOf("validcode!getValidcode.action") != -1
+				|| url.indexOf("user!checkLogin.action") != -1
 				|| url.indexOf("user!login.action") != -1) {
 			return ai.invoke();
 		} else {
