@@ -92,7 +92,6 @@ function showData(url){
 
   </div>
   <div class="right_info">
-  <div class="tble_box">
   <div id="dataList"></div>
   
   <!--  <table width="100%" border="0">
@@ -113,7 +112,6 @@ function showData(url){
     </tr> 
 </table>
 -->
-</div>
 </div>
     </div>
   </div>
