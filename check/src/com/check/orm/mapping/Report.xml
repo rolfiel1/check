@@ -14,7 +14,7 @@
 		<result property="ppid" column="ppid" />
 	</resultMap>
 	<insert id="save" parameterType="Report">
-		insert into lwreport 
+		insert into lwreport
 		(
 		sign,
 		create_date,
@@ -39,5 +39,22 @@
 		#{ppid}
 		)
 	</insert>
+
+
+	<select id="queryPage" resultMap="reportResultMap"
+		parameterType="map">
+		select * from lwreport t
+		where 1=1
+		<if test="uid!=null and uid != ''">and t.uid = #{uid}</if>
+		order by t.create_date desc
+		limit #{pageNumber},#{pageSize}
+	</select>
+
+	<select id="getTotalCounts" parameterType="map" resultType="Integer">
+		select count(0) from lwreport t
+		where 1=1
+		<if test="uid!=null and uid != ''">and t.uid = #{uid}</if>
+		order by t.create_date desc
+	</select>
 
 </mapper>
