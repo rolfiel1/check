@@ -24,25 +24,30 @@ $(document).ready(function(){
 
 function showData(url){
 	$('#dataList').datagrid({
-		width:650,
+		title:'论文检测报告',
+		width:'auto',
 		height:'auto',
 		nowrap: false,//True 就会把数据显示在一行里
 		collapsible:false,
 		url:url,//数据来源
-		sortName: 'time',//排序字段
+		sortName: 'create_date',//排序字段
 		sortOrder: 'desc',
 		remoteSort: false,
 		method:'post',
 		idField:'id',
 		columns:[[
-			{field:'id',width:0,hidden:true, sortable:true},
+			{field:'id',width:10,hidden:true, sortable:true},
 			{field:'title',title:'标题',align:'center',width:90,sortable:true},
 			{field:'author',title:'作者',align:'center',width:70,sortable:true},
 			{field:'link',title:'报告',align:'center',width:70,sortable:true,
 				formatter:function(value,rowData,rowIndex){
-					return "<a style=\"cursor:pointer;\" onclick=\"javascript:window.open('user!showMess.action?uid="+rowData.id+"','','width=430,height=510')\"      >"+rowData.name+"</a>";
+					if(rowData.link!='underchecking'){
+						return "<a style=\"cursor:pointer;\" >下载报告</a>";
+					}else{
+						return "正在检测,请稍后...";
+					}
 				}},
-			{field:'create_date',title:'上传时间',align:'center',width:213,sortable:true}
+			{field:'create_date',title:'上传时间',align:'center',width:150,sortable:true}
 		]],
 		pagination:true//显示分页栏
 	});
@@ -80,7 +85,7 @@ function showData(url){
   <tr>
     <td width="16"><span class="user_tb"></span></td>
     <th align="right" width="70">当前用户：</th>
-    <td>1235161635123135156</td>
+    <td>${user.username }</td>
   </tr>
   <tr>
     <td><span class="yhxt_tb"></span></td>
