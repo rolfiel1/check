@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2012-12-04 17:33:50
+Date: 2012-12-10 15:24:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,7 +55,7 @@ CREATE TABLE `lwreport` (
 -- ----------------------------
 -- Records of lwreport
 -- ----------------------------
-INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', null, 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123123', '123123123');
+INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123123', '57017d2482b2dcdc9af8cec104e190ad201211291528970');
 
 -- ----------------------------
 -- Table structure for `user`
