@@ -43,6 +43,8 @@ public class TopApiService {
 		req.setType("ec,fixed,auction,auto_delivery,cod,independent_shop_trade,independent_simple_trade,shopex_trade,netcn_trade,external_trade,hotel_trade,fenxiao,game_equipment,instant_trade,b2c_cod,super_market_trade,super_market_cod_trade,alipay_movie,taohua,waimai,nopaid");
 		req.setStartCreated(start);
 		req.setEndCreated(end);
+		//只获得等待发货的订单
+		req.setStatus("WAIT_SELLER_SEND_GOODS");
 		req.setPageSize(DEFAULT_PAGE_SIZE);
 		req.setUseHasNext(true);
 
@@ -90,12 +92,15 @@ public class TopApiService {
 
 	public Trade getTradeFullInfo(Long tid, String sessionKey) throws ApiException {
 		TradeFullinfoGetRequest req = new TradeFullinfoGetRequest();
-		req.setFields("tid,seller_nick,buyer_nick,buyer_message,orders"); // FIXME 增加应用需要的字段
+		req.setFields("tid,seller_nick,buyer_nick,buyer_message,orders,created"); // FIXME 增加应用需要的字段
 		req.setTid(tid);
 		TradeFullinfoGetResponse rsp = client.execute(req, sessionKey);
 		if (rsp.isSuccess()) {
 			log.info("查询订单详情成功：" + rsp.getBody());
+			log.info("查询出的订单时间:"+rsp.getTrade().getCreated());
+			log.info("查询出的订单时间:"+rsp.getTrade().getOrders().get(0).getStatus());
 			log.info("查询出的订单号："+rsp.getTrade().getTid());
+			
 			return rsp.getTrade();
 		}
 		return null;
