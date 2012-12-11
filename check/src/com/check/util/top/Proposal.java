@@ -16,16 +16,16 @@ import com.taobao.api.internal.stream.TopCometStreamFactory;
 
 public class Proposal {
 
-	private static final String API_URL = "http://gw.api.tbsandbox.com/router/rest";
-	private static final String APP_KEY = "1021288212";
-	private static final String APP_SECRET = "sandbox53f3f3ce15b7285769aad0cf5";
-	private static final String SESSION_KEY = "6100714f13699eff10035f13465948295e8f1c8659c1fe12054718218";
+	private static final String API_URL = "http://gw.api.taobao.com/router/rest";
+	private static final String APP_KEY = "21286772";
+	private static final String APP_SECRET = "88aadbcd5f28244ea6da67fb968768dc";
+	private static final String SESSION_KEY = "6101428d8e41e95184b480f4bdc96f730a0c11d6ba386881057411533";
 
 	private static Date lastSync;
 	private static Map<Long, Boolean> taskIds = new HashMap<Long, Boolean>();
 
 	public static void main(String[] args) throws Exception {
-		Proposal.startProposal2();
+		Proposal.startProposal1();
 	}
 
 	/**
@@ -35,9 +35,9 @@ public class Proposal {
 		final TaobaoClient client = new AutoRetryTaobaoClient(API_URL, APP_KEY, APP_SECRET);
 		final TopApiService topApiService = new TopApiService(client);
 
-		// 初始化三个月内订单
+		// 初始化一天前内订单
 		final Date end = new Date();
-		final Date start = DateUtils.addMonths(end, -3);
+		final Date start = DateUtils.addDays(end, -1);
 		new Thread(new Runnable() {
 			public void run() {
 				List<Date[]> dateList = DateUtils.splitTimeByDays(start, end, 1);
@@ -56,7 +56,7 @@ public class Proposal {
 		new Timer().schedule(new TimerTask() {
 			public void run() {
 				try {
-					Date _start = DateUtils.addMinutes(lastSync, -10); // 加载上一次的时间，并退后10分钟
+					Date _start = DateUtils.addMinutes(lastSync, -1); // 加载上一次的时间，并退后10分钟
 					Date _end = new Date();
 					topApiService.syncIncrementSoldTrades(_start, _end, SESSION_KEY);
 					lastSync = _end; // 把本次更新时间保存到数据库
