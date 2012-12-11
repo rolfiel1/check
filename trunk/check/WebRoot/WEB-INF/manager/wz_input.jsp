@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>PaperPass检测系统--结果页面</title>
+<title>百分百检测系统--文章[添加/修改]页面</title>
 <link href="<%=basePath%>/css/index.css" rel="stylesheet"
 	type="text/css" />
 <link rel="stylesheet" type="text/css"
