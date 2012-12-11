@@ -21,4 +21,10 @@ public class UserServiceImpl extends BaseMybatisServiceImpl<User, String> implem
 	public User checkUser(String orderNo) {
 		return userDao.checkUser(orderNo);
 	}
+
+	@Override
+	public User adminLogin(String username, String password) {
+		// TODO Auto-generated method stub
+		return userDao.adminLogin(username,password);
+	}
 }

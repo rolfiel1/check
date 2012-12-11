@@ -12,7 +12,7 @@ public class User implements java.io.Serializable {
 
 	private Integer id;
 	private String username;
-	private String pssword;
+	private String password;
 	private Integer sign;
 	private Date create_date;
 	private Date login_date;
@@ -34,12 +34,14 @@ public class User implements java.io.Serializable {
 		this.username = username;
 	}
 
-	public String getPssword() {
-		return pssword;
+	
+
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPssword(String pssword) {
-		this.pssword = pssword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Integer getSign() {

@@ -13,63 +13,106 @@ import org.springframework.stereotype.Controller;
 import com.check.bean.User;
 import com.check.service.UserService;
 import com.check.util.JsonUtil;
+
 @Controller
 @ParentPackage("admin")
 @Scope("prototype")
-@Results({ @Result(name = "ppCheck", location = "/ppCheck.jsp") })
+@Results({ @Result(name = "ppCheck", location = "/ppCheck.jsp"),
+		@Result(name = "main", location = "/WEB-INF/manager/main.jsp") })
 public class UserAction extends BaseAction {
 	private static final long serialVersionUID = 2555487321597652641L;
 	private static Logger logger = Logger.getLogger(UserAction.class);
 	private String orderNo1;
 	private String orderNo2;
 	private String validCode;
-	
+	private String username;
+	private String password;
+
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
-	
-	public String ppCheck(){
+
+	public String ppCheck() {
 		return "ppCheck";
 	}
-	public String checkLogin(){
+
+	public String checkLogin() {
 		logger.info("----------login----------");
-		logger.info(orderNo1+","+orderNo2+","+validCode);
-		logger.info(ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr"));
-		//先判断订单号，验证码是否正确
-		User user=null;
-		String sessionValidcode=ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr").toString();
-		if(!sessionValidcode.equals(validCode)){
+		logger.info(orderNo1 + "," + orderNo2 + "," + validCode);
+		logger.info(ServletActionContext.getRequest().getSession()
+				.getAttribute("Svalipicstr"));
+		// 先判断订单号，验证码是否正确
+		User user = null;
+		String sessionValidcode = ServletActionContext.getRequest()
+				.getSession().getAttribute("Svalipicstr").toString();
+		if (!sessionValidcode.equals(validCode)) {
 			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
-		}else{
-			user=userService.checkUser(orderNo1);
-			if(user==null){
+		} else {
+			user = userService.checkUser(orderNo1);
+			if (user == null) {
 				return ajax(JsonUtil.toJson("订单号不存在,请重新输入!"));
-			}else{
-				//提交数据到PaperPass，开始检测论文
+			} else {
+				// 提交数据到PaperPass，开始检测论文
 				return ajax(JsonUtil.toJson("发货成功,正在检测,请稍等..."));
 			}
-			
+
 		}
 	}
-	
-	public String login(){
+
+	public String login() {
 		logger.info("----------login----------");
-		logger.info(orderNo1+","+orderNo2+","+validCode);
-		logger.info(ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr"));
-		//先判断订单号，验证码是否正确
-		User user=null;
-		String sessionValidcode=ServletActionContext.getRequest().getSession().getAttribute("Svalipicstr").toString();
-		
-		if(!sessionValidcode.equals(validCode)){
+		logger.info(orderNo1 + "," + orderNo2 + "," + validCode);
+		logger.info(ServletActionContext.getRequest().getSession()
+				.getAttribute("Svalipicstr"));
+		// 先判断订单号，验证码是否正确
+		User user = null;
+		String sessionValidcode = ServletActionContext.getRequest()
+				.getSession().getAttribute("Svalipicstr").toString();
+
+		if (!sessionValidcode.equals(validCode)) {
 			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
-		}else{
-			user=userService.checkUser(orderNo1);
-			if(user==null){
+		} else {
+			user = userService.checkUser(orderNo1);
+			if (user == null) {
 				return ajax(JsonUtil.toJson("订单号不存在,请重新输入!"));
-			}else{
-				ServletActionContext.getRequest().getSession().setAttribute("user", user);
+			} else {
+				ServletActionContext.getRequest().getSession()
+						.setAttribute("user", user);
 				return ajax(JsonUtil.toJson("success"));
 			}
 		}
+	}
+
+	/**
+	 * 暂无password MD5加密 TODO 加密
+	 * 
+	 * @return
+	 */
+	public String adminLogin() {
+		logger.info("----------adminLogin----------");
+		logger.info(username + "," + password + "," + validCode);
+		logger.info(ServletActionContext.getRequest().getSession()
+				.getAttribute("Svalipicstr"));
+		// 先判断订单号，验证码是否正确
+		User user = null;
+		String sessionValidcode = ServletActionContext.getRequest()
+				.getSession().getAttribute("Svalipicstr").toString();
+
+		if (!sessionValidcode.equals(validCode)) {
+			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
+		} else {
+			user = userService.adminLogin(username, password);
+			if (user == null) {
+				return ajax(JsonUtil.toJson("用户名或密码错误,请重新输入!"));
+			} else {
+				ServletActionContext.getRequest().getSession()
+						.setAttribute("user", user);
+				return ajax(JsonUtil.toJson("success"));
+			}
+		}
+	}
+
+	public String main() {
+		return "main";
 	}
 
 	public String getOrderNo1() {
@@ -96,5 +139,20 @@ public class UserAction extends BaseAction {
 		this.validCode = validCode;
 	}
 
-	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }
