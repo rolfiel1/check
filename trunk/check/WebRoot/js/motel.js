@@ -137,8 +137,12 @@ function login() {
 		type : "POST",
 		dataType : "json",
 		success : function(data) {
-			alert(data);
-			window.location="paperpass!list.action";
+			if(data=='success'){
+				window.location="paperpass!list.action";
+			}else{
+				alert('系统异常,请稍后再试!');
+			}
+			
 		}
 	});
 }
