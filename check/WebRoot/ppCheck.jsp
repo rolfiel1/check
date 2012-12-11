@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>PaperPass检测系统</title>
+<title>百分百检测系统--PaperPass检测</title>
 <link href="<%=basePath%>/css/index.css" rel="stylesheet" type="text/css" />
 <script language="javascript" src="<%=basePath%>/js/motel.js"></script>
 <script language="javascript" src="<%=basePath%>/js/jquery-1.8.1.min.js"></script>
