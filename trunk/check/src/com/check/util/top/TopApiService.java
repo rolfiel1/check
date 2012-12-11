@@ -9,6 +9,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.check.dao.UserDao;
+import com.check.util.SpringUtil;
 import com.taobao.api.ApiException;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Trade;
@@ -69,6 +71,7 @@ public class TopApiService {
 		req.setType("ec,fixed,auction,auto_delivery,cod,independent_shop_trade,independent_simple_trade,shopex_trade,netcn_trade,external_trade,hotel_trade,fenxiao,game_equipment,instant_trade,b2c_cod,super_market_trade,super_market_cod_trade,alipay_movie,taohua,waimai,nopaid");
 		req.setStartModified(start);
 		req.setEndModified(end);
+		req.setStatus("WAIT_SELLER_SEND_GOODS");
 		req.setPageSize(DEFAULT_PAGE_SIZE);
 		req.setUseHasNext(false);
 
@@ -100,6 +103,8 @@ public class TopApiService {
 			log.info("查询出的订单时间:"+rsp.getTrade().getCreated());
 			log.info("查询出的订单时间:"+rsp.getTrade().getOrders().get(0).getStatus());
 			log.info("查询出的订单号："+rsp.getTrade().getTid());
+			//将查出的订单id插入user表中
+			UserDao userDao=(UserDao)SpringUtil.getBean("userDaoImpl");
 			
 			return rsp.getTrade();
 		}

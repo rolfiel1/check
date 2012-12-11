@@ -146,3 +146,24 @@ function login() {
 		}
 	});
 }
+
+function adminLogin() {
+	$.ajax({
+		url : "user!adminLogin.action",
+		data : {
+			"username" : $('#username').val(),
+			"password" : $('#password').val(),
+			"validCode" : $('#validCode').val()
+		},
+		type : "POST",
+		dataType : "json",
+		success : function(data) {
+			if(data=='success'){
+				window.location="user!main.action";
+			}else{
+				alert('系统异常,请稍后再试!');
+			}
+			
+		}
+	});
+}

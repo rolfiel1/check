@@ -11,7 +11,7 @@
 		<result property="remark" column="remark" />
 	</resultMap>
 	<insert id="save" parameterType="User">
-		insert into user 
+		insert into user
 		(
 		username,
 		password,
@@ -30,55 +30,63 @@
 		#{remark}
 		)
 	</insert>
-	
+
 	<update id="update" parameterType="User">
-		update user set 
+		update user set
 		username = #{username},
 		password = #{password},
 		sign = #{sign},
-		create_date = #{create_date},
+		create_date =
+		#{create_date},
 		login_date = #{login_date},
 		remark = #{remark}
 		where
 		id=#{id}
 	</update>
-	
+
 	<delete id="delete" parameterType="User">
-		delete from user where id=#{id}
+		delete from user where
+		id=#{id}
 	</delete>
-	
+
 	<delete id="deleteById" parameterType="String">
-		delete from user where id=#{id}
+		delete from user where
+		id=#{id}
 	</delete>
-	
-	<select id="findById" parameterType="String"
-		resultType="User">
-		select * from user where id=#{id}
+
+	<select id="findById" parameterType="String" resultType="User">
+		select *
+		from user where id=#{id}
 	</select>
-	
+
 	<select id="findAll" resultType="User">
-	select * from user
+		select * from user
 	</select>
-	
-	<select id="queryPage" resultMap="userResultMap"
-		parameterType="map">
-		select * from user u 
+
+	<select id="queryPage" resultMap="userResultMap" parameterType="map">
+		select * from user u
 		where 1=1
 		<if test="username!=null and username != ''">and u.username like "%"#{username}"%"</if>
 		order by u.time desc
-		limit #{pageNumber},#{pageSize} 
+		limit #{pageNumber},#{pageSize}
 	</select>
-	
+
 	<select id="getTotalCounts" parameterType="map" resultType="Integer">
-		select count(0) from user u 
+		select count(0) from user u
 		where 1=1
 		<if test="username!=null and username != ''">and u.username like "%"#{username}"%"</if>
 	</select>
-	
-	
-	<select id="login" parameterType="String"
-		resultMap="userResultMap">
-		select * from user where username=#{orderNo}
+
+
+	<select id="login" parameterType="String" resultMap="userResultMap">
+		select *
+		from user where username=#{orderNo}
 	</select>
-	
+
+
+	<select id="adminLogin" parameterType="map" resultMap="userResultMap">
+		select *
+		from user where username=#{username} and password=#{password}
+	</select>
+
 </mapper>
