@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2012-12-10 15:24:25
+Date: 2012-12-11 14:59:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,7 +55,7 @@ CREATE TABLE `lwreport` (
 -- ----------------------------
 -- Records of lwreport
 -- ----------------------------
-INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123123', '57017d2482b2dcdc9af8cec104e190ad201211291528970');
+INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123456789', '57017d2482b2dcdc9af8cec104e190ad201211291528970');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -75,3 +75,42 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO user VALUES ('1', '123456789', null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for `wz`
+-- ----------------------------
+DROP TABLE IF EXISTS `wz`;
+CREATE TABLE `wz` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) default NULL,
+  `author` varchar(255) default NULL,
+  `content` longtext,
+  `create_date` datetime default NULL,
+  `type` int(1) default NULL,
+  `remark` varchar(1000) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wz
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wztype`
+-- ----------------------------
+DROP TABLE IF EXISTS `wztype`;
+CREATE TABLE `wztype` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `type` int(1) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wztype
+-- ----------------------------
+INSERT INTO wztype VALUES ('1', '第一', '1');
+INSERT INTO wztype VALUES ('2', '第二', '2');
+INSERT INTO wztype VALUES ('3', '第三', '3');
+INSERT INTO wztype VALUES ('4', '第四', '4');
