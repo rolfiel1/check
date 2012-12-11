@@ -26,18 +26,18 @@ import com.check.util.PPUtil;
 @ParentPackage("admin")
 @Scope("prototype")
 @Results({ @Result(name = "list", location = "/WEB-INF/manager/pp_list.jsp") })
-public class PaperpassAction extends BaseAction{
+public class PaperpassAction extends BaseAction {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 535912645768166503L;
-	
+
 	private static Logger logger = Logger.getLogger(PaperpassAction.class);
-	
+
 	@Resource(name = "reportServiceImpl")
 	private ReportService reportService;
-	
+
 	private String title;
 	private String author;
 	private String sz;
@@ -45,14 +45,14 @@ public class PaperpassAction extends BaseAction{
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
 
-	public String ppCheck(){
-		logger.info("title:"+title);
-		logger.info("author:"+author);
-		logger.info("sz:"+sz);
+	public String ppCheck() {
+		logger.info("title:" + title);
+		logger.info("author:" + author);
+		logger.info("sz:" + sz);
 		try {
-			//提交检测
-			List<String >ret= PPUtil.check(title, author, sz);
-			Report report=new Report();
+			// 提交检测
+			List<String> ret = PPUtil.check(title, author, sz);
+			Report report = new Report();
 			report.setSign(1);
 			report.setTitle(title);
 			report.setAuthor(author);
@@ -60,7 +60,7 @@ public class PaperpassAction extends BaseAction{
 			report.setCreate_date(new Date());
 			report.setUid(orderNo1);
 			report.setLink("underchecking");
-			//取第一个
+			// 取第一个
 			report.setPpid(ret.get(0));
 			reportService.save(report);
 		} catch (HttpException e) {
@@ -68,26 +68,41 @@ public class PaperpassAction extends BaseAction{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//正常检测成功后，插入数据保存,保留报告地址位置为空,返回到list页面
-		ServletActionContext.getRequest().getSession().setAttribute("loginUserId", orderNo1);
+		// 正常检测成功后，插入数据保存,保留报告地址位置为空,返回到list页面
+		ServletActionContext.getRequest().getSession()
+				.setAttribute("loginUserId", orderNo1);
 		return "list";
 	}
-	
-	public String list(){
+
+	public String list() {
 		return "list";
 	}
-	
-	public String ajaxList(){
+
+	public String ajaxList() {
 		logger.info("--------ajaxList-----------");
-		logger.info("loginUserId:"+id);
-		Map<String,Object> map=new HashMap<String,Object>();
+		logger.info("loginUserId:" + id);
+		Map<String, Object> map = new HashMap<String, Object>();
 		pager.setPageSize(Integer.parseInt(rows));
 		pager.setPageNumber(Integer.parseInt(page));
 		map.put("uid", id);
-		pager=reportService.findPager(pager, map);
+		pager = reportService.findPager(pager, map);
 		Map<String, Object> JsonMap = new HashMap<String, Object>();
 		JsonMap.put("total", pager.getTotalCount());
 		JsonMap.put("rows", pager.getResult());
+		return ajax(JsonUtil.toJson(JsonMap));
+	}
+
+	public String delete() {
+		logger.info("--------delete-----------");
+		logger.info("-----ids----" + ids);
+		Map<String, Object> JsonMap = new HashMap<String, Object>();
+		try {
+			reportService.delete(ids);
+			JsonMap.put("msg", "删除成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsonMap.put("msg", "删除异常,请稍后再试");
+		}
 		return ajax(JsonUtil.toJson(JsonMap));
 	}
 
@@ -138,5 +153,5 @@ public class PaperpassAction extends BaseAction{
 	public void setPage(String page) {
 		this.page = page;
 	}
-	
+
 }
