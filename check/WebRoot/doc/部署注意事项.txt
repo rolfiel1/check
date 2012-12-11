@@ -20,3 +20,6 @@ App Secret:88aadbcd5f28244ea6da67fb968768dc
 http://open.taobao.com/doc/detail.htm?spm=0.0.0.21.OULkrI&id=101128
 
 http://open.taobao.com/doc/api_cat_detail.htm?category_id=102&cat_id=5
+
+发货示例api
+http://api.taobao.com/apidoc/api.htm?spm=0.0.0.21.w5zhdi&path=cid:7-apiId:10691
