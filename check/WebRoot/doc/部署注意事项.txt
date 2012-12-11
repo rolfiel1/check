@@ -8,3 +8,15 @@ http://item.taobao.com/item.htm?spm=a1z10.1.w4004.2.ob2W1a&id=16181054793
 
 4.服务器外网地址
 www.jiance100.com:8080
+
+
+相关账号
+session=6101428d8e41e95184b480f4bdc96f730a0c11d6ba386881057411533
+appkey:21286772
+App Secret:88aadbcd5f28244ea6da67fb968768dc 
+
+
+文档地址：
+http://open.taobao.com/doc/detail.htm?spm=0.0.0.21.OULkrI&id=101128
+
+http://open.taobao.com/doc/api_cat_detail.htm?category_id=102&cat_id=5
