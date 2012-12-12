@@ -44,25 +44,25 @@
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="" target="mainFrame">用户列表</a>
+							<td><a href="user!clientList.action" target="mainFrame">用户列表</a>
 							</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="" target="mainFrame">文章管理</a>
+							<td><a href="user!wzList.action" target="mainFrame">文章管理</a>
 							</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="" target="mainFrame">修改密码</a>
+							<td><a href="user!changePwd.action" target="mainFrame">修改密码</a>
 							</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="">退出系统</a>
+							<td><a href="user!logout.action">退出系统</a>
 							</td>
 						</tr>
 					</table>
@@ -70,7 +70,7 @@
 
 			</div>
 			<div class="right_info">
-				<iframe id="mainFrame" name="mainFrame"   width="100%" height="100%"></iframe>
+				<iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="no"  src="user!clientList.action"  width="100%" height="100%"></iframe>
 			</div>
 		</div>
 	</div>

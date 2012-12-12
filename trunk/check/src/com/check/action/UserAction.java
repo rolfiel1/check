@@ -18,7 +18,10 @@ import com.check.util.JsonUtil;
 @ParentPackage("admin")
 @Scope("prototype")
 @Results({ @Result(name = "ppCheck", location = "/ppCheck.jsp"),
-		@Result(name = "main", location = "/WEB-INF/manager/main.jsp") })
+	@Result(name = "main", location = "/WEB-INF/manager/main.jsp"),
+	@Result(name = "wzList", location = "/WEB-INF/manager/wz_list.jsp"),
+	@Result(name = "changePwd", location = "/WEB-INF/manager/changePwd.jsp"),
+@Result(name = "clientList", location = "/WEB-INF/manager/clientList.jsp")})
 public class UserAction extends BaseAction {
 	private static final long serialVersionUID = 2555487321597652641L;
 	private static Logger logger = Logger.getLogger(UserAction.class);
@@ -34,7 +37,11 @@ public class UserAction extends BaseAction {
 	public String ppCheck() {
 		return "ppCheck";
 	}
-
+	
+	public String logout(){
+		ServletActionContext.getRequest().getSession().removeAttribute("user");
+		return "tologin";
+	}
 	public String checkLogin() {
 		logger.info("----------login----------");
 		logger.info(orderNo1 + "," + orderNo2 + "," + validCode);
@@ -109,6 +116,30 @@ public class UserAction extends BaseAction {
 				return ajax(JsonUtil.toJson("success"));
 			}
 		}
+	}
+	
+	
+	public String clientList(){
+		return "clientList";
+	}
+	
+	public String ajaxClientList(){
+		
+		return null;
+	}
+	
+	public String wzList(){
+		
+		return "wzList";
+	}
+	
+	public String ajaxWzList(){
+		
+		return null;
+	}
+	
+	public String changePwd(){
+		return "changePwd";
 	}
 
 	public String main() {

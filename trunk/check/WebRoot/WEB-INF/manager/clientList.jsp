@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>百分百检测系统--文章列表页面</title>
+<title>百分百检测系统--客户列表页面</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=basePath%>/js/jqueryUI/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 function showData(url){
 	$('#dataList').datagrid({
-		title:'文章列表',
+		title:'论文检测报告',
 		width:'auto',
 		height:'auto',
 		nowrap: false,//True 就会把数据显示在一行里
@@ -103,7 +103,7 @@ function showData(url){
 	}
 </script>
 </head>
-<body >
+<bod>
 	<div id="dataList"></div>
 </body>
 </html>

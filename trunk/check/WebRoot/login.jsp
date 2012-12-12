@@ -17,6 +17,14 @@
 </head>
 
 <body style="background:none;">
+	<script type="text/javascript">
+
+		// 登录页面若在框架内，则跳出框架
+		if (self != top) {
+			top.location = self.location;
+		};
+
+	</script>
 <div class="login_top">
   <div class="center_bj">
     <div class="xtdh">
