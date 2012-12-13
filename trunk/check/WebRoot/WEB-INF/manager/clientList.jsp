@@ -22,12 +22,12 @@
 	src="<%=basePath%>/js/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
 <script language="javascript">
 $(document).ready(function(){
-	 showData('paperpass!ajaxList.action?id='${loginUserId});
+	 showData('user!ajaxClientList.action');
 })
 
 function showData(url){
 	$('#dataList').datagrid({
-		title:'论文检测报告',
+		title:'检测用户列表',
 		width:'auto',
 		height:'auto',
 		nowrap: false,//True 就会把数据显示在一行里
@@ -43,16 +43,20 @@ function showData(url){
 		]],
 		columns:[[
 			{field:'id',width:10,hidden:true, sortable:true},
-			{field:'title',title:'标题',align:'center',width:150,sortable:true},
-			{field:'author',title:'作者',align:'center',width:90,sortable:true},
-			{field:'link',title:'报告',align:'center',width:150,sortable:true,
+			{field:'username',title:'账号',align:'center',width:150,sortable:true},
+			{field:'flag',title:'检测类型',align:'center',width:90,sortable:true,
 				formatter:function(value,rowData,rowIndex){
-					if(rowData.link!='underchecking'){
-						return "<a href=\" \" style=\"cursor:pointer;\" >下载报告</a>";
+					if(rowData.flag ==1){
+						return "Paperpass";
+					}else if(rowData.flag ==2){
+						return "万方";
 					}else{
-						return "正在检测,请稍后...";
+						return "知网";
 					}
-				}}
+				}
+			},
+			{field:'cd',title:'创建时间',align:'center',width:90,sortable:true},
+			{field:'ld',title:'登录时间',align:'center',width:90,sortable:true}
 		]],
 		pagination:true,//显示分页栏
 		rownumbers:true,//自动给数据编号

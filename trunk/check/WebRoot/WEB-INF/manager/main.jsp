@@ -50,7 +50,13 @@
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="user!wzList.action" target="mainFrame">文章管理</a>
+							<td><a href="user!wzList.action" target="mainFrame">文章列表</a>
+							</td>
+						</tr>
+						<tr>
+							<td><span class="yhxt_tb"></span></td>
+							<td></td>
+							<td><a href="user!editWZ.action" target="_new">编辑文章</a>
 							</td>
 						</tr>
 						<tr>
@@ -69,9 +75,7 @@
 				</div>
 
 			</div>
-			<div class="right_info">
 				<iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="no"  src="user!clientList.action"  width="100%" height="100%"></iframe>
-			</div>
 		</div>
 	</div>
 	<div class="login_bottom">

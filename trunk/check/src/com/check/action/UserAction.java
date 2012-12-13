@@ -1,5 +1,8 @@
 package com.check.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.check.bean.User;
 import com.check.service.UserService;
 import com.check.util.JsonUtil;
+import com.check.util.MD5Util;
 
 @Controller
 @ParentPackage("admin")
@@ -20,6 +24,7 @@ import com.check.util.JsonUtil;
 @Results({ @Result(name = "ppCheck", location = "/ppCheck.jsp"),
 	@Result(name = "main", location = "/WEB-INF/manager/main.jsp"),
 	@Result(name = "wzList", location = "/WEB-INF/manager/wz_list.jsp"),
+	@Result(name = "editWZ", location = "/WEB-INF/manager/wz_input.jsp"),
 	@Result(name = "changePwd", location = "/WEB-INF/manager/changePwd.jsp"),
 @Result(name = "clientList", location = "/WEB-INF/manager/clientList.jsp")})
 public class UserAction extends BaseAction {
@@ -30,6 +35,8 @@ public class UserAction extends BaseAction {
 	private String validCode;
 	private String username;
 	private String password;
+	private String rows;// 每页显示的记录数
+	private String page;// 当前第几页
 
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
@@ -90,7 +97,7 @@ public class UserAction extends BaseAction {
 	}
 
 	/**
-	 * 暂无password MD5加密 TODO 加密
+	 * 暂无password MD5加密
 	 * 
 	 * @return
 	 */
@@ -107,7 +114,7 @@ public class UserAction extends BaseAction {
 		if (!sessionValidcode.equals(validCode)) {
 			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
 		} else {
-			user = userService.adminLogin(username, password);
+			user = userService.adminLogin(username, MD5Util.toMD5(password));
 			if (user == null) {
 				return ajax(JsonUtil.toJson("用户名或密码错误,请重新输入!"));
 			} else {
@@ -124,8 +131,15 @@ public class UserAction extends BaseAction {
 	}
 	
 	public String ajaxClientList(){
-		
-		return null;
+		logger.info("--------ajaxClientList()-----------");
+		Map<String, Object> map = new HashMap<String, Object>();
+		pager.setPageSize(Integer.parseInt(rows));
+		pager.setPageNumber(Integer.parseInt(page));
+		pager = userService.findPager(pager, map);
+		Map<String, Object> JsonMap = new HashMap<String, Object>();
+		JsonMap.put("total", pager.getTotalCount());
+		JsonMap.put("rows", pager.getResult());
+		return ajax(JsonUtil.toJson(JsonMap));
 	}
 	
 	public String wzList(){
@@ -144,6 +158,10 @@ public class UserAction extends BaseAction {
 
 	public String main() {
 		return "main";
+	}
+	
+	public String editWZ() {
+		return "editWZ";
 	}
 
 	public String getOrderNo1() {
@@ -184,6 +202,22 @@ public class UserAction extends BaseAction {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
 	}
 
 }

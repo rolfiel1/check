@@ -54,7 +54,8 @@ function showData(url){
 					}else{
 						return "正在检测,请稍后...";
 					}
-				}}
+				}},
+			{field:'cd',title:'提交时间',align:'center',width:90,sortable:true}
 		]],
 		pagination:true,//显示分页栏
 		rownumbers:true,//自动给数据编号

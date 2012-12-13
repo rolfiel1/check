@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import com.check.util.DateStrUtil;
+
 @Repository
 @Scope("prototype")
 public class User implements java.io.Serializable {
@@ -17,6 +19,35 @@ public class User implements java.io.Serializable {
 	private Date create_date;
 	private Date login_date;
 	private String remark;
+	private String cd;
+	private String ld;
+	private Integer flag;
+	
+	
+
+	public Integer getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Integer flag) {
+		this.flag = flag;
+	}
+
+	public String getCd() {
+		return DateStrUtil.date2str(this.create_date);
+	}
+
+	public void setCd(String cd) {
+		this.cd = cd;
+	}
+
+	public String getLd() {
+		return DateStrUtil.date2str(this.login_date);
+	}
+
+	public void setLd(String ld) {
+		this.ld = ld;
+	}
 
 	public Integer getId() {
 		return id;

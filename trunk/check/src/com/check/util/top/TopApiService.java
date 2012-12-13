@@ -103,6 +103,7 @@ public class TopApiService {
 			log.info("查询出的订单时间:"+rsp.getTrade().getCreated());
 			log.info("查询出的订单时间:"+rsp.getTrade().getOrders().get(0).getStatus());
 			log.info("查询出的订单号："+rsp.getTrade().getTid());
+			log.info("查询出的商品id："+rsp.getTrade().getOrders().get(0).getNumIid());
 			//将查出的订单id插入user表中
 			UserDao userDao=(UserDao)SpringUtil.getBean("userDaoImpl");
 			
