@@ -68,17 +68,25 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<!-- 定时器配置 -->
+	<!-- 定时读取淘宝数据到用户表,以及定时下载pp报告 -->
 	<bean id="timerTask" class="com.check.util.PPDownloadReportUtil" />
 	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
 		<property name="delay" value="10000"></property>
 		<property name="period" value="600000"></property>
 		<property name="timerTask" ref="timerTask"></property>
 	</bean>
+	<!-- 每隔20小时刷新淘宝sessionKey -->
+	<bean id="topSKTask" class="com.check.util.top.TopUtil" />
+	<bean id="sessionKeyTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="delay" value="20000"></property>
+		<property name="period" value="72000000"></property>
+		<property name="timerTask" ref="topSKTask"></property>
+	</bean>
 	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
 		<property name="scheduledTimerTasks">
 			<list>
 				<ref local="scheduledTask"></ref>
+				<ref local="sessionKeyTask"></ref>
 			</list>
 		</property>
 	</bean>

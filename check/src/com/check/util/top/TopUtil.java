@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TimerTask;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
@@ -16,8 +17,12 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.check.util.PPUtil;
 import com.taobao.api.internal.util.WebUtils;
 
-public class TopUtil {
+public class TopUtil extends TimerTask{
 
+	@Override
+	public void run() {
+		refreshSessionKey();
+	}
 	public static Map<String, String> convertBase64StringtoMap(String str,
 			String encode) {
 		if (str == null)
@@ -116,7 +121,6 @@ public class TopUtil {
 	}
 
 	public static void main(String[] args) {
-//		ParametersName("ZXhwaXJlc19pbj04NjQwMCZpZnJhbWU9MSZyMV9leHBpcmVzX2luPTg2NDAwJnIyX2V4cGlyZXNfaW49ODY0MDAmcmVfZXhwaXJlc19pbj04NjQwMCZyZWZyZXNoX3Rva2VuPTYxMDEwMDc5YmMwMWNjNTEwOGQwZTJkNWQxYzc2ZTIxMmNhNmRiNTkwZTM2NjVjMTA1NzQxMTUzMyZ0cz0xMzU1MzY5MjYyNjE0JnZpc2l0b3JfaWQ9MTA1NzQxMTUzMyZ2aXNpdG9yX25pY2s9amlhbmNlMTAwJncxX2V4cGlyZXNfaW49ODY0MDAmdzJfZXhwaXJlc19pbj0xODAw");
 		refreshSessionKey();
 	}
 }

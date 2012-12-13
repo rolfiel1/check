@@ -50,8 +50,6 @@
 </script>
 </head>
 <body>
-	<h3>默认模式</h3>
-	<form>
 		<textarea name="content"
 			style="width:800px;height:400px;visibility:hidden;">KindEditor</textarea>
 		<p>
@@ -66,7 +64,6 @@
 				name="clear" value="清空内容" /> <input type="reset" name="reset"
 				value="Reset" />
 		</p>
-	</form>
 <body>
 </body>
 </html>

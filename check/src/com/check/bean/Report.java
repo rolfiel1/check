@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import com.check.util.DateStrUtil;
+
 @Repository
 @Scope("prototype")
 public class Report implements java.io.Serializable {
@@ -20,6 +22,7 @@ public class Report implements java.io.Serializable {
 	private String remark;
 	private String uid;
 	private String ppid;
+	private String cd;
 	
 	public Integer getId() {
 		return id;
@@ -82,5 +85,10 @@ public class Report implements java.io.Serializable {
 	public void setPpid(String ppid) {
 		this.ppid = ppid;
 	}
-	
+	public String getCd() {
+		return DateStrUtil.date2str(this.create_date);
+	}
+	public void setCd(String cd) {
+		this.cd = cd;
+	}
 }
