@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.check.bean.User;
 import com.check.dao.UserDao;
 import com.check.util.SpringUtil;
 import com.taobao.api.ApiException;
@@ -106,6 +107,12 @@ public class TopApiService {
 			log.info("查询出的商品id："+rsp.getTrade().getOrders().get(0).getNumIid());
 			//将查出的订单id插入user表中
 			UserDao userDao=(UserDao)SpringUtil.getBean("userDaoImpl");
+			User user=new User();
+			user.setCreate_date(new Date());
+			user.setSign(0);
+			user.setUsername(rsp.getTrade().getTid().toString());
+			userDao.save(user);
+			//主动发货
 			
 			return rsp.getTrade();
 		}
