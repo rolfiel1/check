@@ -9,6 +9,14 @@ http://item.taobao.com/item.htm?spm=a1z10.1.w4004.2.ob2W1a&id=16181054793
 4.服务器外网地址
 www.jiance100.com:8080
 
+top_appkey=21286772
+top_parameters=ZXhwaXJlc19pbj04NjQwMCZpZnJhbWU9MSZyMV9leHBpcmVzX2luPTg2NDAwJnIyX2V4cGlyZXNfaW49ODY0MDAmcmVfZXhwaXJlc19pbj04NjQwMCZyZWZyZXNoX3Rva2VuPTYxMDE0MDRkOGU0MTE5OGFlMWZkZTk1MTg0YjQ4MGY0YmRjOTZmNzMwYTBjNjg4MTA1NzQxMTUzMyZ0cz0xMzU1MzYzOTE3ODczJnZpc2l0b3JfaWQ9MTA1NzQxMTUzMyZ2aXNpdG9yX25pY2s9amlhbmNlMTAwJncxX2V4cGlyZXNfaW49ODY0MDAmdzJfZXhwaXJlc19pbj0xODAw
+top_session=6100104990ac179eec7d5b47d79ac3dcdbcb1d5d8cdb1661057411533
+sign=kL6AALcWgWNIIyYuKCr6Xw%3D%3D
+timestamp=2012-12-13+09%3A58%3A35
+agreement=true
+agreementsign=21286772-22589398-1057411533-F0155D9D929580051B879C35853B3492
+top_sign=jJc7sVmCnpBnXdkjfD0XDw%3D%3D
 
 相关账号
 session=6101428d8e41e95184b480f4bdc96f730a0c11d6ba386881057411533
@@ -23,3 +31,10 @@ http://open.taobao.com/doc/api_cat_detail.htm?category_id=102&cat_id=5
 
 发货示例api
 http://api.taobao.com/apidoc/api.htm?spm=0.0.0.21.w5zhdi&path=cid:7-apiId:10691
+
+延长sessionKey
+http://open.taobao.com/doc/detail.htm?spm=0.0.0.174.BNuquG&id=105#s1
+
+
+解析top_parameters
+http://open.taobao.com/doc/detail.htm?spm=0.0.0.179.bRbYDM&id=110
