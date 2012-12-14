@@ -22,7 +22,7 @@
 	src="<%=basePath%>/js/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
 <script language="javascript">
 $(document).ready(function(){
-	 showData('paperpass!ajaxList.action?id='${loginUserId});
+	 showData('article!ajaxList.action');
 })
 
 function showData(url){
@@ -45,13 +45,23 @@ function showData(url){
 			{field:'id',width:10,hidden:true, sortable:true},
 			{field:'title',title:'标题',align:'center',width:150,sortable:true},
 			{field:'author',title:'作者',align:'center',width:90,sortable:true},
-			{field:'link',title:'报告',align:'center',width:150,sortable:true,
+			{field:'content',title:'内容',align:'center',width:150,sortable:true,
 				formatter:function(value,rowData,rowIndex){
-					if(rowData.link!='underchecking'){
-						return "<a href=\" \" style=\"cursor:pointer;\" >下载报告</a>";
-					}else{
-						return "正在检测,请稍后...";
-					}
+					return subValue(value);
+				}},
+			{field:'type',title:'分类',align:'center',width:90,sortable:true,
+				formatter:function(value,rowData,rowIndex){
+					switch(value){
+						case 1:return "第一";
+						case 2:return "第二";
+						case 3:return "第三";
+						default:
+							return "第四";
+					} 
+				}},
+			{field:'opt',title:'操作',align:'center',width:50,sortable:true,
+				formatter:function(value,rowData,rowIndex){
+					return "<a  onclick=\" edit('"+rowData.id +"')\" style=\"cursor:pointer;\" >[编辑]</a>";
 				}}
 		]],
 		pagination:true,//显示分页栏
@@ -77,6 +87,18 @@ function showData(url){
     	});  
 	}
 }	
+	//截取内容
+	function subValue(data){
+		    if(data == null){
+		        return "";
+		    }else{
+			    if(data.length > 16){
+			   		return data.substring(0,16)+"..."; 
+			    }else{
+			     	return data;
+			    }
+		    } 
+		}
 	function del(){
 		var ids = [];
 		var rows = $('#dataList').datagrid('getSelections');
@@ -87,7 +109,7 @@ function showData(url){
 			$.messager.confirm('提示', '是否删除选择的数据?', function(ret){
 				if(ret){
 					$.ajax({
-						url: "paperpass!delete.action?ids="+ids,
+						url: "article!delete.action?ids="+ids,
 						type: "POST",
 						dataType:"json",
 						success: function(data) {
@@ -101,9 +123,12 @@ function showData(url){
 			$.messager.alert("消息提示","请选择数据!",'info');
 		}
 	}
+	function edit(id){
+		window.open('<%=basePath%>article!edit.action?ajaxId='+id,'_blank');
+	}
 </script>
 </head>
-<body >
+<body>
 	<div id="dataList"></div>
 </body>
 </html>

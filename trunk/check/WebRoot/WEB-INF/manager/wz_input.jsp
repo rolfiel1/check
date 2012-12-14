@@ -11,12 +11,13 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>百分百检测系统--文章[添加/修改]页面</title>
-<script charset="utf-8" src="<%=basePath%>js/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8"
+	src="<%=basePath%>js/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="<%=basePath%>js/kindeditor/lang/zh_CN.js"></script>
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="content"]', {
+		editor = K.create('textarea[name="article.content"]', {
 			allowFileManager : true
 		});
 		K('input[name=getHtml]').click(function(e) {
@@ -50,20 +51,19 @@
 </script>
 </head>
 <body>
-		<textarea name="content"
-			style="width:800px;height:400px;visibility:hidden;">KindEditor</textarea>
-		<p>
-			<input type="button" name="getHtml" value="取得HTML" /> <input
-				type="button" name="isEmpty" value="判断是否为空" /> <input type="button"
-				name="getText" value="取得文本(包含img,embed)" /> <input type="button"
-				name="selectedHtml" value="取得选中HTML" /> <br /> <br /> <input
-				type="button" name="setHtml" value="设置HTML" /> <input type="button"
-				name="setText" value="设置文本" /> <input type="button"
-				name="insertHtml" value="插入HTML" /> <input type="button"
-				name="appendHtml" value="添加HTML" /> <input type="button"
-				name="clear" value="清空内容" /> <input type="reset" name="reset"
-				value="Reset" />
-		</p>
-<body>
+	<form action="article!save.action" method="post">
+		文章标题:<input type="text" name="article.title" id="article.title" value="${article.title }"><br /> 
+		文章作者:<input type="text" name="article.author" id="article.author" value="${article.author}"><br /> 
+		文章分类:<select id=article.type name="article.type">
+					<option value="1">第一</option>
+					<option value="2">第二</option>
+					<option value="3">第三</option>
+					<option value="4">第四</option>
+			</select><br /> 
+		文章内容:<textarea name="article.content" id="article.content"
+					style="width:800px;height:400px;visibility:hidden;">${article.content }</textarea> <br />
+				文章备注:<textarea rows="2" cols="40" name="article.remark" id="article.remark ">${article.remark }</textarea>
+		<input type="submit" name="submitBtn" id="submitBtn" value="提交"><input type="reset" name="resetBtn" id="resetBtn" value="取消">		
+	</form>
 </body>
 </html>

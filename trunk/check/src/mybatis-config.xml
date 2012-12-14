@@ -4,9 +4,11 @@
 	<typeAliases>
 		<typeAlias alias="User" type="com.check.bean.User" />
 		<typeAlias alias="Report" type="com.check.bean.Report" />
+		<typeAlias alias="Article" type="com.check.bean.Article" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/check/orm/mapping/User.xml" />
 		<mapper resource="com/check/orm/mapping/Report.xml" />
+		<mapper resource="com/check/orm/mapping/Article.xml" />
 	</mappers>
 </configuration>

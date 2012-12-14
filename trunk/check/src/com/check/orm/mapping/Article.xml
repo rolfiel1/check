@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Article">
+	<resultMap type="Article" id="articleResultMap">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="author" column="author" />
+		<result property="content" column="content" />
+		<result property="create_date" column="create_date" />
+		<result property="type" column="type" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<insert id="save" parameterType="Article">
+		insert into wz
+		(
+		title,
+		author,
+		content,
+		create_date,
+		type,
+		remark
+		)
+		values
+		(
+		#{title},
+		#{author},
+		#{content},
+		#{create_date},
+		#{type},
+		#{remark}
+		)
+	</insert>
+
+	<update id="update" parameterType="Article">
+		update wz set
+		title = #{title},
+		author = #{author},
+		content = #{content},
+		create_date =#{create_date},
+		type = #{type},
+		remark = #{remark}
+		where
+		id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="Article">
+		delete from wz where
+		id=#{id}
+	</delete>
+
+	<delete id="deleteById" parameterType="String">
+		delete from wz where
+		id=#{id}
+	</delete>
+	
+	<delete id="deleteByArray" parameterType="map">
+		delete from wz where id in
+		<foreach item="item" index="index" collection="ids" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="findById" parameterType="String" resultMap="articleResultMap">
+		select *
+		from wz where id=#{id}
+	</select>
+
+	<select id="findAll" resultMap="articleResultMap">
+		select * from wz
+	</select>
+
+	<select id="queryPage" resultMap="articleResultMap" parameterType="map">
+		SELECT * FROM wz u 
+		where 1=1
+		<if test="type!=null and type!= ''">and u.type = #{type}</if>
+		ORDER BY
+			u.create_date DESC
+		LIMIT 0, 10
+	</select>
+
+	<select id="getTotalCounts" parameterType="map" resultType="Integer">
+	<![CDATA[ 	
+		SELECT count(0) FROM wz u 
+		ORDER BY
+			u.create_date DESC
+		LIMIT 0, 10]]>
+	</select>
+
+</mapper>

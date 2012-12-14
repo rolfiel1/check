@@ -65,7 +65,7 @@
 		<div class="lwjc_srk">
 			<div class="srk_bt">重要提醒：系统仅支持中文论文（包括简体，繁体）的检测，暂不支持英语等非中文的检测请勿提交非中文论文！！</div>
 			<div class="table_box" style="text-align:center;">
-			<form action="paperpass!ppCheck.action?orderNo1=$('#validCode').val()" method="post">
+			<form action="paperpass!check.action?orderNo1=$('#validCode').val()" method="post">
 				<table width="100%" border="0" class="table_tb">
 					<tr>
 						<td colspan="2">提示：系统在检测时，会分析论文的前后文关系，所以请您提交论文的全部内容，如果是非全文的检测将不能保证检测的准确性！</td>
