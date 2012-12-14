@@ -21,10 +21,8 @@ import com.check.util.MD5Util;
 @Controller
 @ParentPackage("admin")
 @Scope("prototype")
-@Results({ @Result(name = "ppCheck", location = "/ppCheck.jsp"),
+@Results({ 
 	@Result(name = "main", location = "/WEB-INF/manager/main.jsp"),
-	@Result(name = "wzList", location = "/WEB-INF/manager/wz_list.jsp"),
-	@Result(name = "editWZ", location = "/WEB-INF/manager/wz_input.jsp"),
 	@Result(name = "changePwd", location = "/WEB-INF/manager/changePwd.jsp"),
 @Result(name = "clientList", location = "/WEB-INF/manager/clientList.jsp")})
 public class UserAction extends BaseAction {
@@ -35,16 +33,14 @@ public class UserAction extends BaseAction {
 	private String validCode;
 	private String username;
 	private String password;
+	private String oldPwd;
+	private String newPwd;
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
 
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
 
-	public String ppCheck() {
-		return "ppCheck";
-	}
-	
 	public String logout(){
 		ServletActionContext.getRequest().getSession().removeAttribute("user");
 		return "tologin";
@@ -142,18 +138,24 @@ public class UserAction extends BaseAction {
 		return ajax(JsonUtil.toJson(JsonMap));
 	}
 	
-	public String wzList(){
-		
-		return "wzList";
-	}
-	
-	public String ajaxWzList(){
-		
-		return null;
-	}
-	
 	public String changePwd(){
 		return "changePwd";
+	}
+	
+	public String changeP(){
+		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
+		User entity=userService.adminLogin(user.getUsername(), MD5Util.toMD5(oldPwd));
+		Map<String,Object> ret=new HashMap<String,Object>();
+		if(entity!=null){
+			ret.put("msg", "修改成功,系统将在5秒钟后退出,请重新登录");
+			ret.put("ret", "success");
+			user.setPassword(MD5Util.toMD5(newPwd));
+			userService.update(user);
+		}else{
+			ret.put("ret", "error");
+			ret.put("msg", "原密码输入不正确,请重新输入");
+		}
+		return ajax(JsonUtil.toJson(ret));
 	}
 
 	public String main() {
@@ -218,6 +220,18 @@ public class UserAction extends BaseAction {
 
 	public void setPage(String page) {
 		this.page = page;
+	}
+	public String getOldPwd() {
+		return oldPwd;
+	}
+	public void setOldPwd(String oldPwd) {
+		this.oldPwd = oldPwd;
+	}
+	public String getNewPwd() {
+		return newPwd;
+	}
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
 	}
 
 }

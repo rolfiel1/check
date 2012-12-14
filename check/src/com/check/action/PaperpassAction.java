@@ -25,7 +25,10 @@ import com.check.util.PPUtil;
 @Controller
 @ParentPackage("admin")
 @Scope("prototype")
-@Results({ @Result(name = "list", location = "/WEB-INF/manager/pp_list.jsp") })
+@Results({ 
+	@Result(name = "pp", location = "/ppCheck.jsp"),
+	@Result(name = "list", location = "/WEB-INF/manager/pp_list.jsp")
+})
 public class PaperpassAction extends BaseAction {
 
 	/**
@@ -44,8 +47,13 @@ public class PaperpassAction extends BaseAction {
 	private String orderNo1;
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
+	
+	
+	public String pp() {
+		return "pp";
+	}
 
-	public String ppCheck() {
+	public String check() {
 		logger.info("title:" + title);
 		logger.info("author:" + author);
 		logger.info("sz:" + sz);

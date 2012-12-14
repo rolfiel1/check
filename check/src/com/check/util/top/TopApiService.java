@@ -18,11 +18,13 @@ import com.taobao.api.domain.Trade;
 import com.taobao.api.internal.util.AtsUtils;
 import com.taobao.api.internal.util.TaobaoUtils;
 import com.taobao.api.request.IncrementCustomerPermitRequest;
+import com.taobao.api.request.LogisticsDummySendRequest;
 import com.taobao.api.request.TopatsResultGetRequest;
 import com.taobao.api.request.TopatsTradesSoldGetRequest;
 import com.taobao.api.request.TradeFullinfoGetRequest;
 import com.taobao.api.request.TradesSoldGetRequest;
 import com.taobao.api.request.TradesSoldIncrementGetRequest;
+import com.taobao.api.response.LogisticsDummySendResponse;
 import com.taobao.api.response.TopatsResultGetResponse;
 import com.taobao.api.response.TopatsTradesSoldGetResponse;
 import com.taobao.api.response.TradeFullinfoGetResponse;
@@ -56,7 +58,7 @@ public class TopApiService {
 		do {
 			req.setPageNo(pageNo);
 			rsp = client.execute(req, sessionKey);
-			if (rsp.isSuccess()) {
+			if (rsp.isSuccess()&&rsp.getTrades().size()>0) {
 				log.info("同步中>>>第" + req.getPageNo() + "页");
 				for (Trade t : rsp.getTrades()) {
 					getTradeFullInfo(t.getTid(), sessionKey); // FIXME 保存订单到数据库中
@@ -113,7 +115,11 @@ public class TopApiService {
 			user.setUsername(rsp.getTrade().getTid().toString());
 			userDao.save(user);
 			//主动发货
-			
+			LogisticsDummySendRequest reqLDSR=new LogisticsDummySendRequest();
+			req.setTid(rsp.getTrade().getTid());
+			LogisticsDummySendResponse response = client.execute(reqLDSR , sessionKey);
+			log.info("主动发货是否成功："+response.isSuccess());
+			log.info("主动发货返回提示信息："+response.getSubMsg());
 			return rsp.getTrade();
 		}
 		return null;

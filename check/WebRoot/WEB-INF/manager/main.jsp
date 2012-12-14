@@ -50,19 +50,19 @@
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="user!wzList.action" target="mainFrame">文章列表</a>
+							<td><a href="article!list.action" target="mainFrame">文章列表</a>
 							</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="user!editWZ.action" target="_new">编辑文章</a>
+							<td><a href="article!edit.action" target="_new">编辑文章</a>
 							</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span></td>
 							<td></td>
-							<td><a href="user!changePwd.action" target="mainFrame">修改密码</a>
+							<td><a href="user!changePwd.action" target="_new">修改密码</a>
 							</td>
 						</tr>
 						<tr>
