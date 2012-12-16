@@ -159,7 +159,7 @@ function adminLogin() {
 		dataType : "json",
 		success : function(data) {
 			if(data=='success'){
-				window.location="user!main.action";
+				window.location.href=" http://container.open.taobao.com/container?appkey=21286772";
 			}else{
 				alert('系统异常,请稍后再试!');
 			}
