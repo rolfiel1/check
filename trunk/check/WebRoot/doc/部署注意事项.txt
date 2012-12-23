@@ -38,8 +38,8 @@ zhangyi520
 
 、、、、解决办法
 
-提交检测的时候判断好价格存入lwreport中，
-自动存入订单号的时候，将价格也存入user表中
-用户查看列表的时候，判断，lwreport和user表中的数据是否够，不够不让下载，
-如果user表中存的价格大于lwreport中的价格，将多余部分存入user->account中，
+提交检测的时候判断好价格存入lwreport->price中，
+自动存入订单号的时候，将价格也存入user->price表中
+用户查看列表的时候，判断，lwreport->price和user->price的大小，不够不让下载，
+如果user->price价格大于lwreport->price，将多余部分存入user->account中，
 下次该用户提交检测的时候，判断价格的时候，判断user->price+user->account之和的大小和lwreport中->price的大小。
