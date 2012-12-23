@@ -31,3 +31,15 @@ top_session=61000115331969f6caa13df5b62a753468aa587a143922e1057411533
 ppppppp:
 bfblw
 zhangyi520
+
+
+//问题
+自动发货前判断好价格是否够
+
+、、、、解决办法
+
+提交检测的时候判断好价格存入lwreport中，
+自动存入订单号的时候，将价格也存入user表中
+用户查看列表的时候，判断，lwreport和user表中的数据是否够，不够不让下载，
+如果user表中存的价格大于lwreport中的价格，将多余部分存入user->account中，
+下次该用户提交检测的时候，判断价格的时候，判断user->price+user->account之和的大小和lwreport中->price的大小。
