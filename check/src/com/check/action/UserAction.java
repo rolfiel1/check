@@ -65,7 +65,8 @@ public class UserAction extends BaseAction {
 				return ajax(JsonUtil.toJson("订单号不存在,请重新输入!"));
 			} else {
 				// 提交数据到PaperPass，开始检测论文
-				return ajax(JsonUtil.toJson("发货成功,正在检测,请稍等..."));
+				ServletActionContext.getRequest().getSession().setAttribute("user",user );
+				return ajax(JsonUtil.toJson("success"));
 			}
 
 		}
