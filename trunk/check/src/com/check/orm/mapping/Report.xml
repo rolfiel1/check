@@ -57,9 +57,9 @@
 		order by t.create_date desc
 	</select>
 
-	<delete id="deleteByArray" parameterType="map">
+	<delete id="deleteByArray" parameterType="list">
 		delete from lwreport where id in
-		<foreach item="item" index="index" collection="ids" open="("
+		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
 			#{item}
 		</foreach>

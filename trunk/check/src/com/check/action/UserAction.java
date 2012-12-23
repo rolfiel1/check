@@ -23,6 +23,9 @@ import com.check.util.MD5Util;
 @Scope("prototype")
 @Results({ 
 	@Result(name = "main", location = "/WEB-INF/manager/main.jsp"),
+	@Result(name = "left", location = "/WEB-INF/manager/left.jsp"),
+	@Result(name = "top", location = "/WEB-INF/manager/top.jsp"),
+	@Result(name = "bottom", location = "/WEB-INF/manager/bottom.jsp"),
 	@Result(name = "changePwd", location = "/WEB-INF/manager/changePwd.jsp"),
 @Result(name = "clientList", location = "/WEB-INF/manager/clientList.jsp")})
 public class UserAction extends BaseAction {
@@ -121,6 +124,19 @@ public class UserAction extends BaseAction {
 		}
 	}
 	
+	public String delete() {
+		logger.info("--------delete-----------");
+		logger.info("-----ids----" + ids);
+		Map<String, Object> JsonMap = new HashMap<String, Object>();
+		try {
+			userService.delete(ids);
+			JsonMap.put("msg", "删除成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JsonMap.put("msg", "删除异常,请稍后再试");
+		}
+		return ajax(JsonUtil.toJson(JsonMap));
+	}
 	
 	public String clientList(){
 		return "clientList";
@@ -160,6 +176,16 @@ public class UserAction extends BaseAction {
 
 	public String main() {
 		return "main";
+	}
+	
+	public String left() {
+		return "left";
+	}
+	public String top() {
+		return "top";
+	}
+	public String bottom() {
+		return "bottom";
 	}
 	
 	public String editWZ() {

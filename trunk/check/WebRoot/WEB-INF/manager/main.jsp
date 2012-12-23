@@ -11,78 +11,14 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>百分百检测系统--管理员主页面</title>
-<link href="<%=basePath%>/css/index.css" rel="stylesheet" type="text/css" />
 </head>
-<body style="background:none;">
-	<div class="login_top">
-		<div class="center_bj">
-			<div class="xtdh">
-				<ul>
-					<li><a href="#">首页</a>
-					</li>
-					<li><a href="#">知网系统</a>
-					</li>
-					<li><a href="#">万方系统</a>
-					</li>
-					<li><a href="#">paperpass系统</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="login_center">
-		<div class="center_bj1">
-			<div class="left_info">
-				<div class="tb_box">
-					<table width="100%" border="0">
-						<tr>
-							<td width="16"><span class="user_tb"></span>
-							</td>
-							<th align="right" width="70">当前用户：</th>
-							<td>${user.username }</td>
-						</tr>
-						<tr>
-							<td><span class="yhxt_tb"></span></td>
-							<td></td>
-							<td><a href="user!clientList.action" target="mainFrame">用户列表</a>
-							</td>
-						</tr>
-						<tr>
-							<td><span class="yhxt_tb"></span></td>
-							<td></td>
-							<td><a href="article!list.action" target="mainFrame">文章列表</a>
-							</td>
-						</tr>
-						<tr>
-							<td><span class="yhxt_tb"></span></td>
-							<td></td>
-							<td><a href="article!edit.action" target="_new">编辑文章</a>
-							</td>
-						</tr>
-						<tr>
-							<td><span class="yhxt_tb"></span></td>
-							<td></td>
-							<td><a href="user!changePwd.action" target="_new">修改密码</a>
-							</td>
-						</tr>
-						<tr>
-							<td><span class="yhxt_tb"></span></td>
-							<td></td>
-							<td><a href="user!logout.action">退出系统</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-
-			</div>
-				<iframe id="mainFrame" name="mainFrame" frameborder="0" scrolling="no"  src="user!clientList.action"  width="100%" height="100%"></iframe>
-		</div>
-	</div>
-	<div class="login_bottom">
-		<div class="bottom_bj">
-			主办单位：论文检测办公室 版权所有：zlking工作室<br>技术支持：zlking工作室 技术热线：028-67167178
-				ICP备案号：苏ICP备12070094号 
-		</div>
-	</div>
-</body>
+<frameset rows="75,*,75" frameborder="no" border="0" framespacing="0">
+  <frame src="user!top.action" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame" />
+  <frameset cols="260,*" frameborder="0" border="0" framespacing="0" bordercolor="#5D7E83">
+    <frame src="user!left.action" name="leftFrame" frameborder="0" border="0" scrolling="no"  id="leftFrame" title="leftFrame" />
+    <frame src="" name="rightFrame" frameborder="0" border="0" scrolling="auto"  id="rightFrame" title="rightFrame" />
+  </frameset>
+  <frame src="user!bottom.action" name="bottomFrame" scrolling="No" noresize="noresize" id="bottomFrame" title="bottomFrame" />
+</frameset>
+    <noframes>此页面为框架页面，如果您看到此页面，证明您的浏览器不能有效显示本页面，请更换为IE或火狐浏览器后再访问本页面。</noframes>
 </html>

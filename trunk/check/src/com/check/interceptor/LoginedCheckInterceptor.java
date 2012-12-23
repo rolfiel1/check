@@ -19,6 +19,7 @@ public class LoginedCheckInterceptor extends AbstractInterceptor {
 		if (url.indexOf("paperpass!pp.action") != -1
 				|| url.indexOf("validcode!getValidcode.action") != -1
 				|| url.indexOf("article!show4") != -1
+				|| url.indexOf("article!detail") != -1
 				|| url.indexOf("user!checkLogin.action") != -1
 				|| url.indexOf("user!adminLogin.action") != -1
 				|| url.indexOf("user!login.action") != -1) {

@@ -69,7 +69,7 @@
 			u.username <> 'admin'
 		ORDER BY
 			u.create_date DESC
-		LIMIT 0, 10]]>
+		LIMIT #{pageNumber},#{pageSize}]]>
 	</select>
 
 	<select id="getTotalCounts" parameterType="map" resultType="Integer">
@@ -91,4 +91,12 @@
 		from user where username=#{username} and password=#{password}
 	</select>
 
+
+	<delete id="deleteByArray" parameterType="list">
+		delete from user where id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>

@@ -91,7 +91,7 @@ function showData(url){
 			$.messager.confirm('提示', '是否删除选择的数据?', function(ret){
 				if(ret){
 					$.ajax({
-						url: "paperpass!delete.action?ids="+ids,
+						url: "user!delete.action?ids="+ids,
 						type: "POST",
 						dataType:"json",
 						success: function(data) {

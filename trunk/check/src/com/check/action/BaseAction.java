@@ -274,5 +274,17 @@ private static final long serialVersionUID = 6718838822334455667L;
 	public void setPager(Pager pager) {
 		this.pager = pager;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String[] getIds() {
+		return ids;
+	}
+	public void setIds(String[] ids) {
+		this.ids = ids;
+	}
 	
 }

@@ -24,17 +24,5 @@ appkey:21286772
 App Secret:88aadbcd5f28244ea6da67fb968768dc 
 
 
-文档地址：
-http://open.taobao.com/doc/detail.htm?spm=0.0.0.21.OULkrI&id=101128
-
-http://open.taobao.com/doc/api_cat_detail.htm?category_id=102&cat_id=5
-
-发货示例api
-http://api.taobao.com/apidoc/api.htm?spm=0.0.0.21.w5zhdi&path=cid:7-apiId:10691
-
-延长sessionKey
-http://open.taobao.com/doc/detail.htm?spm=0.0.0.174.BNuquG&id=105#s1
-
-
-解析top_parameters
-http://open.taobao.com/doc/detail.htm?spm=0.0.0.179.bRbYDM&id=110
+top_appkey=21286772
+top_session=61000115331969f6caa13df5b62a753468aa587a143922e1057411533

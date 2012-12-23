@@ -76,17 +76,17 @@
 		<property name="timerTask" ref="timerTask"></property>
 	</bean>
 	<!-- 每隔20小时刷新淘宝sessionKey -->
-	<bean id="topSKTask" class="com.check.util.top.TopUtil" />
-	<bean id="sessionKeyTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
-		<property name="delay" value="20000"></property>
-		<property name="period" value="72000000"></property>
-		<property name="timerTask" ref="topSKTask"></property>
-	</bean>
+<!-- 	<bean id="topSKTask" class="com.check.util.top.TopUtil" /> -->
+<!-- 	<bean id="sessionKeyTask" class="org.springframework.scheduling.timer.ScheduledTimerTask"> -->
+<!-- 		<property name="delay" value="20000"></property> -->
+<!-- 		<property name="period" value="72000000"></property> -->
+<!-- 		<property name="timerTask" ref="topSKTask"></property> -->
+<!-- 	</bean> -->
 	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
 		<property name="scheduledTimerTasks">
 			<list>
 				<ref local="scheduledTask"></ref>
-				<ref local="sessionKeyTask"></ref>
+<!-- 				<ref local="sessionKeyTask"></ref> -->
 			</list>
 		</property>
 	</bean>
