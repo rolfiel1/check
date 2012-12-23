@@ -1,10 +1,13 @@
 package com.zxf.test;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URLDecoder;
 import java.util.Date;
 
 import org.junit.Test;
 
+import com.check.util.ImageFilter;
+import com.check.util.ImageIOHelper;
 import com.check.util.OCR;
 
 
@@ -14,7 +17,22 @@ public class TestOCR {
 	public void testCheckImg(){
 		try {
 			new OCR();
-			String img = OCR.recognizeText(new  File("E:\\server\\apache-tomcat-6.0.33\\apache-tomcat-6.0.33\\webapps\\check\\downloadTemp\\tempImg.gif"), "gif");
+			String img = OCR.recognizeText(new  File("D:\\LoginCheckCode.JPG"), "JPG");
+			System.out.println(img);
+			System.out.println("**********");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	@Test
+	public void testCheckImg4er(){
+		try {
+			new OCR();
+			BufferedImage bi=ImageIOHelper.getImage(new  File("D:\\LoginCheckCode.aspx.gif"));
+			ImageFilter ifs=new ImageFilter(bi);
+			BufferedImage bii=new ImageFilter(ifs.sharp()).grayFilter();
+			String img = OCR.recognizeText(ImageIOHelper.createImage(bii), "gif");
 			System.out.println(img);
 			System.out.println("**********");
 		} catch (Exception e) {

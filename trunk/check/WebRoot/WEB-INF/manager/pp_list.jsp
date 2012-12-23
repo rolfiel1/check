@@ -24,7 +24,7 @@
 	src="<%=basePath%>/js/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
 <script language="javascript">
 $(document).ready(function(){
-	 showData('paperpass!ajaxList.action?id='${loginUserId});
+	 showData('paperpass!ajaxList.action?id=${loginUserId}');
 })
 
 function showData(url){
@@ -50,7 +50,7 @@ function showData(url){
 			{field:'link',title:'报告',align:'center',width:150,sortable:true,
 				formatter:function(value,rowData,rowIndex){
 					if(rowData.link!='underchecking'){
-						return "<a href=\" \" style=\"cursor:pointer;\" >下载报告</a>";
+						return "<a href=\"<%=basePath%>downloadTemp/"+value+".zip \" style=\"cursor:pointer;\" >下载报告</a>";
 					}else{
 						return "正在检测,请稍后...";
 					}

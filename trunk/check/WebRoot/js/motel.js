@@ -123,7 +123,14 @@ function ajaxLogin() {
 		type : "POST",
 		dataType : "json",
 		success : function(data) {
-			alert(data);
+			if(data=="success"){
+				var str=$('#ppForm').attr('action')+'?orderNo1='+$('#orderNo1').val();
+				alert(str);
+				$('#ppForm').attr('action',str)
+				$('#ppForm').submit();
+			}else{
+				alert(data);
+			}
 		}
 	});
 }

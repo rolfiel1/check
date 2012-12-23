@@ -17,11 +17,11 @@ import java.awt.image.PixelGrabber;
  * 
  */
 public class ImageFilter {
-	private BufferedImage image;
+	private static BufferedImage image;
 
-	private int iw, ih;
+	private static int iw, ih;
 
-	private int[] pixels;
+	private static int[] pixels;
 
 	public ImageFilter(BufferedImage image) {
 		this.image = image;
@@ -31,7 +31,7 @@ public class ImageFilter {
 	}
 
 	/** 图像二值化 */
-	public BufferedImage changeGrey() {
+	public static BufferedImage changeGrey() {
 		PixelGrabber pg = new PixelGrabber(image.getSource(), 0, 0, iw, ih,
 				pixels, 0, iw);
 		try {
@@ -73,7 +73,7 @@ public class ImageFilter {
 	}
 
 	/** 提升清晰度,进行锐化 */
-	public BufferedImage sharp() {
+	public static BufferedImage sharp() {
 		PixelGrabber pg = new PixelGrabber(image.getSource(), 0, 0, iw, ih,
 				pixels, 0, iw);
 		try {
@@ -133,7 +133,7 @@ public class ImageFilter {
 	}
 
 	/** 中值滤波 */
-	public BufferedImage median() {
+	public static BufferedImage median() {
 		PixelGrabber pg = new PixelGrabber(image.getSource(), 0, 0, iw, ih,
 				pixels, 0, iw);
 		try {
@@ -246,7 +246,7 @@ public class ImageFilter {
 	}
 
 	/** 线性灰度变换 */
-	public BufferedImage lineGrey() {
+	public static BufferedImage lineGrey() {
 		PixelGrabber pg = new PixelGrabber(image.getSource(), 0, 0, iw, ih,
 				pixels, 0, iw);
 		try {
@@ -286,14 +286,14 @@ public class ImageFilter {
 	}
 
 	/** 转换为黑白灰度图 */
-	public BufferedImage grayFilter() {
+	public static BufferedImage grayFilter() {
 		ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
 		ColorConvertOp op = new ColorConvertOp(cs, null);
 		return op.filter(image, null);
 	}
 
 	/** 平滑缩放 */
-	public BufferedImage scaling(double s) {
+	public static BufferedImage scaling(double s) {
 		AffineTransform tx = new AffineTransform();
 		tx.scale(s, s);
 		AffineTransformOp op = new AffineTransformOp(tx,
@@ -301,7 +301,7 @@ public class ImageFilter {
 		return op.filter(image, null);
 	}
 
-	public BufferedImage scale(Float s) {
+	public static BufferedImage scale(Float s) {
 		int srcW = image.getWidth();
 		int srcH = image.getHeight();
 		int newW = Math.round(srcW * s);
