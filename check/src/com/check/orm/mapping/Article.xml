@@ -53,9 +53,9 @@
 		id=#{id}
 	</delete>
 	
-	<delete id="deleteByArray" parameterType="map">
+	<delete id="deleteByArray" parameterType="list">
 		delete from wz where id in
-		<foreach item="item" index="index" collection="ids" open="("
+		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
 			#{item}
 		</foreach>

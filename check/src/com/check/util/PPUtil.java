@@ -43,6 +43,7 @@ public class PPUtil implements ApplicationContextAware, DisposableBean{
 		logger.info("ppName:" + ppName);
 		logger.info("ppPwd:" + ppPwd);
 		String tempFile=applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
+		logger.info(tempFile);
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter("http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//---------第一次登录页面-----------------------------
@@ -84,6 +85,7 @@ public class PPUtil implements ApplicationContextAware, DisposableBean{
 		String validCode=null;
 		try {
 			String validCodePath=Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), tempFile);
+			logger.info(validCodePath);
 			File ocrFile=new File(validCodePath);
 			validCode=OCR.recognizeText(ocrFile, "gif");
 		} catch (Exception e) {
@@ -245,6 +247,7 @@ public class PPUtil implements ApplicationContextAware, DisposableBean{
 		logger.info("ppName:" + ppName);
 		logger.info("ppPwd:" + ppPwd);
 		String tempFile=applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
+		logger.info("tempFile："+tempFile);
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter("http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//---------第一次登录页面-----------------------------
@@ -287,6 +290,7 @@ public class PPUtil implements ApplicationContextAware, DisposableBean{
 		String validCode=null;
 		try {
 			String validCodePath=Getpic.saveUrlAs("http://www.paperpass.org"+gif.attr("src"), tempFile);
+			logger.info("validCodePath："+validCodePath);
 			File ocrFile=new File(validCodePath);
 			validCode=OCR.recognizeText(ocrFile, "gif");
 		} catch (Exception e) {

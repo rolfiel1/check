@@ -22,6 +22,7 @@ import com.check.util.JsonUtil;
 @ParentPackage("admin")
 @Scope("prototype")
 @Results({ @Result(name = "list", location = "/WEB-INF/manager/wz_list.jsp"),
+		@Result(name = "detail", location = "/wz_detail.jsp"),
 		@Result(name = "edit", location = "/WEB-INF/manager/wz_input.jsp") })
 public class ArticleAction extends BaseAction {
 	private static final long serialVersionUID = 2555487343597652641L;
@@ -29,7 +30,7 @@ public class ArticleAction extends BaseAction {
 	private Article article;
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
-	
+
 	private String type;
 
 	private String ajaxId;
@@ -77,6 +78,12 @@ public class ArticleAction extends BaseAction {
 		JsonMap.put("total", pager.getTotalCount());
 		JsonMap.put("rows", pager.getResult());
 		return ajax(JsonUtil.toJson(JsonMap));
+	}
+
+	public String detail() {
+		Article detail=articleService.load(id);
+		ServletActionContext.getRequest().setAttribute("detail", detail);
+		return "detail";
 	}
 
 	public String show4() {

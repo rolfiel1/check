@@ -140,7 +140,7 @@ function login() {
 			if(data=='success'){
 				window.location="paperpass!list.action";
 			}else{
-				alert('系统异常,请稍后再试!');
+				alert(data);
 			}
 			
 		}
@@ -161,7 +161,7 @@ function adminLogin() {
 			if(data=='success'){
 				window.location.href=" http://container.open.taobao.com/container?appkey=21286772";
 			}else{
-				alert('系统异常,请稍后再试!');
+				alert(data);
 			}
 			
 		}

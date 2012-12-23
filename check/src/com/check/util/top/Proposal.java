@@ -37,7 +37,7 @@ public class Proposal {
 
 		// 初始化一天前内订单
 		final Date end = new Date();
-		final Date start = DateUtils.addDays(end, -1);
+		final Date start = DateUtils.addDays(end, -7);
 		new Thread(new Runnable() {
 			public void run() {
 				List<Date[]> dateList = DateUtils.splitTimeByDays(start, end, 1);

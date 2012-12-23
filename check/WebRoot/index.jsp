@@ -29,8 +29,25 @@
 				type: "POST",
 				dataType:"json",
 				success: function(data) {
-					if(data!=null){
-						$(".top_cjwt >ul").append("<li><a href=''>"+data[0]['title']+"</a></li>");
+					if(data!=null&&data[0]['type']==1){
+						for(var j=0;j<data.length;j++){
+							$(".top_cjwt >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
+						}
+					}
+					if(data!=null&&data[0]['type']==2){
+						for(var j=0;j<data.length;j++){
+							$(".top_gycx >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
+						}
+					}
+					if(data!=null&&data[0]['type']==3){
+						for(var j=0;j<data.length;j++){
+							$(".top_gylc >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
+						}
+					}
+					if(data!=null&&data[0]['type']==4){
+						for(var j=0;j<data.length;j++){
+							$(".top_sfsm >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
+						}
 					}
 				}
 			});
@@ -74,7 +91,7 @@
       <table width="100%" border="0">
         <tr>
           <td>&nbsp;</td>
-          <td class="nr_bt">万方相识论文检测系统</td>
+          <td class="nr_bt">Paperpass论文检测系统</td>
         </tr>
         <tr>
           <td class="nr_logo"><img src="images/wf_logo_s1.gif" width="75" height="106" /></td>
@@ -124,7 +141,7 @@
       <table width="100%" border="0">
         <tr>
           <td>&nbsp;</td>
-          <td class="nr_bt">万方相识论文检测系统</td>
+          <td class="nr_bt">知网论文检测系统</td>
         </tr>
         <tr>
           <td class="nr_logo"><img src="images/wf_logo_s1.gif" width="75" height="106" /></td>
@@ -151,7 +168,7 @@
       <table width="100%" border="0">
         <tr>
           <td>&nbsp;</td>
-          <td class="nr_bt">万方相识论文检测系统</td>
+          <td class="nr_bt">知网论文检测系统</td>
         </tr>
         <tr>
           <td class="nr_logo"><img src="images/wf_logo_s1.gif" width="75" height="106" /></td>
@@ -176,7 +193,7 @@
       <table width="100%" border="0">
         <tr>
           <td>&nbsp;</td>
-          <td class="nr_bt">万方相识论文检测系统</td>
+          <td class="nr_bt">知网论文检测系统</td>
         </tr>
         <tr>
           <td class="nr_logo"><img src="images/wf_logo_s1.gif" width="75" height="106" /></td>
@@ -201,7 +218,7 @@
       <table width="100%" border="0">
         <tr>
           <td>&nbsp;</td>
-          <td class="nr_bt">万方相识论文检测系统</td>
+          <td class="nr_bt">知网论文检测系统</td>
         </tr>
         <tr>
           <td class="nr_logo"><img src="images/wf_logo_s1.gif" width="75" height="106" /></td>

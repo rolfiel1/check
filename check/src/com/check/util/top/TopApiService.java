@@ -58,14 +58,12 @@ public class TopApiService {
 		do {
 			req.setPageNo(pageNo);
 			rsp = client.execute(req, sessionKey);
-			if (rsp.isSuccess()&&rsp.getTrades().size()>0) {
+			if (rsp.isSuccess()&&rsp.getTrades()!=null&&rsp.getTrades().size()>0) {
 				log.info("同步中>>>第" + req.getPageNo() + "页");
-				if( rsp.getTrades()!=null&&rsp.getTrades().size()>0){
 					for (Trade t : rsp.getTrades()) {
 						getTradeFullInfo(t.getTid(), sessionKey); // FIXME 保存订单到数据库中
 					}
 					pageNo++;
-				}
 
 			}
 		} while (rsp != null&&rsp.getTrades()!=null && (!rsp.isSuccess() || rsp.getHasNext()));
