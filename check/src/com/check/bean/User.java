@@ -22,8 +22,8 @@ public class User implements java.io.Serializable {
 	private String cd;
 	private String ld;
 	private Integer flag;
-	
-	
+	private Double account;
+	private Double price;
 
 	public Integer getFlag() {
 		return flag;
@@ -65,8 +65,6 @@ public class User implements java.io.Serializable {
 		this.username = username;
 	}
 
-	
-
 	public String getPassword() {
 		return password;
 	}
@@ -105,6 +103,22 @@ public class User implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Double getAccount() {
+		return account;
+	}
+
+	public void setAccount(Double account) {
+		this.account = account;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 }

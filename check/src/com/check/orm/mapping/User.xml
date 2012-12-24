@@ -9,6 +9,8 @@
 		<result property="create_date" column="create_date" />
 		<result property="login_date" column="login_date" />
 		<result property="remark" column="remark" />
+		<result property="account" column="account" />
+		<result property="price" column="price" />
 	</resultMap>
 	<insert id="save" parameterType="User">
 		insert into user
@@ -18,7 +20,9 @@
 		sign,
 		create_date,
 		login_date,
-		remark
+		remark,
+		account,
+		price
 		)
 		values
 		(
@@ -27,7 +31,9 @@
 		#{sign},
 		#{create_date},
 		#{login_date},
-		#{remark}
+		#{remark},
+		${account},
+		${price}
 		)
 	</insert>
 
@@ -39,7 +45,9 @@
 		create_date =
 		#{create_date},
 		login_date = #{login_date},
-		remark = #{remark}
+		remark = #{remark},
+		account = #{account},
+		price = #{price}
 		where
 		id=#{id}
 	</update>

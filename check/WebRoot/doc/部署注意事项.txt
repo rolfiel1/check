@@ -1,7 +1,7 @@
 1.jdk  目录下 jre目录下的lib\ext目录中放入jai_imageio-1.1-alpha.jar包
 2.tesseract 放入到服务器的非Server目录下
-
 3.淘宝账号，密码，网店
+
 jiance100
 wangtingting520
 http://item.taobao.com/item.htm?spm=a1z10.1.w4004.2.ob2W1a&id=16181054793

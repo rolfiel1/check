@@ -12,6 +12,7 @@
 		<result property="remark" column="remark" />
 		<result property="uid" column="uid" />
 		<result property="ppid" column="ppid" />
+		<result property="need_price" column="need_price" />
 	</resultMap>
 	<insert id="save" parameterType="Report">
 		insert into lwreport
@@ -24,7 +25,8 @@
 		link,
 		remark,
 		uid,
-		ppid
+		ppid,
+		need_price
 		)
 		values
 		(
@@ -36,7 +38,8 @@
 		#{link},
 		#{remark},
 		#{uid},
-		#{ppid}
+		#{ppid},
+		#{need_price}
 		)
 	</insert>
 
