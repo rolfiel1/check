@@ -52,6 +52,12 @@
 		order by t.create_date desc
 		limit #{pageNumber},#{pageSize}
 	</select>
+	
+	
+	<select id="checkReport" resultMap="reportResultMap" parameterType="String">
+		select * from lwreport t
+		where  t.ppid = #{ppid}
+	</select>
 
 	<select id="getTotalCounts" parameterType="map" resultType="Integer">
 		select count(0) from lwreport t

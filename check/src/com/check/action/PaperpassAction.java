@@ -18,7 +18,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.check.bean.Report;
+import com.check.bean.User;
 import com.check.service.ReportService;
+import com.check.service.UserService;
 import com.check.util.JsonUtil;
 import com.check.util.PPUtil;
 
@@ -40,6 +42,9 @@ public class PaperpassAction extends BaseAction {
 
 	@Resource(name = "reportServiceImpl")
 	private ReportService reportService;
+	
+	@Resource(name = "userServiceImpl")
+	private UserService userService;
 
 	private String title;
 	private String author;
@@ -70,11 +75,14 @@ public class PaperpassAction extends BaseAction {
 			report.setLink("underchecking");
 			// 取第一个
 			report.setPpid(ret.get(0));
-			
 			//计算几个最低单位
 			double count=Math.ceil(sz.length()/Integer.parseInt(PPUtil.getProp("pp.per")));
 			report.setNeed_price(count*Double.parseDouble(PPUtil.getProp("pp.price")));
 			reportService.save(report);
+			//更新用户的余额信息
+			User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
+			user.setPrice(user.getPrice()-count*Double.parseDouble(PPUtil.getProp("pp.price")));
+			userService.update(user);
 		} catch (HttpException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

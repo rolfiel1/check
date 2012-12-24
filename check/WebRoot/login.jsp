@@ -63,7 +63,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="3"><a href="#">购买</a><a href="javascript:void(0)" onclick="login()" >登录</a></td>
+            <td colspan="3"><a target="_blank" href="http://item.taobao.com/item.htm?spm=686.1000925.1000774.5&id=18404915325" >购买</a><a href="javascript:void(0)" onclick="login()" >登录</a></td>
           </tr>
           <tr>
             <td colspan="3" class="zs"><span style="color:#f00">*</span>为必填项，如无订单号请点击购买！</td>
