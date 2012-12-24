@@ -70,6 +70,10 @@ public class PaperpassAction extends BaseAction {
 			report.setLink("underchecking");
 			// 取第一个
 			report.setPpid(ret.get(0));
+			
+			//计算几个最低单位
+			double count=Math.ceil(sz.length()/Integer.parseInt(PPUtil.getProp("pp.per")));
+			report.setNeed_price(count*Double.parseDouble(PPUtil.getProp("pp.price")));
 			reportService.save(report);
 		} catch (HttpException e) {
 			e.printStackTrace();
@@ -77,8 +81,7 @@ public class PaperpassAction extends BaseAction {
 			e.printStackTrace();
 		}
 		// 正常检测成功后，插入数据保存,保留报告地址位置为空,返回到list页面
-		ServletActionContext.getRequest().getSession()
-				.setAttribute("loginUserId", orderNo1);
+		ServletActionContext.getRequest().getSession().setAttribute("loginUserId", orderNo1);
 		return "list";
 	}
 

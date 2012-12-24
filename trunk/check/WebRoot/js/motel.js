@@ -113,19 +113,21 @@ function changeValidcode(){
 }
 
 function ajaxLogin() {
+	var a = document.getElementById("sz").value;
+	var sum = Math.ceil(a.length / 2000);
 	$.ajax({
 		url : "user!checkLogin.action",
 		data : {
 			"orderNo1" : $('#orderNo1').val(),
 			"orderNo2" : $('#orderNo2').val(),
-			"validCode" : $('#validCode').val()
+			"validCode" : $('#validCode').val(),
+			"ppCount":sum
 		},
 		type : "POST",
 		dataType : "json",
 		success : function(data) {
 			if(data=="success"){
 				var str=$('#ppForm').attr('action')+'?orderNo1='+$('#orderNo1').val();
-				alert(str);
 				$('#ppForm').attr('action',str)
 				$('#ppForm').submit();
 			}else{

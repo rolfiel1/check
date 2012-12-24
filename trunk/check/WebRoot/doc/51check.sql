@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2012-12-11 14:59:40
+Date: 2012-12-24 11:32:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,6 +48,7 @@ CREATE TABLE `lwreport` (
   `content` longtext,
   `uid` varchar(255) default NULL COMMENT '用户id',
   `ppid` varchar(255) default NULL COMMENT 'pp站上的文件名称唯一',
+  `need_price` double(11,0) default NULL COMMENT '需要付费',
   PRIMARY KEY  (`id`),
   KEY `lwreport_user_fk` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -55,7 +56,7 @@ CREATE TABLE `lwreport` (
 -- ----------------------------
 -- Records of lwreport
 -- ----------------------------
-INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123456789', '57017d2482b2dcdc9af8cec104e190ad201211291528970');
+INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123456789', '57017d2482b2dcdc9af8cec104e190ad201211291528970', null);
 
 -- ----------------------------
 -- Table structure for `user`
@@ -69,13 +70,18 @@ CREATE TABLE `user` (
   `create_date` datetime default NULL COMMENT '创建时间',
   `login_date` datetime default NULL COMMENT '登录时间',
   `remark` varchar(100) default NULL COMMENT '备注',
+  `account` double(11,0) default NULL COMMENT '账户值',
+  `price` double(11,0) default NULL COMMENT '订单价值',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO user VALUES ('1', '123456789', null, null, null, null, null);
+INSERT INTO user VALUES ('1', '123456789', null, null, '2012-12-13 15:58:01', '2012-12-13 16:18:43', null, null, null);
+INSERT INTO user VALUES ('2', 'admin', '21232f297a57a5a743894a0e4a801fc3', null, '2012-12-13 15:58:04', '2012-12-13 16:18:47', null, null, null);
+INSERT INTO user VALUES ('3', '266836080057760', null, '0', '2012-12-13 16:56:56', null, null, null, null);
+INSERT INTO user VALUES ('4', '207743874836057', null, '0', '2012-12-13 16:56:57', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `wz`
@@ -95,6 +101,7 @@ CREATE TABLE `wz` (
 -- ----------------------------
 -- Records of wz
 -- ----------------------------
+INSERT INTO wz VALUES ('1', '测试文章', '赵晓飞', '测试文章编码，<strong>事实上，有很多不同<span style=\"background-color:#CC33E5;\">的颜色</span>和</strong><span style=\"background-color:#E56600;\"></span><u><em>形状</em></u>', null, '1', '测试而已');
 
 -- ----------------------------
 -- Table structure for `wztype`

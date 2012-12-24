@@ -50,12 +50,17 @@ function showData(url){
 			{field:'link',title:'报告',align:'center',width:150,sortable:true,
 				formatter:function(value,rowData,rowIndex){
 					if(rowData.link!='underchecking'){
-						return "<a href=\"<%=basePath%>downloadTemp/"+value+".zip \" style=\"cursor:pointer;\" >下载报告</a>";
+						if(parseFloat(${user.price})>=parseFloat(rowData.need_price)){
+							return "<a href=\"<%=basePath%>downloadTemp/"+value+".zip \" style=\"cursor:pointer;\" >下载报告</a>";
+						}else{
+							return "账号检测费用不足,无法下载";
+						}
 					}else{
 						return "正在检测,请稍后...";
 					}
 				}},
-			{field:'cd',title:'提交时间',align:'center',width:90,sortable:true}
+			{field:'cd',title:'提交时间',align:'center',width:90,sortable:true},
+			{field:'need_price',title:'检测费用',align:'center',width:90,sortable:true}
 		]],
 		pagination:true,//显示分页栏
 		rownumbers:true,//自动给数据编号
@@ -132,7 +137,7 @@ function showData(url){
 							<td width="16"><span class="user_tb"></span>
 							</td>
 							<th align="right" width="70">当前用户：</th>
-							<td>${user.username }</td>
+							<td>${user.username }余额:${user.price}</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span>

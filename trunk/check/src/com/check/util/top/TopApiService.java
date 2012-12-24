@@ -99,7 +99,7 @@ public class TopApiService {
 
 	public Trade getTradeFullInfo(Long tid, String sessionKey) throws ApiException {
 		TradeFullinfoGetRequest req = new TradeFullinfoGetRequest();
-		req.setFields("tid,seller_nick,buyer_nick,buyer_message,orders,created"); // FIXME 增加应用需要的字段
+		req.setFields("tid,payment,seller_nick,buyer_nick,buyer_message,orders,created"); // FIXME 增加应用需要的字段
 		req.setTid(tid);
 		TradeFullinfoGetResponse rsp = client.execute(req, sessionKey);
 		if (rsp.isSuccess()) {
@@ -108,19 +108,22 @@ public class TopApiService {
 			log.info("查询出的订单时间:"+rsp.getTrade().getOrders().get(0).getStatus());
 			log.info("查询出的订单号："+rsp.getTrade().getTid());
 			log.info("查询出的商品id："+rsp.getTrade().getOrders().get(0).getNumIid());
+			log.info("查询出的订单价格："+rsp.getTrade().getPayment());
 			//将查出的订单id插入user表中
-			UserDao userDao=(UserDao)SpringUtil.getBean("userDaoImpl");
-			User user=new User();
-			user.setCreate_date(new Date());
-			user.setSign(0);
-			user.setUsername(rsp.getTrade().getTid().toString());
-			userDao.save(user);
-			//主动发货
-			LogisticsDummySendRequest reqLDSR=new LogisticsDummySendRequest();
-			req.setTid(rsp.getTrade().getTid());
-			LogisticsDummySendResponse response = client.execute(reqLDSR , sessionKey);
-			log.info("主动发货是否成功："+response.isSuccess());
-			log.info("主动发货返回提示信息："+response.getSubMsg());
+//			UserDao userDao=(UserDao)SpringUtil.getBean("userDaoImpl");
+//			User user=new User();
+//			user.setCreate_date(new Date());
+//			user.setSign(0);
+//			user.setUsername(rsp.getTrade().getTid().toString());
+//			//插入订单价格
+//			user.setPrice(Double.parseDouble(rsp.getTrade().getPayment()));
+//			userDao.save(user);
+//			//主动发货
+//			LogisticsDummySendRequest reqLDSR=new LogisticsDummySendRequest();
+//			req.setTid(rsp.getTrade().getTid());
+//			LogisticsDummySendResponse response = client.execute(reqLDSR , sessionKey);
+//			log.info("主动发货是否成功："+response.isSuccess());
+//			log.info("主动发货返回提示信息："+response.getSubMsg());
 			return rsp.getTrade();
 		}
 		return null;

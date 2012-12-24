@@ -23,6 +23,8 @@ public class Report implements java.io.Serializable {
 	private String uid;
 	private String ppid;
 	private String cd;
+	private Double need_price;
+	
 	
 	public Integer getId() {
 		return id;
@@ -91,4 +93,11 @@ public class Report implements java.io.Serializable {
 	public void setCd(String cd) {
 		this.cd = cd;
 	}
+	public Double getNeed_price() {
+		return need_price;
+	}
+	public void setNeed_price(Double need_price) {
+		this.need_price = need_price;
+	}
+	
 }
