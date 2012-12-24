@@ -62,7 +62,7 @@ public class UserAction extends BaseAction {
 		User user2 = null;
 		String sessionValidcode = ServletActionContext.getRequest()
 				.getSession().getAttribute("Svalipicstr").toString();
-		if (!sessionValidcode.equals(validCode)) {
+		if (!sessionValidcode.equals((validCode+"").toLowerCase())) {
 			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
 		}else if(orderNo1==null||orderNo1.equals("")){
 			return ajax(JsonUtil.toJson("订单号1必须填写!"));
@@ -115,7 +115,7 @@ public class UserAction extends BaseAction {
 		String sessionValidcode = ServletActionContext.getRequest()
 				.getSession().getAttribute("Svalipicstr").toString();
 
-		if (!sessionValidcode.equals(validCode)) {
+		if (!sessionValidcode.equals((validCode+"").toLowerCase())) {
 			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
 		} else {
 			user = userService.checkUser(orderNo1);
@@ -144,7 +144,7 @@ public class UserAction extends BaseAction {
 		String sessionValidcode = ServletActionContext.getRequest()
 				.getSession().getAttribute("Svalipicstr").toString();
 
-		if (!sessionValidcode.equals(validCode)) {
+		if (!sessionValidcode.equals((validCode+"").toLowerCase())) {
 			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
 		} else {
 			user = userService.adminLogin(username, MD5Util.toMD5(password));
