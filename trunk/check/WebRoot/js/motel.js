@@ -86,7 +86,7 @@ function closeWindow() {
 function testMessageBox(ev) {
 	var objPos = mousePosition(ev);
 	var a = document.getElementById("sz").value;
-	var sum = Math.ceil(a.length / 2000);
+	var sum = Math.ceil(a.length / 1000);
 	var date =new Date();
 	if (a.length < 1) {
 		alert('请输入检测内容!');
@@ -114,7 +114,7 @@ function changeValidcode(){
 
 function ajaxLogin() {
 	var a = document.getElementById("sz").value;
-	var sum = Math.ceil(a.length / 2000);
+	var sum = Math.ceil(a.length / 1000);
 	$.ajax({
 		url : "user!checkLogin.action",
 		data : {

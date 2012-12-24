@@ -66,7 +66,7 @@ public class Proposal {
 					e.printStackTrace();
 				}
 			}
-		}, 0L, 5 * 60 * 1000L);
+		}, 0L,  30 * 1000L);
 	}
 
 	/**
