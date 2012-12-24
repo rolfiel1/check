@@ -24,7 +24,7 @@ public class ValidcodeAction extends BaseAction {
 		HttpSession session = request.getSession();
         GenerateValidatePic gPic = new GenerateValidatePic(response);
 		String valipicstr = gPic.generateRandPic();
-		session.setAttribute("Svalipicstr", valipicstr);
+		session.setAttribute("Svalipicstr", valipicstr.toLowerCase());
 		return null;
 	}
 
