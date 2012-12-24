@@ -17,5 +17,9 @@ public class ReportServiceImpl extends BaseMybatisServiceImpl<Report, String> im
 	}
 	@Resource(name = "reportDaoImpl")
 	private ReportDao reportDao;
+	@Override
+	public Report checkReport(String ppid) {
+		return reportDao.checkReport(ppid);
+	}
 
 }

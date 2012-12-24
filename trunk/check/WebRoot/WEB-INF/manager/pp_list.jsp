@@ -50,7 +50,7 @@ function showData(url){
 			{field:'link',title:'报告',align:'center',width:150,sortable:true,
 				formatter:function(value,rowData,rowIndex){
 					if(rowData.link!='underchecking'){
-						if(parseFloat(${user.price})>=parseFloat(rowData.need_price)){
+						if(parseFloat(${user.account})>=parseFloat(rowData.need_price)){
 							return "<a href=\"<%=basePath%>downloadTemp/"+value+".zip \" style=\"cursor:pointer;\" >下载报告</a>";
 						}else{
 							return "账号检测费用不足,无法下载";

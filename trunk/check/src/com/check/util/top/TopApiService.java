@@ -120,6 +120,7 @@ public class TopApiService {
 				user.setUsername(rsp.getTrade().getTid().toString());
 				//插入订单价格
 				user.setPrice(Double.parseDouble(rsp.getTrade().getPayment()));
+				user.setAccount(Double.parseDouble(rsp.getTrade().getPayment()));
 				userDao.save(user);
 			}
 //			主动发货
