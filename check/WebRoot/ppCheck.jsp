@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	function show() {
 		var a = document.getElementById("sz").value;
-		var sum = Math.ceil(a.length / 2000);
+		var sum = Math.ceil(a.length / 1000);
 		document.getElementById("le").innerHTML = a.length;
 		document.getElementById("le2").innerHTML = sum;
 
