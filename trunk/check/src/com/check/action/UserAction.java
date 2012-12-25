@@ -89,7 +89,7 @@ public class UserAction extends BaseAction {
 				user = userService.checkUser(orderNo1);
 				if (user == null) {
 					return ajax(JsonUtil.toJson("订单号1不存在,请重新输入!"));
-				}else if(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount>user.getPrice()){
+				}else if(Double.valueOf(df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount))>user.getPrice()){
 					//检测费用不足
 					logger.info(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount);
 					logger.info(user.getPrice());
