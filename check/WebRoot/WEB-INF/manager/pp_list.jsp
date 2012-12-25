@@ -24,7 +24,7 @@
 	src="<%=basePath%>/js/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
 <script language="javascript">
 $(document).ready(function(){
-	 showData('paperpass!ajaxList.action?id=${loginUserId}');
+	 showData('paperpass!ajaxList.action?id=${user.username}');
 })
 
 function showData(url){
