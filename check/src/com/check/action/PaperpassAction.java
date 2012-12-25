@@ -76,7 +76,7 @@ public class PaperpassAction extends BaseAction {
 			// 取第一个
 			report.setPpid(ret.get(0));
 			//计算几个最低单位
-			double count=Math.ceil(sz.length()/Integer.parseInt(PPUtil.getProp("pp.per")));
+			double count=Math.ceil(sz.length()/Double.parseDouble(PPUtil.getProp("pp.per")));
 			report.setNeed_price(count*Double.parseDouble(PPUtil.getProp("pp.price")));
 			reportService.save(report);
 			//更新用户的余额信息
