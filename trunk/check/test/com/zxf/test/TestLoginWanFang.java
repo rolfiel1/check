@@ -15,10 +15,12 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.DefaultHttpParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.junit.Test;
 
 
 public class TestLoginWanFang {
 
+	@Test
 	public void check() throws HttpException, IOException {
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter( "http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
@@ -111,7 +113,8 @@ public class TestLoginWanFang {
 		
 	}
 	
-	public static List<String> viewReport() throws HttpException, IOException{
+	@Test
+	public  void viewReport() throws HttpException, IOException{
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter( "http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//第一次请求页面
@@ -199,8 +202,6 @@ public class TestLoginWanFang {
 		
 		//TODO 下载报告
 		
-		
-		return null;
 	}
 
 	public static void main(String args[]) {
