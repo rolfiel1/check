@@ -2,6 +2,7 @@ package com.zxf.test;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 
+import com.check.util.PPUtil;
+
 
 public class TestLoginWanFang {
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void check() throws HttpException, IOException {
 		HttpClient httpClient = new HttpClient();
@@ -65,8 +69,8 @@ public class TestLoginWanFang {
         PostMethod method = new PostMethod("/Login.aspx?ReturnUrl=http%3a%2f%2fcheck.wanfangdata.com.cn%2fUploadPaper.aspx&needLoginAccountType=Person");
 		NameValuePair[] nvp = { 
 				new NameValuePair("__VIEWSTATE", __VIEWSTATE),
-				new NameValuePair("userid", "zlking001"),
-				new NameValuePair("password","haiqing"),
+				new NameValuePair("userid", PPUtil.getProp("wf.user")),
+				new NameValuePair("password",PPUtil.getProp("wf.pwd")),
 				new NameValuePair("login", "%E7%99%BB%E5%BD%95")
 				};
 		method.setRequestBody(nvp);
@@ -80,6 +84,7 @@ public class TestLoginWanFang {
 		httpClient.executeMethod(method);
 		//返回连接状态，302跳转页面
 		System.out.println("第2次登录返回状态码："+method.getStatusCode());
+//		System.out.println(method.getResponseBodyAsString());
 		if(302==method.getStatusCode()){
 			Header[] headers =method.getResponseHeaders("Set-Cookie");
 			//第三次连接用的cookie
@@ -146,14 +151,38 @@ public class TestLoginWanFang {
 					System.out.println("第五次请求返回状态"+code3);
 					//得到提交内容页面
 //					System.out.println("第五次请求返回内容"+getMethod.getResponseBodyAsString());
+					//释放第五次请求连接
+					getMethod.releaseConnection();
+					//TODO 点击购买
+					//拼接第六次请求--购买时的url=第五次请求url中webTransactionRequest的Request部分
+					String decode5URL=URLDecoder.decode(fiveUrl);
+					String decode5URL_1=decode5URL.substring(decode5URL.indexOf("webTransactionRequest")+"webTransactionRequest".length()+1, decode5URL.indexOf("ReturnUrl")-2);
+//					System.out.println(decode5URL_1);
+					String sixURL_request_1=decode5URL_1.substring(decode5URL_1.indexOf("Request")+"Request".length()+2);
+//					System.out.println(sixURL_request_1);
+					String sixRUL_request_2=sixURL_request_1.substring(0,sixURL_request_1.indexOf("TransferOut")+"TransferOut".length()+2);
+//					System.out.println(sixRUL_request_2);
+					String sixURL_request_3=sixURL_request_1.substring(sixURL_request_1.indexOf("Turnover")-1);
+//					System.out.println(sixURL_request_3);
+					String sixURL=sixRUL_request_2+"[{\"AccountType\":\"Person\",\"Key\":\""+PPUtil.getProp("wf.user")+"\"}],"+sixURL_request_3;
+					System.out.println(URLEncoder.encode(sixURL));
 					
-					//TODO 确认购买提交
-					
-					
-					
+					//开始第六次请求
+					getMethod=new GetMethod("http://tran.wanfangdata.com.cn/Tran.aspx?transactionRequest="+URLEncoder.encode(sixURL));
+					getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+					getMethod.setRequestHeader("Accept-Language", "zh-cn");
+					getMethod.setRequestHeader("x-requested-with", "XMLHttpRequest");
+					getMethod.setRequestHeader("Connection", "Keep-Alive");
+					getMethod.setRequestHeader("Host", "tran.wanfangdata.com.cn");
+					getMethod.setRequestHeader("Referer", fiveUrl);
+					getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+					getMethod.setRequestHeader("Cookie", sb2.toString());
+					int code4 = httpClient.executeMethod(getMethod);
+					System.out.println("第六次请求返回码："+code4);
+					System.out.println("第六次请求返回页面内容:"+getMethod.getResponseBodyAsString());
 					//TODO 记录检测单号
-					
-					
+					//单号就是请求URL中的copydetect_部分
+					//-----------------------------检测提交完成-----------------------------------------
 				}
 			}
 		}else{
