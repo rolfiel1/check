@@ -80,37 +80,85 @@ public class TestLoginWanFang {
 		httpClient.executeMethod(method);
 		//返回连接状态，302跳转页面
 		System.out.println("第2次登录返回状态码："+method.getStatusCode());
-		Header[] headers =method.getResponseHeaders("Set-Cookie");
-		//第三次连接用的cookie
-		String header3=headers[headers.length-1].getValue();
-		String cookie3=header3.substring(0, header3.indexOf("domain"));
-		StringBuffer sb2 = new StringBuffer();
-		sb2.append(cookie3);
-		sb2.append("Hm_lvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
-		sb2.append("Hm_lpvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
-		sb2.append("ASP.NET_SessionId=").append(sessionId);
-		//第三次用的cookie
-		System.out.println("第三次用的cookie"+sb2.toString());
-		//释放第二次连接
-		method.releaseConnection();
-		 
-		//第三次请求，跳转到检测页面/UploadPaper.aspx
-		getMethod=new GetMethod("http://check.wanfangdata.com.cn/UploadPaper.aspx");
-		getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
-		getMethod.setRequestHeader("Accept-Language", "zh-cn");
-		getMethod.setRequestHeader("Connection", "Keep-Alive");
-		getMethod.setRequestHeader("Host", "check.wanfangdata.com.cn");
-		getMethod.setRequestHeader("Referer", "http://login.wanfangdata.com.cn/Login.aspx?ReturnUrl=http%3a%2f%2fcheck.wanfangdata.com.cn%2fUploadPaper.aspx&needLoginAccountType=Person");
-		getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
-		getMethod.setRequestHeader("Cookie", sb2.toString());
-		int code2 = httpClient.executeMethod(getMethod);
-		System.out.println("第三次请求返回状态"+code2);
-		//得到提交内容页面
-		System.out.println("第三次请求返回内容"+getMethod.getResponseBodyAsString());
-		
-		//TODO 提交测试数据
-		
-		
+		if(302==method.getStatusCode()){
+			Header[] headers =method.getResponseHeaders("Set-Cookie");
+			//第三次连接用的cookie
+			String header3=headers[headers.length-1].getValue();
+			String cookie3=header3.substring(0, header3.indexOf("domain"));
+			StringBuffer sb2 = new StringBuffer();
+			sb2.append(cookie3);
+			sb2.append("Hm_lvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
+			sb2.append("Hm_lpvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
+			sb2.append("ASP.NET_SessionId=").append(sessionId);
+			//第三次用的cookie
+			System.out.println("第三次用的cookie"+sb2.toString());
+			//释放第二次连接
+			method.releaseConnection();
+			 
+			//第三次请求，跳转到检测页面/UploadPaper.aspx
+			getMethod=new GetMethod("http://check.wanfangdata.com.cn/UploadPaper.aspx");
+			getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+			getMethod.setRequestHeader("Accept-Language", "zh-cn");
+			getMethod.setRequestHeader("Connection", "Keep-Alive");
+			getMethod.setRequestHeader("Host", "check.wanfangdata.com.cn");
+			getMethod.setRequestHeader("Referer", "http://login.wanfangdata.com.cn/Login.aspx?ReturnUrl=http%3a%2f%2fcheck.wanfangdata.com.cn%2fUploadPaper.aspx&needLoginAccountType=Person");
+			getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+			getMethod.setRequestHeader("Cookie", sb2.toString());
+			int code2 = httpClient.executeMethod(getMethod);
+			System.out.println("第三次请求返回状态"+code2);
+			//得到提交内容页面
+//			System.out.println("第三次请求返回内容"+getMethod.getResponseBodyAsString());
+			getMethod.releaseConnection();
+			//第四次请求-- 提交测试数据
+			httpClient.getHostConfiguration().setHost("check.wanfangdata.com.cn", 80, "http");
+	        PostMethod secondPost = new PostMethod("/UploadPaper.aspx");
+	        //测试提交数据
+	        String pager="网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试";
+			NameValuePair[] nvp2 = { new NameValuePair("paper", pager)};
+			secondPost.setRequestBody(nvp2);
+			secondPost.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+			secondPost.setRequestHeader("Accept-Language", "zh-cn");
+			secondPost.setRequestHeader("Referer","http://login.wanfangdata.com.cn/Login.aspx?ReturnUrl=http%3a%2f%2fcheck.wanfangdata.com.cn%2fUploadPaper.aspx&needLoginAccountType=Person");
+			secondPost.setRequestHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+			secondPost.setRequestHeader("Host", "login.wanfangdata.com.cn");
+			secondPost.setRequestHeader("Connection","Keep-Alive");
+			secondPost.setRequestHeader("Cookie", sb2.toString());
+			httpClient.executeMethod(secondPost);
+			//第四次请求返回状态码
+			System.out.println("第四次请求返回状态码:"+secondPost.getStatusCode());
+			if(302==secondPost.getStatusCode()){
+				Header header2 = secondPost.getResponseHeader("Location");
+				if(header2!=null){
+					System.out.println(header2.getValue());
+					//第五次请求提交跳转
+					String fiveUrl=header2.getValue();
+					//释放第四次连接
+					secondPost.releaseConnection();
+					getMethod=new GetMethod(fiveUrl);
+					getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+					getMethod.setRequestHeader("Accept-Language", "zh-cn");
+					getMethod.setRequestHeader("Connection", "Keep-Alive");
+					getMethod.setRequestHeader("Host", "tran.wanfangdata.com.cn");
+					getMethod.setRequestHeader("Referer", "http://check.wanfangdata.com.cn/UploadPaper.aspx");
+					getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+					getMethod.setRequestHeader("Cookie", sb2.toString());
+					int code3 = httpClient.executeMethod(getMethod);
+					System.out.println("第五次请求返回状态"+code3);
+					//得到提交内容页面
+//					System.out.println("第五次请求返回内容"+getMethod.getResponseBodyAsString());
+					
+					//TODO 确认购买提交
+					
+					
+					
+					//TODO 记录检测单号
+					
+					
+				}
+			}
+		}else{
+			check();
+		}
 	}
 	
 	@Test
@@ -200,7 +248,7 @@ public class TestLoginWanFang {
 		//得到报告列表页面
 		System.out.println("第三次请求返回报告列表页面"+getMethod.getResponseBodyAsString());
 		
-		//TODO 下载报告
+		//TODO 下载报告，返回检测单号
 		
 	}
 
