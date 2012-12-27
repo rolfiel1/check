@@ -18,10 +18,10 @@
   <div class="center_bj">
     <div class="xtdh">
       <ul>
-        <li><a href="#">首页</a></li>
+        <li><a href="<%=basePath%>index.jsp">首页</a></li>
         <li><a href="#">知网系统</a></li>
         <li><a href="#">万方系统</a></li>
-        <li><a href="#">paperpass系统</a></li>
+        <li><a href="<%=basePath%>ppCheck.jsp">paperpass系统</a></li>
       </ul>
     </div>
   </div>
