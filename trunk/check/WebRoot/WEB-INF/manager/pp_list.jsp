@@ -45,7 +45,7 @@ function showData(url){
 		]],
 		columns:[[
 			{field:'id',width:10,hidden:true, sortable:true},
-			{field:'title',title:'标题',align:'center',width:150,sortable:true},
+			{field:'title',title:'标题',align:'center',width:90,sortable:true},
 			{field:'author',title:'作者',align:'center',width:90,sortable:true},
 			{field:'link',title:'报告',align:'center',width:150,sortable:true,
 				formatter:function(value,rowData,rowIndex){
@@ -60,7 +60,7 @@ function showData(url){
 					}
 				}},
 			{field:'cd',title:'提交时间',align:'center',width:90,sortable:true},
-			{field:'need_price',title:'检测费用',align:'center',width:90,sortable:true}
+			{field:'need_price',title:'检测费用',align:'center',width:50,sortable:true}
 		]],
 		pagination:true,//显示分页栏
 		rownumbers:true,//自动给数据编号
@@ -116,13 +116,13 @@ function showData(url){
 		<div class="center_bj">
 			<div class="xtdh">
 				<ul>
-					<li><a href="#">首页</a>
+					<li><a href="<%=basePath%>index.jsp">首页</a>
 					</li>
 					<li><a href="#">知网系统</a>
 					</li>
 					<li><a href="#">万方系统</a>
 					</li>
-					<li><a href="#">paperpass系统</a>
+					<li><a href="<%=basePath%>ppCheck.jsp">paperpass系统</a>
 					</li>
 				</ul>
 			</div>
@@ -136,18 +136,20 @@ function showData(url){
 						<tr>
 							<td width="16"><span class="user_tb"></span>
 							</td>
-							<th align="right" width="70">当前用户：</th>
-							<td>${user.username }余额:${user.price}</td>
+							<th align="right" width="70">当前用户:</th>
+							<td>${user.username }&nbsp;&nbsp;余额:${user.price}元</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span>
 							</td>
-							<th align="right">检测系统：</th>
+							<th align="right">检测系统:</th>
 							<td>织梦系统</td>
 						</tr>
 						<tr>
-							<td align="middle" colspan="3"><a href="">退出系统</a>
+							<td><span class="yhxt_tb"></span>
 							</td>
+							<th align="right">系统操作:</th>
+							<td><a href="">退出系统</a></td>
 						</tr>
 					</table>
 				</div>
@@ -155,25 +157,6 @@ function showData(url){
 			</div>
 			<div class="right_info">
 				<div id="dataList"></div>
-
-				<!--  <table width="100%" border="0">
-  <tr>
-    <td class="info_bt" colspan="2">下载列表</td>
-  </tr>
-  <tr>
-    <td colspan="2" class="info_lb"><a href="#">论文下载列表论文下载列表论文下</a></td>
-    </tr>  
-     <tr>
-    <td colspan="2" class="info_lb"><a href="#">论文下载列表论文下载列表论文下</a></td>
-    </tr> 
-     <tr>
-    <td colspan="2" class="info_lb"><a href="#">论文下载列表论文下载列表论文下</a></td>
-    </tr> 
-     <tr>
-    <td colspan="2" class="info_lb"><a href="#">论文下载列表论文下载列表论文下</a></td>
-    </tr> 
-</table>
--->
 			</div>
 		</div>
 	</div>

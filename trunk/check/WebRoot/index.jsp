@@ -12,72 +12,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>百分百检测系统--首页</title>
 <link href="css/index.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>/js/jqueryUI/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>/js/jqueryUI/themes/icon.css">
-<script language="javascript" src="<%=basePath%>/js/jquery-1.8.1.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>/js/jqueryUI/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>/js/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		for(var i=1;i<=4;i++){
-			$.ajax({
-				url: "article!show4.action?type="+i,
-				type: "POST",
-				dataType:"json",
-				success: function(data) {
-					if(data!=null&&data[0]['type']==1){
-						for(var j=0;j<data.length;j++){
-							$(".top_cjwt >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
-						}
-					}
-					if(data!=null&&data[0]['type']==2){
-						for(var j=0;j<data.length;j++){
-							$(".top_gycx >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
-						}
-					}
-					if(data!=null&&data[0]['type']==3){
-						for(var j=0;j<data.length;j++){
-							$(".top_gylc >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
-						}
-					}
-					if(data!=null&&data[0]['type']==4){
-						for(var j=0;j<data.length;j++){
-							$(".top_sfsm >ul").append("<li><a href='<%=basePath%>article!detail.action?id="+data[j]['id']+"'>"+data[j]['title']+"</a></li>");
-						}
-					}
-				}
-			});
-		}
-	})
-</script>
 </head>
 
 <body>
 <div class="box">
-<div class="lwjc_top">
-  <div class="gnl">
-    <ul>
-      <li><a href="#"><span class="tb_4"></span>ENGLISH</a></li>
-      <li><a href="#"><span class="tb_3"></span>联系我们</a></li>
-      <li><a href="#"><span class="tb_2"></span>加入我们</a></li>
-      <li><a href="login.jsp"><span class="tb_1"></span>登录</a></li>
-    </ul>
-  </div>
-  <ul class="lwjc_dh">
-    <li><a href="index.jsp">首页</a></li>
-    <li><a href="#">网络检测</a></li>
-    <li><a href="#">论文检测</a></li>
-    <li><a href="#">期刊检测</a></li>
-    <li><a href="#">收费充值</a></li>
-    <li><a href="#">文档转换</a></li>
-    <li><a href="#">论文修改</a></li>
-    <li><a href="#">关于我们</a></li>
-  </ul>
-</div>
+<%@ include file="top.jsp"%>
 <div class="lwjc_gdtp">
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="970" height="347">
   <param name="movie" value="imageshow.swf" />
@@ -242,38 +181,7 @@
   </div>
   <div style="clear:both"></div>
 </div>
-<div class="lwjc_bottom">
-  <div class="top_lb">
-    <div class="top_cjwt">
-      <ul>
-        <li class="cjwt_bt"><span class="bottom_bt">常见问题</span><span class="bottom_tb"></span></li>
-      </ul>
-    </div>
-    <div class="top_gycx">
-      <ul>
-        <li class="cjwt_bt"><span class="bottom_bt">常见问题</span><span class="bottom_tb"></span></li>
-      </ul>
-    </div>
-    <div class="top_gylc">
-      <ul>
-        <li class="cjwt_bt"><span class="bottom_bt">常见问题</span><span class="bottom_tb"></span></li>
-      </ul>
-    </div>
-    <div class="top_sfsm">
-      <ul>
-        <li class="cjwt_bt"><span class="bottom_bt">常见问题</span><span class="bottom_tb"></span></li>
-      </ul>
-    </div>
-  </div>
-  <div class="lwjc_bqxx">
-    <ul>
-      <li> 关于网站 | 检测帮助 | 免责声明 | 合作伙伴 | 友情连接 | 加入我们 | 联系方式</li>
-      <li>Copyright 2010 zhe.org.All Rights Reserved</li>
-      <li>本站联系地址：湖南益阳市河东区解放路28号 本站联系电话：4006083200 </li>
-      <li>版权所有：友情链接: hi7网 中国论文检测网 华农电子商务协会 衡阳师范学院论坛 湖北第二师范学院自考 拷克论文检测 论文发表</li>
-    </ul>
-  </div>
-</div>
+<%@ include file="bottom.jsp"%>
 </div>
 </body>
 </html>
