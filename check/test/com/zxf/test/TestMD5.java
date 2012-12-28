@@ -1,6 +1,7 @@
 package com.zxf.test;
 
 import java.net.URLDecoder;
+import java.util.Date;
 
 import org.apache.commons.httpclient.NameValuePair;
 import org.junit.Test;
@@ -31,7 +32,9 @@ public class TestMD5 {
 //		String sixURL="/Tran.aspx?transactionRequest="+sixRUL_request_2+"[{\"AccountType\":\"Person\",\"Key\":\"zlking001\"}],"+sixURL_request_3;
 //		System.out.println(sixURL);
 	
-		System.out.println(PPUtil.getProp("wf.pwd"));
-		System.out.println(PPUtil.getProp("wf.user"));
+//		System.out.println(PPUtil.getProp("wf.pwd"));
+//		System.out.println(PPUtil.getProp("wf.user"));
+		Date date=new Date(1356704494945L);
+		System.out.println(date);
 	}
 }
