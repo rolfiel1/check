@@ -3,7 +3,14 @@ package com.zxf.test;
 import java.net.URLDecoder;
 import java.util.Date;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
+
 import org.apache.commons.httpclient.NameValuePair;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 import com.check.util.Getpic;
@@ -34,7 +41,15 @@ public class TestMD5 {
 	
 //		System.out.println(PPUtil.getProp("wf.pwd"));
 //		System.out.println(PPUtil.getProp("wf.user"));
-		Date date=new Date(1356704494945L);
-		System.out.println(date);
+//		Date date=new Date(1356704494945L);
+//		System.out.println(date);
+//		
+		String s="jsonp1356705874281([{\"Id\":\"href_0\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"http://check.wanfangdata.com.cn/DetectReport.aspx?id=copydetect_e3b6fcb6-1ea4-4522-89e2-1af4ae54d98c\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"},{\"Id\":\"href_1\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"#\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"},{\"Id\":\"href_2\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"#\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"}])";
+		System.out.println(s.substring(s.indexOf("(")+1, s.lastIndexOf(")")));
+//		String s="{\"test\":[{\"Id\":\"href_0\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"http://check.wanfangdata.com.cn/DetectReport.aspx?id=copydetect_e3b6fcb6-1ea4-4522-89e2-1af4ae54d98c\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"},{\"Id\":\"href_1\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"#\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"},{\"Id\":\"href_2\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"#\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"}]}";
+//		JSONObject jb = JSONObject.fromObject(s);   
+//		JSONArray array=jb.getJSONArray("test"); 
+//		JSONObject jbb=(JSONObject)array.get(0);
+//		System.out.println(jbb.get("Link"));
 	}
 }
