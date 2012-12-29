@@ -1,4 +1,4 @@
-package com.zxf.test;
+package com.check.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,20 +21,28 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.DefaultHttpParams;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Test;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-import com.check.util.PPUtil;
+public class WFUtil implements ApplicationContextAware, DisposableBean{
+	
+	private static Logger logger = Logger.getLogger(WFUtil.class);
+	
+	private static ApplicationContext applicationContext = null;
+	
+	private static String wfName = PPUtil.getProp("wf.user");
+	
+	private static String wfPwd = PPUtil.getProp("wf.pwd");
 
-
-public class TestLoginWanFang {
-
-	@SuppressWarnings("deprecation")
-	@Test
-	public void check() throws HttpException, IOException {
+	public static String check(String content) throws HttpException, IOException {
+		String reportNames="";
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter( "http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//第一次请求页面
@@ -47,7 +55,7 @@ public class TestLoginWanFang {
 		getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 		int code = httpClient.executeMethod(getMethod);
 		//返回页面状态代码
-		System.out.println("第一次请求返回状态码："+code);
+		logger.info("第一次请求返回状态码："+code);
 		//获得页面内容
 //		System.out.println("第一次请求返回页面内容"+getMethod.getResponseBodyAsString());
 		
@@ -66,7 +74,7 @@ public class TestLoginWanFang {
 		sb.append("Hm_lpvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
 		sb.append("ASP.NET_SessionId=").append(sessionId);
 		//cookie内容
-		System.out.println("第二次连接用cookie=="+sb.toString());
+		logger.info("第二次连接用cookie=="+sb.toString());
 		Document doc = Jsoup.parse(getMethod.getResponseBodyAsString());
 		//__VIEWSTATE
 		String __VIEWSTATE=doc.getElementById("__VIEWSTATE").val();
@@ -78,8 +86,8 @@ public class TestLoginWanFang {
         PostMethod method = new PostMethod("/Login.aspx?ReturnUrl=http%3a%2f%2fcheck.wanfangdata.com.cn%2fUploadPaper.aspx&needLoginAccountType=Person");
 		NameValuePair[] nvp = { 
 				new NameValuePair("__VIEWSTATE", __VIEWSTATE),
-				new NameValuePair("userid", PPUtil.getProp("wf.user")),
-				new NameValuePair("password",PPUtil.getProp("wf.pwd")),
+				new NameValuePair("userid", wfName),
+				new NameValuePair("password",wfPwd),
 				new NameValuePair("login", "%E7%99%BB%E5%BD%95")
 				};
 		method.setRequestBody(nvp);
@@ -92,8 +100,8 @@ public class TestLoginWanFang {
 		method.setRequestHeader("Cookie", sb.toString());
 		httpClient.executeMethod(method);
 		//返回连接状态，302跳转页面
-		System.out.println("第2次登录返回状态码："+method.getStatusCode());
-//		System.out.println(method.getResponseBodyAsString());
+		logger.info("第2次登录返回状态码："+method.getStatusCode());
+//		logger.info(method.getResponseBodyAsString());
 		if(302==method.getStatusCode()){
 			Header[] headers =method.getResponseHeaders("Set-Cookie");
 			//第三次连接用的cookie
@@ -105,7 +113,7 @@ public class TestLoginWanFang {
 			sb2.append("Hm_lpvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
 			sb2.append("ASP.NET_SessionId=").append(sessionId);
 			//第三次用的cookie
-			System.out.println("第三次用的cookie"+sb2.toString());
+			logger.info("第三次用的cookie"+sb2.toString());
 			//释放第二次连接
 			method.releaseConnection();
 			 
@@ -119,7 +127,7 @@ public class TestLoginWanFang {
 			getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 			getMethod.setRequestHeader("Cookie", sb2.toString());
 			int code2 = httpClient.executeMethod(getMethod);
-			System.out.println("第三次请求返回状态"+code2);
+			logger.info("第三次请求返回状态"+code2);
 			//得到提交内容页面
 //			System.out.println("第三次请求返回内容"+getMethod.getResponseBodyAsString());
 			getMethod.releaseConnection();
@@ -139,7 +147,7 @@ public class TestLoginWanFang {
 			secondPost.setRequestHeader("Cookie", sb2.toString());
 			httpClient.executeMethod(secondPost);
 			//第四次请求返回状态码
-			System.out.println("第四次请求返回状态码:"+secondPost.getStatusCode());
+			logger.info("第四次请求返回状态码:"+secondPost.getStatusCode());
 			if(302==secondPost.getStatusCode()){
 				Header header2 = secondPost.getResponseHeader("Location");
 				if(header2!=null){
@@ -157,7 +165,7 @@ public class TestLoginWanFang {
 					getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 					getMethod.setRequestHeader("Cookie", sb2.toString());
 					int code3 = httpClient.executeMethod(getMethod);
-					System.out.println("第五次请求返回状态"+code3);
+					logger.info("第五次请求返回状态"+code3);
 					//得到提交内容页面
 //					System.out.println("第五次请求返回内容"+getMethod.getResponseBodyAsString());
 					//释放第五次请求连接
@@ -174,7 +182,7 @@ public class TestLoginWanFang {
 					String sixURL_request_3=sixURL_request_1.substring(sixURL_request_1.indexOf("Turnover")-1);
 //					System.out.println(sixURL_request_3);
 					String sixURL=sixRUL_request_2+"[{\"AccountType\":\"Person\",\"Key\":\""+PPUtil.getProp("wf.user")+"\"}],"+sixURL_request_3;
-					System.out.println(URLEncoder.encode(sixURL));
+					logger.info(URLEncoder.encode(sixURL));
 					
 					//开始第六次请求
 					getMethod=new GetMethod("http://tran.wanfangdata.com.cn/Tran.aspx?transactionRequest="+URLEncoder.encode(sixURL));
@@ -187,22 +195,25 @@ public class TestLoginWanFang {
 					getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 					getMethod.setRequestHeader("Cookie", sb2.toString());
 					int code4 = httpClient.executeMethod(getMethod);
-					System.out.println("第六次请求返回码："+code4);
-					System.out.println("第六次请求返回页面内容:"+getMethod.getResponseBodyAsString());
+					logger.info("第六次请求返回码："+code4);
+					logger.info("第六次请求返回页面内容:"+getMethod.getResponseBodyAsString());
 					//TODO 记录检测单号
 					//单号就是请求URL中的copydetect_部分
 					//-----------------------------检测提交完成-----------------------------------------
+					reportNames=sixURL.substring(sixURL.lastIndexOf("=")+1);
 				}
 			}
 		}else{
 			//释放第二次连接
 			method.releaseConnection();
-			check();
+			check(content);
 		}
+		return reportNames;
 	}
 	
-	@Test
-	public  void viewReport() throws HttpException, IOException{
+	//下载检测报告
+	public static List<String> viewReport() throws HttpException, IOException{
+		List<String> reportNames=new ArrayList<String>();
 		HttpClient httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter( "http.protocol.cookie-policy",CookiePolicy.BROWSER_COMPATIBILITY);
 		//第一次请求页面
@@ -215,14 +226,14 @@ public class TestLoginWanFang {
 		getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 		int code = httpClient.executeMethod(getMethod);
 		//返回页面状态代码
-		System.out.println("第一次请求返回状态码："+code);
+		logger.info("第一次请求返回状态码："+code);
 		//获得页面内容
-//		System.out.println("第一次请求返回页面代码"+getMethod.getResponseBodyAsString());
+//		logger.info("第一次请求返回页面代码"+getMethod.getResponseBodyAsString());
 		//获得页面cookie
 		Header header = getMethod.getResponseHeader("Set-cookie");
 //		System.out.println(header.getValue());
 		//获得转码后的cookie
-//		System.out.println(URLDecoder.decode(header.getValue()));
+//		logger.info(URLDecoder.decode(header.getValue()));
 		//获得sessionId
 		String headerCookie = header.getValue();
 		String SessionIds = headerCookie.substring(headerCookie.indexOf("NET_SessionId=")+ "NET_SessionId=".length());
@@ -236,7 +247,7 @@ public class TestLoginWanFang {
 		sb.append("Hm_lpvt_f5e6bd27352a71a202024e821056162b="+date1.getTime()+";");
 		sb.append("ASP.NET_SessionId=").append(sessionId);
 		//cookie内容
-		System.out.println("拼接的cookie=="+sb.toString());
+		logger.info("拼接的cookie=="+sb.toString());
 		Document doc = Jsoup.parse(getMethod.getResponseBodyAsString());
 		//__VIEWSTATE
 		String __VIEWSTATE=doc.getElementById("__VIEWSTATE").val();
@@ -247,8 +258,8 @@ public class TestLoginWanFang {
         PostMethod method = new PostMethod("/Login.aspx?ReturnUrl=http%3a%2f%2fwww.wanfangdata.com.cn%2fUserService.aspx&needLoginAccountType=Person");
 		NameValuePair[] nvp = { 
 				new NameValuePair("__VIEWSTATE", __VIEWSTATE),
-				new NameValuePair("userid", PPUtil.getProp("wf.user")),
-				new NameValuePair("password",PPUtil.getProp("wf.pwd")),
+				new NameValuePair("userid", wfName),
+				new NameValuePair("password",wfPwd),
 				new NameValuePair("login", "%E7%99%BB%E5%BD%95")
 				};
 		method.setRequestBody(nvp);
@@ -261,7 +272,7 @@ public class TestLoginWanFang {
 		method.setRequestHeader("Cookie", sb.toString());
 		httpClient.executeMethod(method);
 		//返回连接状态，302跳转页面
-		System.out.println("第2次登录返回状态码："+method.getStatusCode());
+		logger.info("第2次登录返回状态码："+method.getStatusCode());
 		if(302==method.getStatusCode()){
 			Header[] headers =method.getResponseHeaders("Set-Cookie");
 			//第三次连接用的cookie
@@ -285,7 +296,7 @@ public class TestLoginWanFang {
 			getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 			getMethod.setRequestHeader("Cookie", sb2.toString());
 			int code2 = httpClient.executeMethod(getMethod);
-			System.out.println("第三次请求返回状态"+code2);
+			logger.info("第三次请求返回状态"+code2);
 			//得到报告列表页面
 //			System.out.println("第三次请求返回报告列表页面"+getMethod.getResponseBodyAsString());
 			//获得页面中所有报告的连接地址
@@ -301,7 +312,7 @@ public class TestLoginWanFang {
 			for(Element ee:links){
 				paras2+=ee.attr("id")+",";
 			}
-			System.out.println("http://check.wanfangdata.com.cn/CheckDisplayInfo.ashx?jsonpcallback=jsonp"+new Date().getTime()+"&Id="+paras1.substring(0, paras1.lastIndexOf(","))+"&Memo="+paras2.substring(0,paras2.lastIndexOf(",")));
+			logger.info("http://check.wanfangdata.com.cn/CheckDisplayInfo.ashx?jsonpcallback=jsonp"+new Date().getTime()+"&Id="+paras1.substring(0, paras1.lastIndexOf(","))+"&Memo="+paras2.substring(0,paras2.lastIndexOf(",")));
 			//提交一次请求，刷新href连接
 			getMethod=new GetMethod("http://check.wanfangdata.com.cn/CheckDisplayInfo.ashx?jsonpcallback=jsonp"+new Date().getTime()+"&Id="+paras1.substring(0, paras1.lastIndexOf(","))+"&Memo="+paras2.substring(0,paras2.lastIndexOf(",")));
 			getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
@@ -312,9 +323,9 @@ public class TestLoginWanFang {
 			getMethod.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 			getMethod.setRequestHeader("Cookie", sb2.toString());
 			int code3 = httpClient.executeMethod(getMethod);
-			System.out.println("刷新url连接请求返回状态码："+code3);
+			logger.info("刷新url连接请求返回状态码："+code3);
 			//返回下载地址
-			System.out.println("刷新url连接请求返回内容："+getMethod.getResponseBodyAsString());
+			logger.info("刷新url连接请求返回内容："+getMethod.getResponseBodyAsString());
 //			以上返回的jsonp字符串："jsonp1356705874281([{\"Id\":\"href_0\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"http://check.wanfangdata.com.cn/DetectReport.aspx?id=copydetect_e3b6fcb6-1ea4-4522-89e2-1af4ae54d98c\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"},{\"Id\":\"href_1\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"#\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"},{\"Id\":\"href_2\",\"Title\":\"论文检测报告[请24小时内下载]\",\"Link\":\"#\",\"Description\":\"检测范围：中国学术期刊数据库（CSPD）、中国学位论文全文数据库（CDDB）、中国学术会议论文数据库（CCPD）、中国学术网页数据库（CSWD）\"}])";
 			//重新拼接返回的json字符串
 			String jsonStr="{\"test\":"+getMethod.getResponseBodyAsString().substring(getMethod.getResponseBodyAsString().indexOf("(")+1, getMethod.getResponseBodyAsString().lastIndexOf(")"))+"}";
@@ -326,17 +337,17 @@ public class TestLoginWanFang {
 				String href=(String)jbb.get("Link");
 				if(href.indexOf("DetectReport.aspx?id=")>-1){
 					hrefs.add(href);
+					reportNames.add(href.substring(href.lastIndexOf("=")+1));
 				}
 			}
 			//TODO 从以上返回数据中，取出link地址，下载内容
 			for(String e:hrefs){
-				System.out.println(e.substring(e.lastIndexOf("=")+1));
-//				String filename=new File(tempFile).getAbsolutePath()+"/"+e.attr("href").substring(e.attr("href").lastIndexOf("=")+1)+".zip";
-				String filename="D:/"+e.substring(e.lastIndexOf("=")+1)+".zip";
-//				reportNames.add(e.attr("href").substring(e.attr("href").lastIndexOf("=")+1));
+				logger.info(e.substring(e.lastIndexOf("=")+1));
+				String tempFile=applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
+				String filename=new File(tempFile).getAbsolutePath()+"/"+e.substring(e.lastIndexOf("=")+1)+".zip";
 				File file=new File(filename);
 				if(!file.exists()){
-					System.out.println("------------------下载报告部分-------------------------");
+					logger.info("------------------下载报告部分-------------------------");
 					getMethod=new GetMethod(e);
 					getMethod.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
 					getMethod.setRequestHeader("Accept-Language", "zh-cn");
@@ -365,18 +376,16 @@ public class TestLoginWanFang {
 			method.releaseConnection();
 			viewReport();
 		}
-
-		
+		return reportNames;
+	}
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		applicationContext=null;
 	}
 
-	public static void main(String args[]) {
-		TestLoginWanFang _10086 = new TestLoginWanFang();
-		try {
-			_10086.viewReport();
-		} catch (HttpException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		// TODO Auto-generated method stub
+		WFUtil.applicationContext=applicationContext;
 	}
 }

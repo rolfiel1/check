@@ -1,97 +1,126 @@
 /*
-MySQL Data Transfer
-Source Host: localhost
-Source Database: 51check
-Target Host: localhost
-Target Database: 51check
-Date: 2012-12-24 22:04:39
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50022
+Source Host           : localhost:3306
+Source Database       : 51check
+
+Target Server Type    : MYSQL
+Target Server Version : 50022
+File Encoding         : 65001
+
+Date: 2012-12-29 16:26:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
--- Table structure for article
+-- Table structure for `article`
 -- ----------------------------
+DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `author` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) default NULL,
+  `author` varchar(100) default NULL,
   `content` longtext,
-  `create_date` datetime DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `create_date` datetime default NULL,
+  `update_date` datetime default NULL,
+  `remark` varchar(255) default NULL,
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for lwreport
+-- Records of article
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `lwreport`
+-- ----------------------------
+DROP TABLE IF EXISTS `lwreport`;
 CREATE TABLE `lwreport` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `sign` int(1) DEFAULT NULL COMMENT '标志：1.pp  2.万方  3.知网',
-  `title` varchar(255) DEFAULT NULL COMMENT '论文名称',
-  `author` varchar(255) DEFAULT NULL COMMENT '论文作者',
-  `link` varchar(255) DEFAULT NULL COMMENT '论文报告链接地址',
-  `remark` varchar(300) DEFAULT NULL COMMENT '备注',
-  `create_date` datetime DEFAULT NULL,
+  `id` int(11) NOT NULL auto_increment COMMENT 'id',
+  `sign` int(1) default NULL COMMENT '标志：1.pp  2.万方  3.知网',
+  `title` varchar(255) default NULL COMMENT '论文名称',
+  `author` varchar(255) default NULL COMMENT '论文作者',
+  `link` varchar(255) default NULL COMMENT '论文报告链接地址',
+  `remark` varchar(300) default NULL COMMENT '备注',
+  `create_date` datetime default NULL,
   `content` longtext,
-  `uid` varchar(255) DEFAULT NULL COMMENT '用户id',
-  `ppid` varchar(255) DEFAULT NULL COMMENT 'pp站上的文件名称唯一',
-  `need_price` double(13,2) DEFAULT NULL COMMENT '需要付费',
-  PRIMARY KEY (`id`),
+  `uid` varchar(255) default NULL COMMENT '用户id',
+  `ppid` varchar(255) default NULL COMMENT 'pp站上的文件名称唯一',
+  `need_price` double(13,2) default NULL COMMENT '需要付费',
+  `wfid` varchar(255) default NULL COMMENT '万方id',
+  PRIMARY KEY  (`id`),
   KEY `lwreport_user_fk` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for user
+-- Records of lwreport
 -- ----------------------------
+INSERT INTO lwreport VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123456789', '57017d2482b2dcdc9af8cec104e190ad201211291528970', '1.60', null);
+
+-- ----------------------------
+-- Table structure for `user`
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `username` varchar(255) DEFAULT NULL COMMENT '用户名',
-  `password` varchar(32) DEFAULT NULL COMMENT '密码',
-  `sign` int(1) DEFAULT NULL COMMENT '标志（1管理员0用户）',
-  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-  `login_date` datetime DEFAULT NULL COMMENT '登录时间',
-  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
-  `account` double(13,2) DEFAULT NULL COMMENT '账户值',
-  `price` double(13,2) DEFAULT NULL COMMENT '订单价值',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL auto_increment COMMENT 'id',
+  `username` varchar(255) default NULL COMMENT '用户名',
+  `password` varchar(32) default NULL COMMENT '密码',
+  `sign` int(1) default NULL COMMENT '标志（1管理员0用户）',
+  `create_date` datetime default NULL COMMENT '创建时间',
+  `login_date` datetime default NULL COMMENT '登录时间',
+  `remark` varchar(100) default NULL COMMENT '备注',
+  `account` double(13,2) default NULL COMMENT '账户值',
+  `price` double(13,2) default NULL COMMENT '订单价值',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for wz
+-- Records of user
 -- ----------------------------
+INSERT INTO user VALUES ('1', '123456789', null, null, '2012-12-13 15:58:01', '2012-12-13 16:18:43', null, null, '1.00');
+INSERT INTO user VALUES ('2', 'admin', '21232f297a57a5a743894a0e4a801fc3', null, '2012-12-13 15:58:04', '2012-12-13 16:18:47', null, null, '9999999999.00');
+INSERT INTO user VALUES ('3', '266836080057760', null, '0', '2012-12-13 16:56:56', null, null, null, '0.50');
+INSERT INTO user VALUES ('4', '207743874836057', null, '0', '2012-12-13 16:56:57', null, null, null, '1.00');
+INSERT INTO user VALUES ('5', '183922826244746', null, '0', '2012-12-25 09:46:52', null, null, '2.40', '2.40');
+INSERT INTO user VALUES ('6', '211756915814746', null, '0', '2012-12-25 09:46:52', null, null, '1.60', '1.60');
+
+-- ----------------------------
+-- Table structure for `wz`
+-- ----------------------------
+DROP TABLE IF EXISTS `wz`;
 CREATE TABLE `wz` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `author` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) default NULL,
+  `author` varchar(255) default NULL,
   `content` longtext,
-  `create_date` datetime DEFAULT NULL,
-  `type` int(1) DEFAULT NULL,
-  `remark` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `create_date` datetime default NULL,
+  `type` int(1) default NULL,
+  `remark` varchar(1000) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for wztype
+-- Records of wz
 -- ----------------------------
+INSERT INTO wz VALUES ('1', '测试文章', '赵晓飞', '测试文章编码，<strong>事实上，有很多不同<span style=\"background-color:#CC33E5;\">的颜色</span>和</strong><span style=\"background-color:#E56600;\"></span><u><em>形状</em></u>', null, '1', '测试而已');
+
+-- ----------------------------
+-- Table structure for `wztype`
+-- ----------------------------
+DROP TABLE IF EXISTS `wztype`;
 CREATE TABLE `wztype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `type` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `type` int(1) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records 
+-- Records of wztype
 -- ----------------------------
-INSERT INTO `lwreport` VALUES ('1', '1', '123123', '21312', '57017d2482b2dcdc9af8cec104e190ad201211291528970', 'sdfa', '2012-12-03 15:30:04', 'sdfasdfasdf', '123456789', '57017d2482b2dcdc9af8cec104e190ad201211291528970', null);
-INSERT INTO `lwreport` VALUES ('2', '1', '车市信息', '消费者', 'b87763b4861717e61b7a4f608812320f20121224204849726', null, '2012-12-24 20:51:23', '车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息', '211756915814746', 'b87763b4861717e61b7a4f608812320f20121224204849726', '1.60');
-INSERT INTO `lwreport` VALUES ('4', '1', '车市信息', '消费者', 'b87763b4861717e61b7a4f608812320f20121224215224510', null, '2012-12-24 21:52:27', '车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息车市信息', '211756915814746', 'b87763b4861717e61b7a4f608812320f20121224215224510', '1.60');
-INSERT INTO `user` VALUES ('1', '123456789', null, null, '2012-12-13 15:58:01', '2012-12-13 16:18:43', null, null, null);
-INSERT INTO `user` VALUES ('2', 'admin', '21232f297a57a5a743894a0e4a801fc3', null, '2012-12-13 15:58:04', '2012-12-13 16:18:47', null, null, null);
-INSERT INTO `user` VALUES ('6', '211756915814746', null, '0', '2012-12-24 20:34:54', null, null, '1.60', '0.00');
-INSERT INTO `wz` VALUES ('1', '测试文章', '赵晓飞', '测试文章编码，<strong>事实上，有很多不同<span style=\"background-color:#CC33E5;\">的颜色</span>和</strong><span style=\"background-color:#E56600;\"></span><u><em>形状</em></u>', null, '1', '测试而已');
-INSERT INTO `wztype` VALUES ('1', '第一', '1');
-INSERT INTO `wztype` VALUES ('2', '第二', '2');
-INSERT INTO `wztype` VALUES ('3', '第三', '3');
-INSERT INTO `wztype` VALUES ('4', '第四', '4');
+INSERT INTO wztype VALUES ('1', '第一', '1');
+INSERT INTO wztype VALUES ('2', '第二', '2');
+INSERT INTO wztype VALUES ('3', '第三', '3');
+INSERT INTO wztype VALUES ('4', '第四', '4');

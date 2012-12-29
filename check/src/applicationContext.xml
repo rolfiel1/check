@@ -65,6 +65,7 @@
 		lazy-init="false" />
 	<bean id="springUtil" class="com.check.util.SpringUtil" lazy-init="false" />
 	<bean id="ppUtil" class="com.check.util.PPUtil" lazy-init="false" />
+	<bean id="wfUtil" class="com.check.util.WFUtil" lazy-init="false" />
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -75,18 +76,18 @@
 		<property name="period" value="600000"></property>
 		<property name="timerTask" ref="timerTask"></property>
 	</bean>
-	<!-- 每隔20小时刷新淘宝sessionKey -->
-<!-- 	<bean id="topSKTask" class="com.check.util.top.TopUtil" /> -->
-<!-- 	<bean id="sessionKeyTask" class="org.springframework.scheduling.timer.ScheduledTimerTask"> -->
-<!-- 		<property name="delay" value="20000"></property> -->
-<!-- 		<property name="period" value="72000000"></property> -->
-<!-- 		<property name="timerTask" ref="topSKTask"></property> -->
-<!-- 	</bean> -->
+	<!-- 定时下载wf报告 -->
+ 	<bean id="wfDownloadTask" class="com.check.util.WFDownloadReportUtil" /> 
+ 	<bean id="wfTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+ 		<property name="delay" value="10000"></property> 
+ 		<property name="period" value="60000"></property> 
+		<property name="timerTask" ref="wfDownloadTask"></property>
+	</bean>
 	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
 		<property name="scheduledTimerTasks">
 			<list>
 				<ref local="scheduledTask"></ref>
-<!-- 				<ref local="sessionKeyTask"></ref> -->
+ 				<ref local="wfTask"></ref>
 			</list>
 		</property>
 	</bean>
