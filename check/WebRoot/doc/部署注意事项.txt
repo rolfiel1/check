@@ -32,3 +32,8 @@ ppppppp:
 bfblw
 zhangyi520
 
+
+
+现阶段任务：
+1.万方检测action代码编写
+2.万方检测页面修改
