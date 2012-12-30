@@ -72,7 +72,7 @@
           <td colspan="2" class="nr_gmxx"><span class="nr_xq"><a href="#">详情</a></span>【价格：9元/万字数】</td>
         </tr>
         <tr>
-          <td colspan="2" class="nr_gmxx"><span class="nr_xq"><a href="#">点击购买</a></span>【时间：1-5分钟可出报告单，立等可出】</td>
+          <td colspan="2" class="nr_gmxx"><span class="nr_xq"><a href="wanfang!wf.action">点击购买</a></span>【时间：1-5分钟可出报告单，立等可出】</td>
         </tr>
       </table>
     </div>

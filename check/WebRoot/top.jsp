@@ -11,9 +11,9 @@
   <ul class="lwjc_dh">
     <li><a href="#">首页</a></li>
     <li><a href="ppCheck.jsp">PAPERPASS检测</a></li>
-    <li><a href="#">万方检测</a></li>
+    <li><a href="wfCheck.jsp">万方检测</a></li>
     <li><a href="#">知网检测</a></li>
-    <li><a href="#">用户登录</a></li>
+    <li><a href="login.jsp">用户登录</a></li>
     <li><a href="#">关于我们</a></li>
   </ul>
 </div>

@@ -24,6 +24,7 @@ public class Report implements java.io.Serializable {
 	private String ppid;
 	private String cd;
 	private Double need_price;
+	private String wfid;
 	
 	
 	public Integer getId() {
@@ -99,5 +100,10 @@ public class Report implements java.io.Serializable {
 	public void setNeed_price(Double need_price) {
 		this.need_price = need_price;
 	}
-	
+	public String getWfid() {
+		return wfid;
+	}
+	public void setWfid(String wfid) {
+		this.wfid = wfid;
+	}
 }

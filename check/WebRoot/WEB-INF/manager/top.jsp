@@ -19,9 +19,9 @@
     <div class="xtdh">
       <ul>
         <li><a href="<%=basePath%>index.jsp">首页</a></li>
-        <li><a href="#">知网系统</a></li>
-        <li><a href="#">万方系统</a></li>
         <li><a href="<%=basePath%>ppCheck.jsp">paperpass系统</a></li>
+        <li><a href="<%=basePath%>wfCheck.jsp">万方系统</a></li>
+        <li><a href="#">知网系统</a></li>
       </ul>
     </div>
   </div>

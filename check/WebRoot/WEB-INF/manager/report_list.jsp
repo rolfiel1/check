@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>PaperPass检测系统--结果页面</title>
+<title>检测系统--结果页面</title>
 <link href="<%=basePath%>/css/index.css" rel="stylesheet"
 	type="text/css" />
 <link rel="stylesheet" type="text/css"
@@ -24,7 +24,7 @@
 	src="<%=basePath%>/js/jqueryUI/locale/easyui-lang-zh_CN.js"></script>
 <script language="javascript">
 $(document).ready(function(){
-	 showData('paperpass!ajaxList.action?id=${user.username}');
+	 showData('report!ajaxList.action?id=${user.username}');
 })
 
 function showData(url){
@@ -95,7 +95,7 @@ function showData(url){
 			$.messager.confirm('提示', '是否删除选择的数据?', function(ret){
 				if(ret){
 					$.ajax({
-						url: "paperpass!delete.action?ids="+ids,
+						url: "report!delete.action?ids="+ids,
 						type: "POST",
 						dataType:"json",
 						success: function(data) {
@@ -118,12 +118,13 @@ function showData(url){
 				<ul>
 					<li><a href="<%=basePath%>index.jsp">首页</a>
 					</li>
-					<li><a href="#">知网系统</a>
-					</li>
-					<li><a href="#">万方系统</a>
-					</li>
 					<li><a href="<%=basePath%>ppCheck.jsp">paperpass系统</a>
 					</li>
+					<li><a href="<%=basePath%>wfCheck.jsp">知网系统</a>
+					</li>
+					<li><a href="#">知网系统</a>
+					</li>
+					
 				</ul>
 			</div>
 		</div>
@@ -143,7 +144,7 @@ function showData(url){
 							<td><span class="yhxt_tb"></span>
 							</td>
 							<th align="right">检测系统:</th>
-							<td>织梦系统</td>
+							<td>百分百论文检测系统</td>
 						</tr>
 						<tr>
 							<td><span class="yhxt_tb"></span>

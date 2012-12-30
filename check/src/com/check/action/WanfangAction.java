@@ -23,22 +23,23 @@ import com.check.service.ReportService;
 import com.check.service.UserService;
 import com.check.util.JsonUtil;
 import com.check.util.PPUtil;
+import com.check.util.WFUtil;
 
 @Controller
 @ParentPackage("admin")
 @Scope("prototype")
 @Results({ 
-	@Result(name = "pp", location = "/ppCheck.jsp"),
+	@Result(name = "wf", location = "/wfCheck.jsp"),
 	@Result(name = "list", location = "/WEB-INF/manager/report_list.jsp")
 })
-public class PaperpassAction extends BaseAction {
+public class WanfangAction extends BaseAction {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 535912645768166503L;
 
-	private static Logger logger = Logger.getLogger(PaperpassAction.class);
+	private static Logger logger = Logger.getLogger(WanfangAction.class);
 
 	@Resource(name = "reportServiceImpl")
 	private ReportService reportService;
@@ -46,42 +47,35 @@ public class PaperpassAction extends BaseAction {
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
 
-	private String title;
-	private String author;
 	private String sz;
 	private String orderNo1;
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
 	
-	
-	public String pp() {
-		return "pp";
+	public String wf() {
+		return "wf";
 	}
 
 	public String check() {
-		logger.info("title:" + title);
-		logger.info("author:" + author);
 		logger.info("sz:" + sz);
 		try {
 			// 提交检测
-			List<String> ret = PPUtil.check(title, author, sz);
+			String ret = WFUtil.check(sz);
 			Report report = new Report();
 			report.setSign(1);
-			report.setTitle(title);
-			report.setAuthor(author);
 			report.setContent(sz);
 			report.setCreate_date(new Date());
 			report.setUid(orderNo1);
 			report.setLink("underchecking");
 			// 取第一个
-			report.setPpid(ret.get(0));
+			report.setWfid(ret);
 			//计算几个最低单位
-			double count=Math.ceil(sz.length()/Double.parseDouble(PPUtil.getProp("pp.per")));
-			report.setNeed_price(count*Double.parseDouble(PPUtil.getProp("pp.price")));
+			double count=Math.ceil(sz.length()/Double.parseDouble(PPUtil.getProp("wf.per")));
+			report.setNeed_price(count*Double.parseDouble(PPUtil.getProp("wf.price")));
 			reportService.save(report);
 			//更新用户的余额信息
 			User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
-			user.setPrice(user.getPrice()-count*Double.parseDouble(PPUtil.getProp("pp.price")));
+			user.setPrice(user.getPrice()-count*Double.parseDouble(PPUtil.getProp("wf.price")));
 			userService.update(user);
 		} catch (HttpException e) {
 			e.printStackTrace();
@@ -91,22 +85,6 @@ public class PaperpassAction extends BaseAction {
 		// 正常检测成功后，插入数据保存,保留报告地址位置为空,返回到list页面
 		ServletActionContext.getRequest().getSession().setAttribute("loginUserId", orderNo1);
 		return "list";
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
 	}
 
 	public String getSz() {
