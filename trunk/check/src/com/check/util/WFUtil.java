@@ -135,8 +135,8 @@ public class WFUtil implements ApplicationContextAware, DisposableBean{
 			httpClient.getHostConfiguration().setHost("check.wanfangdata.com.cn", 80, "http");
 	        PostMethod secondPost = new PostMethod("/UploadPaper.aspx");
 	        //测试提交数据
-	        String pager="网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试";
-			NameValuePair[] nvp2 = { new NameValuePair("paper", pager)};
+//	        String pager="网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试网上商城测试";
+			NameValuePair[] nvp2 = { new NameValuePair("paper", content)};
 			secondPost.setRequestBody(nvp2);
 			secondPost.setRequestHeader("Accept","image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
 			secondPost.setRequestHeader("Accept-Language", "zh-cn");

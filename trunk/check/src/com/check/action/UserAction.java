@@ -42,7 +42,7 @@ public class UserAction extends BaseAction {
 	private String newPwd;
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
-	private int ppCount;//pp检测件数
+	private int count;//pp检测件数
 
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
@@ -53,7 +53,7 @@ public class UserAction extends BaseAction {
 	}
 	public String checkLogin() {
 		logger.info("----------login----------");
-		logger.info(orderNo1 + "," + orderNo2 + "," + validCode+","+ppCount);
+		logger.info(orderNo1 + "," + orderNo2 + "," + validCode+","+count);
 		logger.info(ServletActionContext.getRequest().getSession()
 				.getAttribute("Svalipicstr"));
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -74,13 +74,15 @@ public class UserAction extends BaseAction {
 					return ajax(JsonUtil.toJson("订单号1不存在,请重新输入!"));
 				} else if(user2==null) {
 					return ajax(JsonUtil.toJson("订单号2不存在,请重新输入!"));
-				}else if(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount>(user.getPrice()+user2.getPrice())){
+				}else if(Double.parseDouble(PPUtil.getProp("pp.price"))*count>(user.getPrice()+user2.getPrice())){
 					//检测费用不足
-					return ajax(JsonUtil.toJson("检测费用不足,当前用户余额"+df.format(user.getPrice()+user2.getPrice())+"元,检测费用"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount)+"元,缺少"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount-user.getPrice()-user2.getPrice())+"元!"));
+					return ajax(JsonUtil.toJson("检测费用不足,当前用户余额"+df.format(user.getPrice()+user2.getPrice())+"元,检测费用"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*count)+"元,缺少"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*count-user.getPrice()-user2.getPrice())+"元!"));
 				}else{
 					// 提交数据到PaperPass，开始检测论文
 					//存在两个订单时，合并订单2价格到订单1
 					user.setPrice(user.getPrice()+user2.getPrice());
+					user2.setPrice(0.0);
+					userService.update(user2);
 					ServletActionContext.getRequest().getSession().setAttribute("user",user );
 					return ajax(JsonUtil.toJson("success"));
 				}
@@ -89,13 +91,69 @@ public class UserAction extends BaseAction {
 				user = userService.checkUser(orderNo1);
 				if (user == null) {
 					return ajax(JsonUtil.toJson("订单号1不存在,请重新输入!"));
-				}else if(Double.valueOf(df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount))>user.getPrice()){
+				}else if(Double.valueOf(df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*count))>user.getPrice()){
 					//检测费用不足
-					logger.info(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount);
+					logger.info(Double.parseDouble(PPUtil.getProp("pp.price"))*count);
 					logger.info(user.getPrice());
-					logger.info(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount-user.getPrice());
+					logger.info(Double.parseDouble(PPUtil.getProp("pp.price"))*count-user.getPrice());
 //					return ajax(JsonUtil.toJson("检测费用不足,缺少"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount-user.getPrice())+"元!"));
-					return ajax(JsonUtil.toJson("检测费用不足,当前用户余额"+df.format(user.getPrice())+"元,检测费用"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount)+"元,缺少"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount-user.getPrice())+"元!"));
+					return ajax(JsonUtil.toJson("检测费用不足,当前用户余额"+df.format(user.getPrice())+"元,检测费用"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*count)+"元,缺少"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*count-user.getPrice())+"元!"));
+				} else {
+					// 提交数据到PaperPass，开始检测论文
+					ServletActionContext.getRequest().getSession().setAttribute("user",user );
+					return ajax(JsonUtil.toJson("success"));
+				}
+			}
+		}
+	}
+	
+	public String checkLogin4wf() {
+		logger.info("----------login----------");
+		logger.info(orderNo1 + "," + orderNo2 + "," + validCode+","+count);
+		logger.info(ServletActionContext.getRequest().getSession()
+				.getAttribute("Svalipicstr"));
+		DecimalFormat df = new DecimalFormat("0.00");
+		// 先判断订单号，验证码是否正确
+		User user = null;
+		User user2 = null;
+		String sessionValidcode = ServletActionContext.getRequest()
+				.getSession().getAttribute("Svalipicstr").toString();
+		if (!sessionValidcode.equals((validCode+"").toLowerCase())) {
+			return ajax(JsonUtil.toJson("验证码错误,请重新输入验证码!"));
+		}else if(orderNo1==null||orderNo1.equals("")){
+			return ajax(JsonUtil.toJson("订单号1必须填写!"));
+		}else {
+			if(orderNo2!=null&&!orderNo2.equals("")){
+				user = userService.checkUser(orderNo1);
+				user2 = userService.checkUser(orderNo2);
+				if (user == null) {
+					return ajax(JsonUtil.toJson("订单号1不存在,请重新输入!"));
+				} else if(user2==null) {
+					return ajax(JsonUtil.toJson("订单号2不存在,请重新输入!"));
+				}else if(Double.parseDouble(PPUtil.getProp("wf.price"))*count>(user.getPrice()+user2.getPrice())){
+					//检测费用不足
+					return ajax(JsonUtil.toJson("检测费用不足,当前用户余额"+df.format(user.getPrice()+user2.getPrice())+"元,检测费用"+df.format(Double.parseDouble(PPUtil.getProp("wf.price"))*count)+"元,缺少"+df.format(Double.parseDouble(PPUtil.getProp("wf.price"))*count-user.getPrice()-user2.getPrice())+"元!"));
+				}else{
+					// 提交数据到PaperPass，开始检测论文
+					//存在两个订单时，合并订单2价格到订单1
+					user.setPrice(user.getPrice()+user2.getPrice());
+					user2.setPrice(0.0);
+					userService.update(user2);
+					ServletActionContext.getRequest().getSession().setAttribute("user",user );
+					return ajax(JsonUtil.toJson("success"));
+				}
+				
+			}else{
+				user = userService.checkUser(orderNo1);
+				if (user == null) {
+					return ajax(JsonUtil.toJson("订单号1不存在,请重新输入!"));
+				}else if(Double.valueOf(df.format(Double.parseDouble(PPUtil.getProp("wf.price"))*count))>user.getPrice()){
+					//检测费用不足
+					logger.info(Double.parseDouble(PPUtil.getProp("wf.price"))*count);
+					logger.info(user.getPrice());
+					logger.info(Double.parseDouble(PPUtil.getProp("wf.price"))*count-user.getPrice());
+//					return ajax(JsonUtil.toJson("检测费用不足,缺少"+df.format(Double.parseDouble(PPUtil.getProp("pp.price"))*ppCount-user.getPrice())+"元!"));
+					return ajax(JsonUtil.toJson("检测费用不足,当前用户余额"+df.format(user.getPrice())+"元,检测费用"+df.format(Double.parseDouble(PPUtil.getProp("wf.price"))*count)+"元,缺少"+df.format(Double.parseDouble(PPUtil.getProp("wf.price"))*count-user.getPrice())+"元!"));
 				} else {
 					// 提交数据到PaperPass，开始检测论文
 					ServletActionContext.getRequest().getSession().setAttribute("user",user );
@@ -293,11 +351,10 @@ public class UserAction extends BaseAction {
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
 	}
-	public int getPpCount() {
-		return ppCount;
+	public int getCount() {
+		return count;
 	}
-	public void setPpCount(int ppCount) {
-		this.ppCount = ppCount;
+	public void setCount(int count) {
+		this.count = count;
 	}
-
 }
