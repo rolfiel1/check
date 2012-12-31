@@ -124,11 +124,11 @@ public class TopApiService {
 				userDao.save(user);
 			}
 //			主动发货
-//			LogisticsDummySendRequest reqLDSR=new LogisticsDummySendRequest();
-//			req.setTid(rsp.getTrade().getTid());
-//			LogisticsDummySendResponse response = client.execute(reqLDSR , sessionKey);
-//			log.info("主动发货是否成功："+response.isSuccess());
-//			log.info("主动发货返回提示信息："+response.getSubMsg());
+			LogisticsDummySendRequest reqLDSR=new LogisticsDummySendRequest();
+			reqLDSR.setTid(rsp.getTrade().getTid());
+			LogisticsDummySendResponse response = client.execute(reqLDSR , sessionKey);
+			log.info("主动发货是否成功："+response.isSuccess());
+			log.info("主动发货返回提示信息："+response.getSubMsg());
 			return rsp.getTrade();
 		}
 		return null;
