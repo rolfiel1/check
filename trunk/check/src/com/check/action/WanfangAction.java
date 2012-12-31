@@ -62,7 +62,7 @@ public class WanfangAction extends BaseAction {
 			// 提交检测
 			String ret = WFUtil.check(sz);
 			Report report = new Report();
-			report.setSign(1);
+			report.setSign(2);
 			report.setContent(sz);
 			report.setCreate_date(new Date());
 			report.setUid(orderNo1);

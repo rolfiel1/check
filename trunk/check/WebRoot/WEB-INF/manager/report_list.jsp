@@ -47,6 +47,17 @@ function showData(url){
 			{field:'id',width:10,hidden:true, sortable:true},
 			{field:'title',title:'标题',align:'center',width:90,sortable:true},
 			{field:'author',title:'作者',align:'center',width:90,sortable:true},
+			{field:'sign',title:'类型',align:'center',width:30,sortable:true,
+				formatter:function(value,rowData,rowIndex){
+					if(value ==1){
+						return "Paperpass";
+					}else if(value ==2){
+						return "万方";
+					}else{
+						return "知网";
+					}
+				}
+			},
 			{field:'link',title:'报告',align:'center',width:150,sortable:true,
 				formatter:function(value,rowData,rowIndex){
 					if(rowData.link!='underchecking'){
