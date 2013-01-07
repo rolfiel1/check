@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.check.util.PPUtil;
 import com.taobao.api.AutoRetryTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.internal.stream.Configuration;
@@ -17,15 +18,19 @@ import com.taobao.api.internal.stream.TopCometStreamFactory;
 public class Proposal {
 
 	private static final String API_URL = "http://gw.api.taobao.com/router/rest";
-	private static final String APP_KEY = "21286772";
-	private static final String APP_SECRET = "88aadbcd5f28244ea6da67fb968768dc";
-	private static final String SESSION_KEY = "6101428d8e41e95184b480f4bdc96f730a0c11d6ba386881057411533";
-
+//	private static final String APP_KEY = "21286772";
+//	private static final String APP_SECRET = "88aadbcd5f28244ea6da67fb968768dc";
+//	private static final String SESSION_KEY = "6101428d8e41e95184b480f4bdc96f730a0c11d6ba386881057411533";
+	
+	private static final String APP_KEY = PPUtil.getProp("app_key");
+	private static final String APP_SECRET = PPUtil.getProp("app_secret");
+	private static final String SESSION_KEY = PPUtil.getProp("session_sey");
+	
 	private static Date lastSync;
 	private static Map<Long, Boolean> taskIds = new HashMap<Long, Boolean>();
 
 	public static void main(String[] args) throws Exception {
-		Proposal.startProposal1();
+		Proposal.startProposal3();
 	}
 
 	/**
@@ -141,16 +146,19 @@ public class Proposal {
 		stream.setConnectionListener(new ConnectionLifeCycleListenerImpl());
 		stream.setMessageListener(new TopCometMessageListenerImpl(topApiService));
 		stream.start();
-
-		// 初始化三个月内订单
-		final Date now = new Date();
-		String start = DateUtils.formatDay(DateUtils.addMonths(now, -3));
-		String end = DateUtils.formatDay(DateUtils.addDays(now, -1));
-		topApiService.asyncSoldTrades(start, end, SESSION_KEY);
-
+		// 初始化前3天内的订单
+		final Date end = DateUtils.addDays(new Date(), -1);
+		final Date start = DateUtils.addDays(end, -3);
+		List<Date[]> dateList = DateUtils.splitTimeByDays(start, end, 1);
+		for (Date[] dates : dateList) {
+			try {
+				topApiService.syncSoldTrades(dates[0], dates[1], SESSION_KEY);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		// 获取今天的增量订单
-		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),
-				now, SESSION_KEY);
+		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),end, SESSION_KEY);
 	}
 
 }

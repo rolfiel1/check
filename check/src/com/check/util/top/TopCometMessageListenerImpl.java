@@ -1,5 +1,6 @@
 package com.check.util.top;
 
+import com.check.util.PPUtil;
 import com.taobao.api.domain.NotifyTrade;
 import com.taobao.api.internal.stream.message.TopCometMessageListener;
 
@@ -32,6 +33,7 @@ public class TopCometMessageListenerImpl implements TopCometMessageListener {
 			} else if (obj instanceof NotifyTrade) { // 交易消息
 				NotifyTrade nt = (NotifyTrade) obj;
 				System.out.println(nt.getSellerNick() + ":" + nt.getTid()); // FIXME 获取订单详情并保存到数据库
+				topApiService.getTradeFullInfo(nt.getTid(),PPUtil.getProp("session_sey"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

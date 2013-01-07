@@ -18,7 +18,7 @@ public class PPDownloadReportUtil extends TimerTask {
 			if(initDate==null){
 				initDate=new Date();
 				//启动订单初始化程序只允许一次
-				Proposal.startProposal1();
+				Proposal.startProposal3();
 			}
 			// 下载报告
 			List<String> ret = PPUtil.viewReport();
