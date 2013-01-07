@@ -57,7 +57,8 @@ public class Proposal {
 		new Timer().schedule(new TimerTask() {
 			public void run() {
 				try {
-					Date _start = DateUtils.addMinutes(lastSync, -1); // 加载上一次的时间，并退后10分钟
+					System.out.println("---定时任务进入---");
+					Date _start = DateUtils.addMinutes(lastSync, -10); // 加载上一次的时间，并退后10分钟
 					Date _end = new Date();
 					topApiService.syncIncrementSoldTrades(_start, _end,
 							SESSION_KEY);
@@ -66,7 +67,7 @@ public class Proposal {
 					e.printStackTrace();
 				}
 			}
-		}, 0L,  30 * 1000L);
+		}, 0L,  3 * 1000L);
 	}
 
 	/**
