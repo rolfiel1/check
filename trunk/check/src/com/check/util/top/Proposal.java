@@ -158,7 +158,7 @@ public class Proposal {
 			}
 		}
 		// 获取今天的增量订单
-		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),end, SESSION_KEY);
+		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),new Date(), SESSION_KEY);
 	}
 
 }
