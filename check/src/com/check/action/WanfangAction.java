@@ -1,6 +1,7 @@
 package com.check.action;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,7 @@ public class WanfangAction extends BaseAction {
 
 	public String check() {
 		logger.info("sz:" + sz);
+		DecimalFormat df = new DecimalFormat("0.00");
 		try {
 			// 提交检测
 			String ret = WFUtil.check(sz);
@@ -75,7 +77,7 @@ public class WanfangAction extends BaseAction {
 			reportService.save(report);
 			//更新用户的余额信息
 			User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
-			user.setPrice(user.getPrice()-count*Double.parseDouble(PPUtil.getProp("wf.price")));
+			user.setPrice(Double.parseDouble(df.format(user.getPrice()-count*Double.parseDouble(PPUtil.getProp("wf.price")))));
 			userService.update(user);
 		} catch (HttpException e) {
 			e.printStackTrace();
