@@ -25,7 +25,12 @@
 <script language="javascript">
 $(document).ready(function(){
 	 showData('report!ajaxList.action?id=${user.username}');
+	 setTimeout("refresh()", 5000);
 })
+
+function refresh(){
+	$('#dataList').datagrid('reload');
+}
 
 function showData(url){
 	$('#dataList').datagrid({

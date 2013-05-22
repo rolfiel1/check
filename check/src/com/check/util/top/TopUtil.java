@@ -80,6 +80,9 @@ public class TopUtil extends TimerTask{
 			String secret = PPUtil.getProp("app_secret");
 			String refreshToken = ParametersName(PPUtil
 					.getProp("top_parameters"));
+//			String appkey = "21353710";
+//			String secret = "997eb837adc93517dde032bc8f072579";
+//			String refreshToken = ParametersName("ZXhwaXJlc19pbj04NjQwMCZpZnJhbWU9MSZyMV9leHBpcmVzX2luPTg2NDAwJnIyX2V4cGlyZXNfaW49ODY0MDAmcmVfZXhwaXJlc19pbj04NjQwMCZyZWZyZXNoX3Rva2VuPTYxMDI4MTJiMDVmNzFkYzhhMjIxMWZiZTY5OWYxYzg3OWE0ZTE5YzcyMzA5ODQzMTA1NzQxMTUzMyZ0cz0xMzU3NTQ5NjM0MTYyJnZpc2l0b3JfaWQ9MTA1NzQxMTUzMyZ2aXNpdG9yX25pY2s9amlhbmNlMTAwJncxX2V4cGlyZXNfaW49ODY0MDAmdzJfZXhwaXJlc19pbj04NjQwMA%3D%3D");
 			String sessionkey = PPUtil.getProp("session_sey");
 			Map<String, String> signParams = new TreeMap<String, String>();
 			signParams.put("appkey", appkey);

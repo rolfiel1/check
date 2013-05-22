@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>百分百检测系统--管理员主页面</title>
 <link href="<%=basePath%>css/index.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/sdmenu.js">
+<script type="text/javascript" src="<%=basePath%>js/sdmenu.js">
 	/***********************************************
 	 * Slashdot Menu script- By DimX
 	 * Submitted to Dynamic Drive DHTML code library: http://www.dynamicdrive.com

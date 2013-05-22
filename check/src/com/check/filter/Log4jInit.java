@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import com.check.util.top.Proposal;
+
 
 /**
  * 
@@ -35,6 +37,11 @@ public class Log4jInit extends HttpServlet {
 			String logFile = prefix + props.getProperty("log4j.appender.R.File");// 设置路径
 			props.setProperty("log4j.appender.R.File", logFile);
 			PropertyConfigurator.configure(props);// 装入log4j配置信息
+			try {
+				Proposal.startProposal3();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
 			logger.info("Could not read configuration file [" + filePath + "].");
 			logger.info("Ignoring configuration file [" + filePath + "].");

@@ -213,8 +213,8 @@ function adminLogin() {
 		type : "POST",
 		dataType : "json",
 		success : function(data) {
-			if(data=='success'){
-				window.location.href=" http://container.open.taobao.com/container?appkey=21286772";
+			if(data['statu']=='success'){
+				window.location.href=" http://container.open.taobao.com/container?appkey="+data['app_key']+"&encode=utf-8";
 			}else{
 				alert(data);
 			}

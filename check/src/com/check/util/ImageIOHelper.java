@@ -52,7 +52,7 @@ public class ImageIOHelper {
 			ImageWriter writer = writers.next();
 
 			BufferedImage bi = reader.read(0);
-			IIOImage image = new IIOImage(bi, null, reader.getImageMetadata(0));
+			IIOImage image = new IIOImage(new ImageFilter(new ImageFilter(bi).changeGrey()).median(), null, reader.getImageMetadata(0));
 			tempFile = tempImageFile(imageFile);
 			ImageOutputStream ios = ImageIO.createImageOutputStream(tempFile);
 			writer.setOutput(ios);
