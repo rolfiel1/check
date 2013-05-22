@@ -19,6 +19,7 @@ import com.check.service.UserService;
 import com.check.util.JsonUtil;
 import com.check.util.MD5Util;
 import com.check.util.PPUtil;
+import com.check.util.top.Proposal;
 
 @Controller
 @ParentPackage("admin")
@@ -43,6 +44,7 @@ public class UserAction extends BaseAction {
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
 	private int count;//pp检测件数
+	private String session_sey;
 
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
@@ -169,6 +171,7 @@ public class UserAction extends BaseAction {
 		logger.info(ServletActionContext.getRequest().getSession()
 				.getAttribute("Svalipicstr"));
 		// 先判断订单号，验证码是否正确
+		
 		User user = null;
 		String sessionValidcode = ServletActionContext.getRequest()
 				.getSession().getAttribute("Svalipicstr").toString();
@@ -182,6 +185,7 @@ public class UserAction extends BaseAction {
 			} else {
 				ServletActionContext.getRequest().getSession()
 						.setAttribute("user", user);
+
 				return ajax(JsonUtil.toJson("success"));
 			}
 		}
@@ -198,6 +202,7 @@ public class UserAction extends BaseAction {
 		logger.info(ServletActionContext.getRequest().getSession()
 				.getAttribute("Svalipicstr"));
 		// 先判断订单号，验证码是否正确
+		Map<String,Object> ret=new HashMap<String,Object>();
 		User user = null;
 		String sessionValidcode = ServletActionContext.getRequest()
 				.getSession().getAttribute("Svalipicstr").toString();
@@ -211,7 +216,9 @@ public class UserAction extends BaseAction {
 			} else {
 				ServletActionContext.getRequest().getSession()
 						.setAttribute("user", user);
-				return ajax(JsonUtil.toJson("success"));
+				ret.put("statu", "success");
+				ret.put("app_key",PPUtil.readValue(getRealPath("WEB-INF/classes/account.properties"),"app_key"));
+				return ajax(JsonUtil.toJson(ret));
 			}
 		}
 	}
@@ -267,6 +274,12 @@ public class UserAction extends BaseAction {
 	}
 
 	public String main() {
+		PPUtil.writeProperties(getRealPath("WEB-INF/classes/account.properties"), "session_sey", session_sey);
+		try {
+			Proposal.restartProposal3();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "main";
 	}
 	
@@ -357,4 +370,11 @@ public class UserAction extends BaseAction {
 	public void setCount(int count) {
 		this.count = count;
 	}
+	public String getSession_sey() {
+		return session_sey;
+	}
+	public void setSession_sey(String session_sey) {
+		this.session_sey = session_sey;
+	}
+	
 }

@@ -17,6 +17,69 @@ public class OCR {
 
 	public static String recognizeText(File imageFile, String imageFormat)
 			throws Exception {
+//		File tempImage = ImageIOHelper.createImage(imageFile, imageFormat);
+		File outputFile = new File(imageFile.getParentFile(), "output");
+		StringBuffer strB = new StringBuffer();
+		List<String> cmd = new ArrayList<String>();
+		if (OS.isWindowsXP()) {
+			cmd.add(tessPath + "\\tesseract");
+		} else if (OS.isLinux()) {
+			cmd.add("tesseract");
+		} else {
+			cmd.add(tessPath + "\\tesseract");
+		}
+		cmd.add("");
+		cmd.add(outputFile.getName());
+		cmd.add(LANG_OPTION);
+//		cmd.add("chi_sim");
+		cmd.add("eng");
+		cmd.add("-psm");
+		cmd.add("3");
+		ProcessBuilder pb = new ProcessBuilder();
+		pb.directory(imageFile.getParentFile());
+
+		cmd.set(1, imageFile.getPath());
+		pb.command(cmd);
+		pb.redirectErrorStream(true);
+		Process process = pb.start();
+		int w = process.waitFor();
+//		tempImage.delete();
+		if (w == 0) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					new FileInputStream(outputFile.getAbsolutePath() + ".txt"),
+					"UTF-8"));
+
+			String str;
+
+			while ((str = in.readLine()) != null) {
+				strB.append(str).append(EOL);
+			}
+			in.close();
+		} else {
+			String msg;
+			switch (w) {
+			case 1:
+				msg = "Errors accessing files. There may be spaces in your image's filename.";
+				break;
+			case 29:
+				msg = "Cannot recognize the image or its selected region.";
+				break;
+			case 31:
+				msg = "Unsupported image format.";
+				break;
+			default:
+				msg = "Errors occurred.";
+			}
+//			tempImage.delete();
+			throw new RuntimeException(msg);
+		}
+		new File(outputFile.getAbsolutePath() + ".txt").delete();
+		return strB.toString();
+	}
+	
+	
+	public static String recognizeText2(File imageFile, String imageFormat)
+			throws Exception {
 		File tempImage = ImageIOHelper.createImage(imageFile, imageFormat);
 		File outputFile = new File(imageFile.getParentFile(), "output");
 		StringBuffer strB = new StringBuffer();
@@ -31,8 +94,10 @@ public class OCR {
 		cmd.add("");
 		cmd.add(outputFile.getName());
 		cmd.add(LANG_OPTION);
-		cmd.add("chi_sim");
+//		cmd.add("chi_sim");
 		cmd.add("eng");
+		cmd.add("-psm");
+		cmd.add("3");
 		ProcessBuilder pb = new ProcessBuilder();
 		pb.directory(imageFile.getParentFile());
 

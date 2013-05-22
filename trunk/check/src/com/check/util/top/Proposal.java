@@ -25,12 +25,18 @@ public class Proposal {
 	private static final String APP_KEY = PPUtil.getProp("app_key");
 	private static final String APP_SECRET = PPUtil.getProp("app_secret");
 	private static final String SESSION_KEY = PPUtil.getProp("session_sey");
-	
+	private static final TaobaoClient client = new AutoRetryTaobaoClient(API_URL, APP_KEY,APP_SECRET);
+	private static final TopApiService topApiService = new TopApiService(client);
+	private static Configuration conf = new Configuration(APP_KEY, APP_SECRET, null);
+	private static TopCometStream stream = new TopCometStreamFactory(conf).getInstance();
 	private static Date lastSync;
 	private static Map<Long, Boolean> taskIds = new HashMap<Long, Boolean>();
-
+	static{
+		stream.setConnectionListener(new ConnectionLifeCycleListenerImpl());
+		stream.setMessageListener(new TopCometMessageListenerImpl(topApiService));
+	}
 	public static void main(String[] args) throws Exception {
-		Proposal.startProposal3();
+		Proposal.restartProposal3();
 	}
 
 	/**
@@ -135,16 +141,8 @@ public class Proposal {
 	 * 方案三
 	 */
 	public static void startProposal3() throws Exception {
-		final TaobaoClient client = new AutoRetryTaobaoClient(API_URL, APP_KEY,
-				APP_SECRET);
-		final TopApiService topApiService = new TopApiService(client);
-
 		// 启动主动通知监听器
-		topApiService.permitUser(SESSION_KEY);
-		Configuration conf = new Configuration(APP_KEY, APP_SECRET, null);
-		TopCometStream stream = new TopCometStreamFactory(conf).getInstance();
-		stream.setConnectionListener(new ConnectionLifeCycleListenerImpl());
-		stream.setMessageListener(new TopCometMessageListenerImpl(topApiService));
+		topApiService.permitUser(PPUtil.getProp("session_sey"));
 		stream.start();
 		// 初始化前3天内的订单
 		final Date end = DateUtils.addDays(new Date(), -1);
@@ -158,7 +156,26 @@ public class Proposal {
 			}
 		}
 		// 获取今天的增量订单
-		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),new Date(), SESSION_KEY);
+		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),end, SESSION_KEY);
 	}
-
+	
+	public static void restartProposal3() throws Exception {
+		stream.stop();
+		// 启动主动通知监听器
+		topApiService.permitUser(PPUtil.getProp("session_sey"));
+		stream.start();
+		// 初始化前3天内的订单
+		final Date end = DateUtils.addDays(new Date(), -1);
+		final Date start = DateUtils.addDays(end, -3);
+		List<Date[]> dateList = DateUtils.splitTimeByDays(start, end, 1);
+		for (Date[] dates : dateList) {
+			try {
+				topApiService.syncSoldTrades(dates[0], dates[1], SESSION_KEY);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// 获取今天的增量订单
+		topApiService.syncIncrementSoldTrades(DateUtils.getTodayStartTime(),end, SESSION_KEY);
+	}
 }
