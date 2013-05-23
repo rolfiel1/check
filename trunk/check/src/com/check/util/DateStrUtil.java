@@ -16,6 +16,8 @@ import java.util.Date;
 public class DateStrUtil {
 	static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
 	static SimpleDateFormat format4sql = new SimpleDateFormat("yyyy-MM-dd");   
+	static SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMddHHmmss");   
+	
 	public static String date2str(Date date){
 		if(date!=null){
 			return format.format(date); 
@@ -24,6 +26,16 @@ public class DateStrUtil {
 		}
 		
 	}
+	
+	public static String date2str2(Date date){
+		if(date!=null){
+			return format2.format(date); 
+		}else{
+			return null;
+		}
+		
+	}
+	
 	
 	public static Date str2date(String str) throws ParseException{
 		if(!("".equals(str.trim()))&&str!=null){
@@ -49,7 +61,8 @@ public class DateStrUtil {
 		}else{
 			return null;
 		}
-		
 	}
+	
+	
 }
  

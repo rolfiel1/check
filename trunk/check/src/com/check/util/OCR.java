@@ -137,6 +137,6 @@ public class OCR {
 			throw new RuntimeException(msg);
 		}
 		new File(outputFile.getAbsolutePath() + ".txt").delete();
-		return strB.toString();
+		return strB.toString().trim();
 	}
 }

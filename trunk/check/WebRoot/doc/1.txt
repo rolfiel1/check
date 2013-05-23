@@ -1,0 +1,519 @@
+GET /vip/Upload/up.aspx HTTP/1.1
+Accept: image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 302 Found
+Date: Thu, 23 May 2013 02:48:45 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-AspNet-Version: 2.0.50727
+Location: http://check.cnki.net/vip/Login.aspx
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Content-Length: 53187
+
+GET /vip/Login.aspx HTTP/1.1
+Accept: image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Date: Thu, 23 May 2013 02:48:46 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-AspNet-Version: 2.0.50727
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Content-Length: 11763
+
+GET /vip/App_Themes/VIP/calendar.css HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 952
+Content-Type: text/css
+Last-Modified: Fri, 14 Oct 2011 08:42:24 GMT
+Accept-Ranges: bytes
+ETag: "018d4314d8acc1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /c.gif?clid=C241833F67934C71AA85B9FE789C8F12&rid=C241833F67934C71AA85B9FE789C8F12&cts=1369277305234&evt=unload HTTP/1.1
+Accept: */*
+Referer: http://cn.msn.com/?ocid=iehp
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: udc.msn.com
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Content-Type: image/gif
+Expires: -1
+Last-Modified: Mon, 04 Feb 2013 03:33:11 GMT
+Accept-Ranges: bytes
+ETag: "cd1ccf5b882ce1:0"
+Server: Microsoft-IIS/8.0
+S: HKNMSNVM001503
+Date: Thu, 23 May 2013 02:48:39 GMT
+Content-Length: 42
+
+GET /vip/App_Themes/VIP/TabbedPanels.css HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 2623
+Content-Type: text/css
+Last-Modified: Thu, 02 May 2013 07:34:32 GMT
+Accept-Ranges: bytes
+ETag: "0b4887c747ce1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /2012/vip1.js HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check7.cnki.net
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Content-Length: 345
+Content-Type: application/x-javascript
+Last-Modified: Wed, 11 Jan 2012 05:41:53 GMT
+Accept-Ranges: bytes
+ETag: "20b1dbb823d0cc1:24d7"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:40 GMT
+
+GET /vip/App_Themes/VIP/form.css HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 5594
+Content-Type: text/css
+Last-Modified: Fri, 04 Nov 2011 03:20:40 GMT
+Accept-Ranges: bytes
+ETag: "0346cbaa09acc1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/WebResource.axd?d=mx1P3D-JeUCmAS3E1TsDMLCO77qKZH4bDtkoyDiuR80zvU4O1t1tD0aulU7NCQeVq5Vti4Z7FydKZXEesJx_37ojCkY1&t=634776059191200000 HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Date: Thu, 23 May 2013 02:48:46 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-AspNet-Version: 2.0.50727
+Cache-Control: public
+Expires: Thu, 22 May 2014 07:30:18 GMT
+Last-Modified: Wed, 11 Jul 2012 04:18:39 GMT
+Content-Type: application/x-javascript
+Content-Length: 3005
+
+GET /vip/WebResource.axd?d=7KdhYjvQYuvwlgAJ_VLEgJl361jeTqF1Uy_tDgvGjHy0um3dT1n1SsAfWvUt35AmCqfyBlIisj9w08t6s-cAmizVd8s1&t=634776059191200000 HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Date: Thu, 23 May 2013 02:48:46 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-AspNet-Version: 2.0.50727
+Cache-Control: public
+Expires: Thu, 22 May 2014 07:28:56 GMT
+Last-Modified: Wed, 11 Jul 2012 04:18:39 GMT
+Content-Type: application/x-javascript
+Content-Length: 20794
+
+GET /2012/vip3.js HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check7.cnki.net
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Content-Length: 4272
+Content-Type: application/x-javascript
+Last-Modified: Thu, 18 Oct 2012 09:02:35 GMT
+Accept-Ranges: bytes
+ETag: "c17051fadcd1:24d7"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:40 GMT
+
+GET /vip/App_Themes/VIP/Style.css HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 63628
+Content-Type: text/css
+Last-Modified: Sat, 27 Apr 2013 09:20:26 GMT
+Accept-Ranges: bytes
+ETag: "069bf732843ce1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/Script/jQuery.js HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 101183
+Content-Type: application/x-javascript
+Last-Modified: Fri, 14 Oct 2011 08:43:28 GMT
+Accept-Ranges: bytes
+ETag: "0b8f9574d8acc1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/Users/LoginCheckCode.aspx HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Date: Thu, 23 May 2013 02:48:46 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-AspNet-Version: 2.0.50727
+Pragma: No-Cache
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: -1
+Content-Type: text/html
+Content-Length: 1162
+
+GET /vip/images/pmlc12_anniu_01.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 1069
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_anniu_02.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 1069
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_sysms.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 5714
+Content-Type: image/gif
+Last-Modified: Wed, 25 Jul 2012 07:25:58 GMT
+Accept-Ranges: bytes
+ETag: "0c716bc366acd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/PMLC12_logo.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 6876
+Content-Type: image/gif
+Last-Modified: Thu, 14 Jun 2012 07:17:02 GMT
+Accept-Ranges: bytes
+ETag: "0ebabb1fd49cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /2012/images/vip_work.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check7.cnki.net
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Content-Length: 5715
+Content-Type: image/gif
+Last-Modified: Mon, 09 Jan 2012 03:37:42 GMT
+Accept-Ranges: bytes
+ETag: "087d8a80cecc1:24d7"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:40 GMT
+
+GET /vip/images/pmlc12_F_d.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 1169
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_login_login.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 23249
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_ystd.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 8783
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_fwzx.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 8765
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_login_c.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 8339
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 01:51:50 GMT
+Accept-Ranges: bytes
+ETag: "07fc3ff557cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /bj_20120307.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: 211.151.247.44
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Content-Length: 4680
+Content-Type: image/gif
+Last-Modified: Wed, 07 Mar 2012 02:21:38 GMT
+Accept-Ranges: bytes
+ETag: "0e57269fccc1:165f"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:48 GMT
+
+GET /vip/images/login0203.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 39720
+Content-Type: image/gif
+Last-Modified: Mon, 02 Jul 2012 09:28:04 GMT
+Accept-Ranges: bytes
+ETag: "06a39fb3458cd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+
+GET /vip/images/pmlc12_login_banner.gif HTTP/1.1
+Accept: */*
+Referer: http://check.cnki.net/vip/Login.aspx
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)
+Accept-Encoding: gzip, deflate
+Host: check.cnki.net
+Connection: Keep-Alive
+Cookie: ASP.NET_SessionId=g0lxooewthbcktjdcdfb3w55; SR_FileNameS=cnki%3A
+
+HTTP/1.1 200 OK
+Content-Length: 105505
+Content-Type: image/gif
+Last-Modified: Wed, 25 Jul 2012 05:25:24 GMT
+Accept-Ranges: bytes
+ETag: "0fa49e4256acd1:1b5d"
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Thu, 23 May 2013 02:48:46 GMT
+

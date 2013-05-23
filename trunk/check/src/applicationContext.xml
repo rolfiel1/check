@@ -64,30 +64,32 @@
 	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper"
 		lazy-init="false" />
 	<bean id="springUtil" class="com.check.util.SpringUtil" lazy-init="false" />
-<!-- 	<bean id="ppUtil" class="com.check.util.PPUtil" lazy-init="false" /> -->
 	<bean id="wfUtil" class="com.check.util.WFUtil" lazy-init="false" />
+	<bean id="zwUtil" class="com.check.util.ZWUtil" lazy-init="false" />
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<!-- 定时读取淘宝数据到用户表,以及定时下载pp报告 -->
-<!-- 	<bean id="timerTask" class="com.check.util.PPDownloadReportUtil" /> -->
-<!-- 	<bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask"> -->
-<!-- 		<property name="delay" value="10000"></property> -->
-<!-- 		<property name="period" value="600000"></property> -->
-<!-- 		<property name="timerTask" ref="timerTask"></property> -->
-<!-- 	</bean> -->
+	
 	<!-- 定时下载wf报告 -->
- 	<bean id="wfDownloadTask" class="com.check.util.WFDownloadReportUtil" /> 
- 	<bean id="wfTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
- 		<property name="delay" value="10000"></property> 
- 		<property name="period" value="60000"></property> 
+	<bean id="wfDownloadTask" class="com.check.util.WFDownloadReportUtil" />
+	<bean id="wfTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="delay" value="10000"></property>
+		<property name="period" value="60000"></property>
 		<property name="timerTask" ref="wfDownloadTask"></property>
+	</bean>
+	
+		<!-- 定时下载zw报告 -->
+	<bean id="zwDownloadTask" class="com.check.util.ZWDownloadReportUtil" />
+	<bean id="zwTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="delay" value="10000"></property>
+		<property name="period" value="60000"></property>
+		<property name="timerTask" ref="zwDownloadTask"></property>
 	</bean>
 	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
 		<property name="scheduledTimerTasks">
 			<list>
-<!-- 				<ref local="scheduledTask"></ref> -->
- 				<ref local="wfTask"></ref>
+<!-- 				<ref local="wfTask"></ref> -->
+				<ref local="zwTask"></ref>
 			</list>
 		</property>
 	</bean>
