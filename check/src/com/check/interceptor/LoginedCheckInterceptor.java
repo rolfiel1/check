@@ -22,6 +22,7 @@ public class LoginedCheckInterceptor extends AbstractInterceptor {
 				|| url.indexOf("article!detail") != -1
 				|| url.indexOf("user!checkLogin.action") != -1
 				|| url.indexOf("user!checkLogin4wf.action") != -1
+				|| url.indexOf("user!checkLoginzw.action") != -1
 				|| url.indexOf("wanfang!wf.action") != -1
 				|| url.indexOf("user!adminLogin.action") != -1
 				|| url.indexOf("user!login.action") != -1) {
