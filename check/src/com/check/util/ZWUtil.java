@@ -55,16 +55,12 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 		return strs[i];
 	}
 
-	static {
+	public static Map<String, String> loginSucHandle() throws IOException {
+		Map<String, String> ret = new HashMap<String, String>();
 		httpClient = new HttpClient();
 		DefaultHttpParams.getDefaultParams().setParameter(
 				"http.protocol.cookie-policy",
 				CookiePolicy.BROWSER_COMPATIBILITY);
-	}
-
-	public static Map<String, String> loginSucHandle() throws IOException {
-		Map<String, String> ret = new HashMap<String, String>();
-		String cookieB = null;
 		String __LASTFOCUS = null;
 		String __EVENTTARGET = null;
 		String __EVENTARGUMENT = null;
@@ -95,10 +91,12 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 		// 返回页面状态代码
 		logger.info("访问--状态码：" + code);
 		// 返回页面代码
-		logger.info("访问--页面：" + getMethod.getResponseBodyAsString());
+//		logger.info("访问--页面：" + getMethod.getResponseBodyAsString());
 		// 获得页面cookie
 		Header header = getMethod.getResponseHeader("Set-cookie");
-		cookieB = header.getValue();
+		String cookieB  = header.getValue()
+//				.substring(0, header.getValue().indexOf(";"))
+				;
 		// 返回cookieB
 		ret.put("cookieB", cookieB);
 		// ========构建第一次登陆页面doc===========
@@ -108,10 +106,9 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 
 		String validCode = null;
 		String picPath = HttpParams.url + gif.attr("src");
-		// String tempFile =
-		// applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
+		 String tempFile =applicationContext.getResource("downloadTemp").getFile().getAbsolutePath();
 		// 临时测试路径
-		String tempFile = "D://";
+//		String tempFile = "D://";
 		File file = new File(Getpic.saveUrlAs(picPath, tempFile));
 		try {
 			validCode = OCR.recognizeText2(file, "gif");
@@ -120,6 +117,7 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 		}
 		logger.info("验证码:" + validCode);
 		if (!validCode.matches("[\\da-zA-Z]{5}")) {
+			getMethod.releaseConnection();
 			return loginSucHandle();
 		}
 		// ===隐藏表单域获取========
@@ -166,25 +164,31 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 		// =========登录=============
 		int code2 = httpClient.executeMethod(pm);
 		logger.info("登录--状态码：" + code2);
+		Header [] head=pm.getResponseHeaders();
+		for(Header h:head){
+			System.out.println(h.getName()+"=="+h.getValue());
+		}
 		String docStr = null;
 		if (code2 == 302) {
 			// ============转向================
 			pm.releaseConnection();
-			GetMethod gm = new GetMethod(HttpParams.url21);
-			gm.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,
-					"utf-8");
-			gm.setRequestHeader("Host", HttpParams.header_Host2);
-			gm.setRequestHeader("User-Agent", HttpParams.header_User_Agent2);
-			gm.setRequestHeader("Accept", HttpParams.header_Accept2);
-			gm.setRequestHeader("Accept-Language",
-					HttpParams.header_Accept_Encoding2);
-			gm.setRequestHeader("Accept-Encoding",
-					HttpParams.header_Accept_Encoding2);
-			gm.setRequestHeader("Referer", HttpParams.header_Referer2);
+			GetMethod gm = new GetMethod("http://check.cnki.net/vip/SimResult.aspx?ID=482");
+			gm.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");
+			gm.setRequestHeader("Host", "check.cnki.net");
+			gm.setRequestHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+			gm.setRequestHeader("Accept", "image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+			gm.setRequestHeader("Accept-Language","zh-cn");
+			gm.setRequestHeader("Accept-Encoding","gzip, deflate");
+			gm.setRequestHeader("Referer", "http://check.cnki.net/vip/");
 			gm.setRequestHeader("Cookie", cookieB);
-			gm.setRequestHeader("Connection", HttpParams.header_Connection2);
+			gm.setRequestHeader("Connection", "Keep-Alive");
+			gm.setRequestHeader("Cache-Control", "no-cache");
 			int status3 = httpClient.executeMethod(gm);
 			logger.info("登录后转向--状态码：" + status3);
+			Header[] hs=gm.getResponseHeaders();
+			for(Header h:hs){
+				System.out.println(h.getName()+"--"+h.getValue());
+			}
 			// 睡眠200毫秒供转向
 			try {
 				TimeUnit.MILLISECONDS.sleep(200);
@@ -194,6 +198,7 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 			docStr = gm.getResponseBodyAsString();
 			gm.releaseConnection();
 			System.out.println(docStr);
+			System.out.println(docStr.contains("wxbd1226"));
 			ret.put("docStr", docStr);
 			return ret;
 		} else {
@@ -203,6 +208,10 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 
 	public static String check(String title, String author, String content)
 			throws HttpException, IOException {
+		httpClient = new HttpClient();
+		DefaultHttpParams.getDefaultParams().setParameter(
+				"http.protocol.cookie-policy",
+				CookiePolicy.BROWSER_COMPATIBILITY);
 		Map<String, String> paramsList = loginSucHandle();
 		String cookieB = paramsList.get("cookieB");
 		String docStr = paramsList.get("docStr");
@@ -214,45 +223,64 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 				.val();
 		// =================提交检测======================
 		httpClient.getHostConfiguration().setHost("check.cnki.net", 80, "http");
-		PostMethod pm = new PostMethod("/vip/Upload/up.aspx");
+		PostMethod pm = new PostMethod("/vip/SimResult.aspx?ID=482");
 		pm.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,
 				"utf-8");
-		pm.setRequestHeader("Accept", "image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
+		pm.setRequestHeader("Accept", "*/*");
 		pm.setRequestHeader("Accept-Language", "zh-cn");
-		pm.setRequestHeader("Referer",
-				"http://check.cnki.net/vip/Upload/up.aspx#");
+		pm.setRequestHeader("Referer","http://check.cnki.net/vip/SimResult.aspx?ID=482#");
 		pm.setRequestHeader("x-microsoftajax", "Delta=true");
-		pm.setRequestHeader("Content-Type",
-				"application/x-www-form-urlencoded; charset=utf-8");
+		pm.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=utf-8");
 		pm.setRequestHeader("Cache-Control", "no-cache");
 		pm.setRequestHeader("Accept-Encoding", "gzip, deflate");
-		pm.setRequestHeader(
-				"User-Agent",
-				"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
+		pm.setRequestHeader("User-Agent","Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E)");
 		pm.setRequestHeader("Host", "check.cnki.net");// 服务器必须返回一个刷新后的文档
-		pm.setRequestHeader("Cookie", cookieB);
+		pm.setRequestHeader("Cookie", cookieB.substring(0, cookieB.indexOf(";"))+"; SR_FileNameS=cnki%3A");
 		pm.setRequestHeader("Connection", "Keep-Alive");
 		// ====================postdata消息体参数=========================
 		NameValuePair nvp2[] = new NameValuePair[] {
-				new NameValuePair("ScriptManager1",
-						"UpdatePanel1%7CLinkButton1"),
-				new NameValuePair("__EVENTTARGET", "LinkButton1"),
-				new NameValuePair("__EVENTARGUMENT", ""),
-				new NameValuePair("__VIEWSTATE", __VIEWSTATE),
-				new NameValuePair("__EVENTVALIDATION", __EVENTVALIDATION),
-				new NameValuePair("ddlFolderlist", "482"),// 默认文件夹 账号id
-				new NameValuePair("TextBox1", ""),
-				new NameValuePair("TextBox5", ""),
-				new NameValuePair("TextBox6", ""),
-				new NameValuePair("TextBox9", ""),
-				new NameValuePair("TextBox7", ""),
-				new NameValuePair("TextBox2", title),// 篇名
-				new NameValuePair("TextBox3", author),// 作者
-				new NameValuePair("TextBox11", ""),
-				new NameValuePair("TextBox4", content),// 待检测原文
-				new NameValuePair("TextBox10", ""),
-				new NameValuePair("TextBox8", ""),
-				new NameValuePair("tbUnit", "") };
+				new NameValuePair("ScriptManager1","UpdatePanel1%7CLinkButton2"),
+				new NameValuePair("__EVENTTARGET","LinkButton2"),
+				new NameValuePair("__EVENTARGUMENT",""),
+				new NameValuePair("__LASTFOCUS",""),
+				new NameValuePair("__VIEWSTATE",__VIEWSTATE),
+				new NameValuePair("__VIEWSTATEENCRYPTED",""),
+				new NameValuePair("__EVENTVALIDATION",__EVENTVALIDATION),
+				new NameValuePair("DDL1","%E7%AF%87%E5%90%8D"),
+				new NameValuePair("TB1",""),
+				new NameValuePair("DDLJCZT","0"),
+				new NameValuePair("ddlFolderlist","482"),
+				new NameValuePair("TextBox1",""),
+				new NameValuePair("TextBox5",""),
+				new NameValuePair("TextBox6",""),
+				new NameValuePair("TextBox9",""),
+				new NameValuePair("TextBox7",""),
+				new NameValuePair("TextBox2",""),
+				new NameValuePair("TextBox3",""),
+				new NameValuePair("TextBox11",""),
+				new NameValuePair("TextBox4",content),
+				new NameValuePair("TextBox10",""),
+				new NameValuePair("TextBox8",""),
+				new NameValuePair("tbUnit",""),
+				new NameValuePair("RadioButtonList1","2"),
+				new NameValuePair("Hidden_Type",""),
+				new NameValuePair("tbFolderName",""),
+				new NameValuePair("tbFolderDes",""),
+				new NameValuePair("cbf2%240","on"),
+				new NameValuePair("cbf2%241","on"),
+				new NameValuePair("cbf2%242","on"),
+				new NameValuePair("cbf2%243","on"),
+				new NameValuePair("cbf2%244","on"),
+				new NameValuePair("cbf2%245","on"),
+				new NameValuePair("cbf2%246","on"),
+				new NameValuePair("cbf2%247","on"),
+				new NameValuePair("cbf2%248","on"),
+				new NameValuePair("cbf2%249","on"),
+				new NameValuePair("cbf2%2410","on"),
+				new NameValuePair("Text_time1","1900-1-1"),
+				new NameValuePair("Text_time2","2099-12-31"),
+				new NameValuePair("__ASYNCPOST","true")
+		};
 		pm.setRequestBody(nvp2);
 		// =========上传提交检测=============
 		int code4 = httpClient.executeMethod(pm);
@@ -265,6 +293,10 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 	// 下载检测报告
 	public static List<String> viewReport(List<Report> list)
 			throws HttpException, IOException {
+		httpClient = new HttpClient();
+		DefaultHttpParams.getDefaultParams().setParameter(
+				"http.protocol.cookie-policy",
+				CookiePolicy.BROWSER_COMPATIBILITY);
 		List<String> reportNames = new ArrayList<String>();
 		Map<String, String> paramsList = loginSucHandle();
 		String cookieB = (String) paramsList.get(0);
@@ -287,7 +319,7 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 			hp.setParameter("Connection", HttpParams.header_Connection2);
 			int status3 = 0;
 			try {
-				status3 = hc.executeMethod(gm);
+				status3 = httpClient.executeMethod(gm);
 			} catch (HttpException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -298,13 +330,12 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 			gm.releaseConnection();
 			String dateStr = DateStrUtil.date2str2(new Date());
 			String filePath = wFile(res, dateStr + ".html", 2);
-			// String filePath = wFile(res, dateStr+".html", 3);
 			if (filePath == null) {
 				return reportNames;
 			}
 			reportNames.add(ppid + "#" + filePath);
 		}
-		hc = null;
+		httpClient = null;
 		return reportNames;
 	}
 
@@ -319,7 +350,7 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 		ZWUtil.applicationContext = applicationContext;
 	}
 
-	private static String wFile(String result, String fileName, int i) {
+	private static String wFile(String result, String fileName, int i) throws IOException {
 		FileChannel fc = null;
 		String path = null;
 
@@ -328,7 +359,8 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 			path = System.getProperty("user.dir") + "/WebRoot/temp/";
 		} else if (i == 2) {
 			// path = System.getProperty("user.dir") + "/WebRoot/downloadTemp/";
-			path = "D:\\servermachine\\resin-3.1.12A\\webapps\\checkL\\downloadTemp\\";
+			path =applicationContext.getResource("downloadTemp").getFile().getAbsolutePath()+"/downloadTemp";
+			
 		} else if (i == 3) {
 			path = System.getProperty("user.dir") + "/WebRoot/WEB-INF/report/";
 		}
@@ -393,11 +425,11 @@ public class ZWUtil implements ApplicationContextAware, DisposableBean {
 
 	public static void main(String[] args) throws IOException {
 
-		// Map map=loginSucHandle();
-		// System.out.println(map.size());
-		check("",
-				"",
-				"我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊");
+		 Map map=loginSucHandle();
+//		 System.out.println(map.size());
+//		check("",
+//				"",
+//				"我这是一个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊我这是一个测试啊啊");
 
 	}
 

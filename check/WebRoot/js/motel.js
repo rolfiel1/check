@@ -131,14 +131,13 @@ function testMessageBox4wf(ev) {
 function testMessageBoxzw(ev) {
 	var objPos = mousePosition(ev);
 	var a = document.getElementById("sz").value;
-	var sum = Math.ceil(a.length / 200);
+	var sum = Math.ceil(a.length / 300000);
 	var date = new Date();
 	if (a.length < 1) {
 		alert('请输入检测内容!');
+	}else if (a.length >= 300000) {
+		alert('检测内容至多30万字!');
 	} else {
-		if (a.length > 0 && a.length < 200) {
-			alert('检测内容至少200字!');
-		} else {
 			messContent = "<div style='background:#fff;width:757px;'><div class='motel_box'><div class='motel_bt'>请输入订单号</div><table width='100%' border='0' class='motel_info'><tr><td class='motel_red'>订单提示：</td><td colspan='2'>订单号可以填写一个，如果第一资金不够，可以添加第二个，系统会自动合并计算资金。</td></tr><tr><td>检测字数：</td><td><span class='motel_red'>"
 					+ a.length
 					+ "</span>字符，数量选择<span class='motel_red'>"
@@ -146,12 +145,12 @@ function testMessageBoxzw(ev) {
 					+ "</span>件。</td><td>&nbsp;</td></tr><tr><td>订单号1：</td><td><input type='text' name='orderNo1' id='orderNo1' /></td><td>&nbsp;</td></tr><tr><td>订单号2：</td><td><input type='text' name='orderNo2' id='orderNo2' /></td><td>&nbsp;</td></tr><tr><td>验证码：</td><td><input type='text' name='validCode' id='validCode' size='10' /><img src='validcode!getValidcode.action?date='"
 					+ date
 					+ " alt='' align='' id='random' valign='absmiddle' /> <a href='javascript:void(0)' onclick='changeValidcode()' >换一个验证码</a></td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td><a href='javascript:void(0)' onclick='ajaxLoginzw()'  class='zdfh'>自动发货</a></td><td>" +
-							"<span class='hddfh'><a href='http://item.taobao.com/item.htm?spm=686.1000925.1000774.5&id=18404915325' target='_blank'>获得订单号的方法</a></span>" +
-							"<span class='hddfh'><a href='http://item.taobao.com/item.htm?spm=686.1000925.1000774.5&id=18404915325' target='_blank'>点击获得订单号</a></span></td></tr></table></div></div>";
+							"<span class='hddfh'><a href='http://item.taobao.com/item.htm?spm=686.1000925.1000774.36.DyuFk7&id=20678844846' target='_blank'>获得订单号的方法</a></span>" +
+							"<span class='hddfh'><a href='http://item.taobao.com/item.htm?spm=686.1000925.1000774.36.DyuFk7&id=20678844846' target='_blank'>点击获得订单号</a></span></td></tr></table></div></div>";
 			showMessageBox('', messContent, objPos, 800);
 		}
 	}
-}
+
 
 function changeValidcode(){
 	//reload 验证码

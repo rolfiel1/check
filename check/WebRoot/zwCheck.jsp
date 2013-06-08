@@ -12,13 +12,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>知网检测系统--知网检测</title>
 <link href="<%=basePath%>/css/index.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="<%=basePath%>/js/motel.js"></script>
-<script language="javascript" src="<%=basePath%>/js/jquery-1.8.1.min.js"></script>
+<script language="javascript" src="<%=basePath%>js/jquery-1.8.1.min.js"></script>
+<script language="javascript" src="<%=basePath%>js/motel.js"></script>
+
 
 <script type="text/javascript">
 	function show() {
 		var a = document.getElementById("sz").value;
-		var sum = Math.ceil(a.length / 200);
+		var sum = Math.ceil(a.length / 300000);
 		document.getElementById("le").innerHTML = a.length;
 		document.getElementById("le2").innerHTML = sum;
 
@@ -38,16 +39,6 @@
 				<table width="100%" border="0" class="table_tb">
 					<tr>
 						<td colspan="2">提示：系统在检测时，会分析论文的前后文关系，所以请您提交论文的全部内容，如果是非全文的检测将不能保证检测的准确性！</td>
-					</tr>
-					<tr>
-						<th>论文标题：</th>
-						<td><input type="text" name="title" id="title" />
-							(*可选长度小于30字)</td>
-					</tr>
-					<tr>
-						<th>论文作者：</th>
-						<td><input type="text" name="author" id="author" />
-							(*可选长度小于15字)</td>
 					</tr>
 					<tr>
 						<th>论文内容：</th> 
