@@ -88,7 +88,7 @@
 	<bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
 		<property name="scheduledTimerTasks">
 			<list>
-<!-- 				<ref local="wfTask"></ref> -->
+ 				<ref local="wfTask"></ref>
 				<ref local="zwTask"></ref>
 			</list>
 		</property>

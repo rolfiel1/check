@@ -30,7 +30,7 @@
       <table width="100%" border="0">
         <tr>
           <td>&nbsp;</td>
-          <td class="nr_bt">Paperpass论文检测系统</td>
+          <td class="nr_bt">论文检测系统</td>
         </tr>
         <tr>
           <td class="nr_logo"><img src="images/wf_logo_s1.gif" width="75" height="106" /></td>
